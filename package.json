@@ -1,21 +1,15 @@
 {
   "name": "crocodalias",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "expo": "~49.0.8",
-    "expo-status-bar": "~1.6.0",
-    "react": "18.2.0",
-    "react-native": "0.72.4"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.20.0"
-  },
-  "private": true
+    "prettier": "^3.0.2"
+  }
 }
