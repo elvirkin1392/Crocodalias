@@ -3,7 +3,7 @@ import {settingsMachine} from "../state/settingsPage";
 import {useState} from "react";
 
 
-const General = () => {
+const SettingsGeneral = () => {
   const [state, send] = useMachine(settingsMachine);
   let {score, level, time} = state.context;
 
@@ -48,4 +48,4 @@ const ScoreSettings = ({defaultValue, onSubmit, onClose}: { defaultValue: number
 }
 
 
-export default General;
+export default SettingsGeneral;
