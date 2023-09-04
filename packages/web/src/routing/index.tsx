@@ -8,7 +8,7 @@ import Games from "../pages/Games";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Games isLoaded={isLoaded}/>,
+    element: <Games/>,
   },
   {
     path: "/settings",

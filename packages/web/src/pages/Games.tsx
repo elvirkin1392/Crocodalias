@@ -1,4 +1,5 @@
 import { useState} from "react";
+import Carousel from "../components/Carousel";
 
 enum games {
   classic = "classic",
@@ -36,13 +37,14 @@ const gamesInfo = [
 const Games = () => {
   const [selectedGame, setSelectedGame] = useState("");
 
-  return gamesInfo.map((item) => (
-    <GameCard
-      onSelect={setSelectedGame}
-      selectedGame={selectedGame}
-      {...item}
-    />
-  ));
+  return <Carousel items={gamesInfo}/>;
+  // return gamesInfo.map((item) => (
+  //   <GameCard
+  //     onSelect={setSelectedGame}
+  //     selectedGame={selectedGame}
+  //     {...item}
+  //   />
+  // ));
 };
 
 const GameCard = ({ onSelect, selectedGame, ...gameInfo }) => {
