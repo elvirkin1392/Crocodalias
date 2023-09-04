@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
-import { Card, Carousel as CarouselContainer } from "./styled/Carousel";
+import { CardContainer, Carousel as CarouselContainer } from "./styled/Carousel";
 
 const variants = {
   enter: (direction: number) => {
@@ -63,11 +63,9 @@ const Carousel = ({ items }) => {
             }
           }}
         >
-          <Card>
-            <div style={{ position: "relative", top: "45%" }}>
-              {items[currentIndex].name}
-            </div>
-          </Card>
+          <CardContainer>
+              {items[currentIndex]}
+          </CardContainer>
         </motion.div>
       </AnimatePresence>
     </CarouselContainer>

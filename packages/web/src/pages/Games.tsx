@@ -1,5 +1,7 @@
-import { useState} from "react";
+import { useState } from "react";
 import Carousel from "../components/Carousel";
+import SettingsGeneral from "./SettingsGeneral";
+import styled from "styled-components";
 
 enum games {
   classic = "classic",
@@ -12,8 +14,10 @@ const gamesInfo = [
     type: games.classic,
     name: "Classic",
     image: "",
-    getSettingsComponent: (onClose) => (
-      <div onClick={() => onClose("")}>Classic Settings</div>
+    getSettingsComponent: (handleClose) => (
+      <SettingsGeneral onClose={() => handleClose("")}>
+        Classic: Settings
+      </SettingsGeneral>
     ),
   },
   {
@@ -21,7 +25,7 @@ const gamesInfo = [
     name: "Alias",
     image: "",
     getSettingsComponent: (onClose) => (
-      <div onClick={() => onClose("")}>Alias Settings</div>
+      <div onClick={() => onClose("")}>Alias: Settings</div>
     ),
   },
   {
@@ -29,7 +33,7 @@ const gamesInfo = [
     name: "The hat",
     image: "",
     getSettingsComponent: (onClose) => (
-      <div onClick={() => onClose("")}>The hat Settings</div>
+      <div onClick={() => onClose("")}>The hat: Settings</div>
     ),
   },
 ];
@@ -37,21 +41,37 @@ const gamesInfo = [
 const Games = () => {
   const [selectedGame, setSelectedGame] = useState("");
 
-  return <Carousel items={gamesInfo}/>;
-  // return gamesInfo.map((item) => (
-  //   <GameCard
-  //     onSelect={setSelectedGame}
-  //     selectedGame={selectedGame}
-  //     {...item}
-  //   />
-  // ));
+  const cards = gamesInfo.map((item) => (
+    <GameCard
+      onSelect={setSelectedGame}
+      selectedGame={selectedGame}
+      {...item}
+    />
+  ));
+
+  return <Carousel items={cards} />;
 };
+let Card = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  div {
+    top: 45%;
+    position: relative;
+  }
+`;
 
 const GameCard = ({ onSelect, selectedGame, ...gameInfo }) => {
   return selectedGame === gameInfo.type ? (
     gameInfo.getSettingsComponent(onSelect)
   ) : (
-    <div onClick={() => onSelect(gameInfo.type)}>{gameInfo.name}</div>
+    <Card onClick={() => onSelect(gameInfo.type)}>
+      <div>{gameInfo.name}</div>
+    </Card>
   );
 };
+
 export default Games;

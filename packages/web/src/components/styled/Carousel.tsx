@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Card = styled.div`
+const CardContainer = styled.div`
   box-sizing: border-box;
   padding: 20px;
   
@@ -23,4 +23,4 @@ const Carousel = styled.div`
   width: 100vw;
 `;
 
-export { Card, Carousel };
+export { CardContainer, Carousel };

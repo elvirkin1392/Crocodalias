@@ -1,51 +1,82 @@
-import {useMachine} from "@xstate/react";
-import {settingsMachine} from "../state/settingsPage";
-import {useState} from "react";
+import { useMachine } from "@xstate/react";
+import { settingsMachine } from "../state/settingsPage";
+import { useState } from "react";
+import { ScoreButton, Title, Time, LevelButton } from "./styled/SettingsGeneral";
+import FooterControls from "../components/FooterControls";
 
-
-const SettingsGeneral = () => {
+const SettingsGeneral = ({ onClose, children }) => {
   const [state, send] = useMachine(settingsMachine);
-  let {score, level, time} = state.context;
-
+  let { score, level, time } = state.context;
 
   return (
     <div>
-      Alias
+      <Title>{children}</Title>
 
-      <button onClick={() => {
-        send({type: "OPEN_SCORE_SETTINGS"})
-      }}>score {score}</button>
+      <ScoreButton
+        onClick={() => {
+          send({ type: "OPEN_SCORE_SETTINGS" });
+        }}
+      >
+        {score}
+      </ScoreButton>
 
-      <button onClick={() => {
-        send({type: "OPEN_LEVEL_SETTINGS"})
-      }}>Level {level}</button>
+      {state.matches("scoreSettings") && (
+        <>
+          <ScoreSettings
+            defaultValue={score}
+            onSubmit={(value) => {
+              send({ type: "SUBMIT_SCORE", value });
+            }}
+            onClose={() => {
+              send({ type: "BACK" });
+            }}
+          />
+        </>
+      )}
 
-      <button onClick={() => {
-        send({type: "OPEN_TIME_SETTINGS"})
-      }}>time {time}</button>
+      <LevelButton
+        onClick={() => {
+          send({ type: "OPEN_LEVEL_SETTINGS" });
+        }}
+      >
+        {level}
+      </LevelButton>
 
+      <ScoreButton
+        onClick={() => {
+          send({ type: "OPEN_TIME_SETTINGS" });
+        }}
+      >
+        {time}
+      </ScoreButton>
 
-      {state.matches('scoreSettings') && <ScoreSettings defaultValue={score} onSubmit={(value) => {
-        send({type: "SUBMIT_SCORE", value})
-      }} onClose={() => {
-        send({type: "BACK"})
-      }}/>}
+      <FooterControls onClose={onClose} />
     </div>
   );
 };
 
-const ScoreSettings = ({defaultValue, onSubmit, onClose}: { defaultValue: number }) => {
-  const [score, setScore] = useState(defaultValue)
+const ScoreSettings = ({
+  defaultValue,
+  onSubmit,
+  onClose,
+}: {
+  defaultValue: number;
+}) => {
+  const [score, setScore] = useState(defaultValue);
   return (
     <div>
-      <input type="range" min={10} max={100} value={score} onChange={(event) => {
-        setScore(Number(event.target.value))
-      }}/>
-      <button onClick={() => onSubmit(score)}>✅</button>
-      <button onClick={() => onClose(score)}>❌</button>
+      <input
+        type="range"
+        min={10}
+        max={100}
+        value={score}
+        onChange={(event) => {
+          setScore(Number(event.target.value));
+        }}
+      />
+      <FooterControls onClose={onClose} onSubmit={() => onSubmit(score)} />
     </div>
-  )
-}
-
+  );
+};
 
 export default SettingsGeneral;
