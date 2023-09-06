@@ -16,12 +16,13 @@ const SettingsGeneral = ({ onClose, children }) => {
   const [state, send] = useMachine(settingsMachine);
   const { score, level, time } = state.context;
 
-  return (
-    <div>
-      <Title>{children}</Title>
+  function saveChanges() {}
 
+  return (
+    <div style={{ paddingTop: "40px" }}>
       {state.matches("generalSettings") && (
-        <>
+        <div style={{ flex: 1, flexDirection: "column", display: "flex" }}>
+          <Title>{children}: Settings</Title>
           <ScoreButton
             onClick={() => {
               send({ type: "OPEN_SCORE_SETTINGS" });
@@ -46,12 +47,16 @@ const SettingsGeneral = ({ onClose, children }) => {
             {time}
           </ScoreButton>
 
-          <FooterControls onClose={onClose} />
-        </>
+          <FooterControls onClose={onClose} onSubmit={() => {
+            saveChanges();
+            onClose();
+          }} />
+        </div>
       )}
 
       {state.matches("scoreSettings") && (
         <SettingsScore
+          title={children}
           defaultValue={score}
           onSubmit={(value) => {
             send({ type: "SUBMIT_SCORE", value });
@@ -63,9 +68,10 @@ const SettingsGeneral = ({ onClose, children }) => {
       )}
       {state.matches("timeSettings") && (
         <SettingsTime
+          title={children}
           defaultValue={time}
           onSubmit={(value) => {
-            send({ type: "SUBMIT_SCORE", value });
+            send({ type: "SUBMIT_TIME", value });
           }}
           onClose={() => {
             send({ type: "BACK" });
@@ -76,7 +82,7 @@ const SettingsGeneral = ({ onClose, children }) => {
         <SettingsLevel
           defaultValue={level}
           onSubmit={(value) => {
-            send({ type: "SUBMIT_SCORE", level });
+            send({ type: "SUBMIT_LEVEL", level });
           }}
           onClose={() => {
             send({ type: "BACK" });

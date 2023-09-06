@@ -21,6 +21,6 @@ const Container = styled.div`
   position: absolute;
   left: 20px;
   right: 20px;
-  bottom: 0;
+  bottom: 20px;
 `;
 export { Controls, Container };

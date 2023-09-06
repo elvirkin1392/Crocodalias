@@ -1,28 +1,43 @@
 import { useState } from "react";
 import FooterControls from "../components/FooterControls";
-import { ScoreButton } from "./styled/SettingsGeneral";
+import { ScoreButton, Title, SSlider } from "./styled/SettingsGeneral";
 
 const ScoreSettings = ({
   defaultValue,
   onSubmit,
   onClose,
+  title,
 }: {
   defaultValue: number;
 }) => {
   const [score, setScore] = useState(defaultValue);
-
+  function preventHorizontalKeyboardNavigation(event: React.KeyboardEvent) {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+    }
+  }
   return (
     <>
-      <ScoreButton onClick={onClose}>{score}</ScoreButton>
+      <Title>{title}: Winner score</Title>
+      <ScoreButton onClick={() => onSubmit(score)}>{score}</ScoreButton>
 
-      <div>
-        <input
-          type="range"
-          min={10}
-          max={100}
-          value={score}
-          onChange={(event) => {
-            setScore(Number(event.target.value));
+      <div style={{ height: "400px" }}>
+        <SSlider
+          sx={{
+            '& input[type="range"]': {
+              WebkitAppearance: "slider-vertical",
+            },
+          }}
+          orientation="vertical"
+          defaultValue={defaultValue}
+          aria-label="score"
+          valueLabelDisplay="auto"
+          onKeyDown={preventHorizontalKeyboardNavigation}
+          onChange={(event, newValue) => {
+            if (Array.isArray(newValue)) {
+              return;
+            }
+            setScore(newValue);
           }}
         />
 

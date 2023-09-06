@@ -1,16 +1,29 @@
 import styled from "styled-components";
+import Slider from "@mui/material/Slider";
 
 const Title = styled.div`
   margin-bottom: 40px;
 `;
+const SSlider = styled(Slider)({
+  height: 8,
+  "&.MuiSlider-root": { color: "#e6bc4e",  },
 
+  "& .MuiSlider-thumb" : {
+    height: 17,
+    width: 35,
+    borderRadius: "10px"
+  }
+});
 const ScoreButton = styled.button`
   background: none;
   border-radius: 50%;
-  font-size: 64px;
-  color: #E6BC4E;
-  
-  margin-bottom: 40px;
+  box-sizing: border-box;
+  font-size: 72px;
+  color: #e6bc4e;
+
+  //margin-bottom: 40px;
+
+  height: 200px;
 
   &:hover,
   &:focus,
@@ -23,15 +36,16 @@ const ScoreButton = styled.button`
 `;
 
 const LevelButton = styled.button`
-  background: #E6BC4E;
+  align-self: center;
+  background: #e6bc4e;
   border-radius: 50%;
-  
+
   margin-bottom: 40px;
 
   height: 120px;
   width: 120px;
-`
+`;
 
 const Time = styled.button``;
 
-export { Time, Title, ScoreButton, LevelButton };
+export { Time, Title, ScoreButton, LevelButton, SSlider };

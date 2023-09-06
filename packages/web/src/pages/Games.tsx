@@ -16,7 +16,7 @@ const gamesInfo = [
     image: "",
     getSettingsComponent: (handleClose) => (
       <SettingsGeneral onClose={() => handleClose("")}>
-        Classic: Settings
+        Classic
       </SettingsGeneral>
     ),
   },
@@ -25,7 +25,7 @@ const gamesInfo = [
     name: "Alias",
     image: "",
     getSettingsComponent: (onClose) => (
-      <div onClick={() => onClose("")}>Alias: Settings</div>
+      <div onClick={() => onClose("")}>Alias</div>
     ),
   },
   {
@@ -33,7 +33,7 @@ const gamesInfo = [
     name: "The hat",
     image: "",
     getSettingsComponent: (onClose) => (
-      <div onClick={() => onClose("")}>The hat: Settings</div>
+      <div onClick={() => onClose("")}>The hat</div>
     ),
   },
 ];
