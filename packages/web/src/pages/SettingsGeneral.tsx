@@ -80,9 +80,10 @@ const SettingsGeneral = ({ onClose, children }) => {
       )}
       {state.matches("levelSettings") && (
         <SettingsLevel
+          title={children}
           defaultValue={level}
           onSubmit={(value) => {
-            send({ type: "SUBMIT_LEVEL", level });
+            send({ type: "SUBMIT_LEVEL", value });
           }}
           onClose={() => {
             send({ type: "BACK" });
