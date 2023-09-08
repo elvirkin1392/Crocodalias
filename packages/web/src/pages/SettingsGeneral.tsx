@@ -2,11 +2,13 @@ import { useMachine } from "@xstate/react";
 import { settingsMachine } from "../state/settingsPage";
 import { createPortal } from "react-dom";
 import { Title, Time, LevelButton } from "./styled/settingsGeneral";
-import { DigitalButton } from "./styled/general";
+
 import FooterControls from "../components/FooterControls";
 import SettingsScore from "./SettingsScore";
 import SettingsTime from "./SettingsTime";
 import SettingsLevel from "./SettingsLevel";
+import TimeButton from "../components/TimeButton";
+import ScoreButton from "../components/ScoreButton";
 
 const SettingsGeneral = ({ onClose, children }) => {
   const [state, send] = useMachine(settingsMachine);
@@ -19,29 +21,29 @@ const SettingsGeneral = ({ onClose, children }) => {
       {state.matches("generalSettings") && (
         <div style={{ flex: 1, flexDirection: "column", display: "flex" }}>
           <Title>{children}: Settings</Title>
-          <DigitalButton
-            onClick={() => {
+          <ScoreButton
+            handleClick={() => {
               send({ type: "OPEN_SCORE_SETTINGS" });
             }}
-          >
-            {score}
-          </DigitalButton>
+            value={score}
+          />
 
-          <LevelButton
-            onClick={() => {
-              send({ type: "OPEN_LEVEL_SETTINGS" });
-            }}
-          >
-            {level}
+          <LevelButton>
+            <button
+              onClick={() => {
+                send({ type: "OPEN_LEVEL_SETTINGS" });
+              }}
+            >
+              {level}
+            </button>
           </LevelButton>
 
-          <DigitalButton
-            onClick={() => {
+          <TimeButton
+            handleClick={() => {
               send({ type: "OPEN_TIME_SETTINGS" });
             }}
-          >
-            {time}
-          </DigitalButton>
+            value={time}
+          />
 
           <FooterControls
             onClose={onClose}

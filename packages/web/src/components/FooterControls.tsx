@@ -1,4 +1,4 @@
-import { Container, Controls } from "./styled/FooterControls";
+import { Container, Controls } from "./styled/footerControls";
 
 const FooterControls = ({ onClose, onSubmit }) => {
   return (

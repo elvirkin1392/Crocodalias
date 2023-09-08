@@ -1,5 +1,5 @@
 import { useRef,useEffect, useState } from "react";
-import {Items, Item, Selected, Container} from './styled/VerticalSelect';
+import {Items, Item, Selected, Container} from './styled/verticalSelect';
 
 const itemsHeight = 218;
 
@@ -33,7 +33,7 @@ export default function VerticalSelect({items, selectedValue, handleSelect, hand
 
   return (
     <Container>
-      <Selected className="selected" style={{ height: `${itemsHeight}px` }}/>
+      {/*<Selected className="selected" style={{ height: `${itemsHeight}px` }}/>*/}
       <Items
         className={`items ${isActive && "active"}`}
         onMouseLeave={(e) => {

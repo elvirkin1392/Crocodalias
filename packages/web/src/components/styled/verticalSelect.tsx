@@ -13,10 +13,6 @@ const Items = styled.ul`
   overflow: hidden;
   cursor: pointer;
   transition: all 0.2s;
-  transform: scale(0.98);
-  will-change: transform;
-  position: relative;
-  perspective: 500px;
   padding: 220px 0 600px 0;
   margin: 0; 
 

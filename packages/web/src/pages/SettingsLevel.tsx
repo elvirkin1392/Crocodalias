@@ -7,10 +7,10 @@ import {Container} from "./styled/general";
 
 //TODO use names for levels
 const items = [
-  { name: "Easy", id: LEVELS.easy },
-  { name: "Medium", id: LEVELS.medium },
-  { name: "Mature", id: LEVELS.advanced },
-  { name: "Pro", id: LEVELS.pro },
+  { name: "easy", id: LEVELS.easy },
+  { name: "medium", id: LEVELS.medium },
+  { name: "mature", id: LEVELS.advanced },
+  { name: "pro", id: LEVELS.pro },
 ];
 
 const SettingsLevel = ({ onSubmit, onClose, title, defaultValue }) => {

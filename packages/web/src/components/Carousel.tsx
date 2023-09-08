@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
-import { CardContainer, Carousel as CarouselContainer } from "./styled/Carousel";
+import { CardContainer, Carousel as CarouselContainer } from "./styled/carousel";
 
 const variants = {
   enter: (direction: number) => {

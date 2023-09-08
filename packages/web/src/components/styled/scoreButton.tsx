@@ -1,17 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
-  position: absolute;
-  overflow: hidden;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  box-sizing: border-box;
-  
   padding-top: 60px;
-  
-  left: 0;
-  right: 0;
-  height: 100vh;
+  box-sizing: border-box;
+  height: 218px;
 `;
-

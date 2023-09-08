@@ -1,7 +1,10 @@
 import { useState } from "react";
 import FooterControls from "../components/FooterControls";
 import { Title, SSlider } from "./styled/settingsGeneral";
-import {Container, DigitalButton} from "./styled/general";
+import { Container} from "./styled/general";
+import timeIcon from "../assets/time.svg";
+import TimeButton from "../components/TimeButton";
+import {DigitalButton} from "./styled/digitalButton";
 
 const SettingsTime = ({
   defaultValue,
@@ -23,29 +26,30 @@ const SettingsTime = ({
     <Container>
       <Title>{title}: Time</Title>
 
-        <div style={{ height: "400px", paddingTop: '60px' }}>
-          <SSlider
-            step={5}
-            sx={{
-              '& input[type="range"]': {
-                WebkitAppearance: "slider-vertical",
-              },
-            }}
-            orientation="vertical"
-            defaultValue={defaultValue}
-            aria-label="time"
-            valueLabelDisplay="auto"
-            onKeyDown={preventHorizontalKeyboardNavigation}
-            onChange={(event, newValue) => {
-              if (Array.isArray(newValue)) {
-                return;
-              }
-              setTime(newValue);
-            }}
-          />
-        </div>
-        <DigitalButton onClick={() => onSubmit(time)}>{time}</DigitalButton>
-        <FooterControls onClose={onClose} onSubmit={() => onSubmit(time)} />
+      <div style={{ height: "380px", paddingTop: "60px" }}>
+        <SSlider
+          step={5}
+          sx={{
+            '& input[type="range"]': {
+              WebkitAppearance: "slider-vertical",
+            },
+          }}
+          orientation="vertical"
+          defaultValue={defaultValue}
+          aria-label="time"
+          valueLabelDisplay="auto"
+          onKeyDown={preventHorizontalKeyboardNavigation}
+          onChange={(event, newValue) => {
+            if (Array.isArray(newValue)) {
+              return;
+            }
+            setTime(newValue);
+          }}
+        />
+      </div>
+      <TimeButton handleClick={() => onSubmit(time)} value={time} />
+
+      <FooterControls onClose={onClose} onSubmit={() => onSubmit(time)} />
     </Container>
   );
 };

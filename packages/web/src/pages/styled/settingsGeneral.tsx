@@ -6,24 +6,28 @@ const Title = styled.div`
 `;
 const SSlider = styled(Slider)({
   height: 8,
-  "&.MuiSlider-root": { color: "#e6bc4e",  },
+  "&.MuiSlider-root": { color: "#e6bc4e" },
 
-  "& .MuiSlider-thumb" : {
+  "& .MuiSlider-thumb": {
     height: 17,
     width: 35,
-    borderRadius: "10px"
-  }
+    borderRadius: "10px",
+  },
 });
 
-const LevelButton = styled.button`
-  align-self: center;
-  background: #e6bc4e;
-  border-radius: 50%;
+const LevelButton = styled.div`
+  height: 218px;
+  justify-content: center;
+  display: flex;
+  
+  button {
+    align-self: center;
+    background: #e6bc4e;
+    border-radius: 50%;
 
-  margin-bottom: 40px;
-
-  height: 180px;
-  width: 180px;
+    height: 180px;
+    width: 180px;
+  }
 `;
 
 const Time = styled.button``;
