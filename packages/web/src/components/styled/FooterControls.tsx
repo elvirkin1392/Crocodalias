@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
 const Controls = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  
   button {
+    position: absolute;
     background: none;
-    
-    &:focus, &:hover {
+    bottom: 10px;
+
+    &:focus,
+    &:hover {
       border: none;
       outline: none;
       background: none;
@@ -19,8 +17,8 @@ const Controls = styled.div`
 
 const Container = styled.div`
   position: absolute;
-  left: 20px;
-  right: 20px;
+  left: 0;
+  right: 0;
   bottom: 20px;
 `;
 export { Controls, Container };

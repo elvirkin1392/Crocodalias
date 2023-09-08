@@ -4,9 +4,11 @@ const Container = styled.div`
   font-family: sans-serif;
   text-align: center;
   position: relative;
+  //height: 70%;
+  overflow: hidden;
 `
 const Items = styled.ul`
-  height: 600px;
+  height: 200px;
   width: 100vw;
   overflow: hidden;
   cursor: pointer;
@@ -15,30 +17,41 @@ const Items = styled.ul`
   will-change: transform;
   position: relative;
   perspective: 500px;
-  padding: 200px 0;
+  padding: 220px 0 600px 0;
 
-  &.active {
+  & .active {
     cursor: grabbing;
     cursor: -webkit-grabbing;
   }
 
-  &.selectedItem {
+  & .selectedItem {
     color: rgb(121, 105, 196);
+    
+    & div {
+      background: #fff;
+    }
   }
 `;
 const Item = styled.li`
-  width: 100vw;
-  height: 200px;
-  align-items: center;
-  justify-content: center;
-  font-size: 80px;
+  font-size: 16px;
   color: rgba(0, 0, 0, 0.15);
-  border: 1px solid #ccc;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  & div {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    background: #ccc;
+
+    height: 180px;
+    width: 180px;
+  }
+  
 `;
 
 const Selected = styled.div`
-  border: 5px solid #ccc;
   width: 100vw;
   height: 200px;
   position: absolute;

@@ -1,6 +1,6 @@
 import { useMachine } from "@xstate/react";
 import { settingsMachine } from "../state/settingsPage";
-import { useState } from "react";
+import { createPortal } from "react-dom";
 import {
   ScoreButton,
   Title,
@@ -55,7 +55,7 @@ const SettingsGeneral = ({ onClose, children }) => {
       )}
 
       {state.matches("scoreSettings") && (
-        <SettingsScore
+        createPortal(<SettingsScore
           title={children}
           defaultValue={score}
           onSubmit={(value) => {
@@ -65,31 +65,32 @@ const SettingsGeneral = ({ onClose, children }) => {
             send({ type: "BACK" });
           }}
         />
-      )}
-      {state.matches("timeSettings") && (
-        <SettingsTime
-          title={children}
-          defaultValue={time}
-          onSubmit={(value) => {
-            send({ type: "SUBMIT_TIME", value });
-          }}
-          onClose={() => {
-            send({ type: "BACK" });
-          }}
-        />
-      )}
-      {state.matches("levelSettings") && (
-        <SettingsLevel
-          title={children}
-          defaultValue={level}
-          onSubmit={(value) => {
-            send({ type: "SUBMIT_LEVEL", value });
-          }}
-          onClose={() => {
-            send({ type: "BACK" });
-          }}
-        />
-      )}
+          , document.getElementById('portalContainer') ||document.body))}
+        {state.matches("timeSettings") && (
+          <SettingsTime
+            title={children}
+            defaultValue={time}
+            onSubmit={(value) => {
+              send({ type: "SUBMIT_TIME", value });
+            }}
+            onClose={() => {
+              send({ type: "BACK" });
+            }}
+          />
+        )}
+        {state.matches("levelSettings") && (
+          createPortal(<SettingsLevel
+            title={children}
+            defaultValue={level}
+            onSubmit={(value) => {
+              send({ type: "SUBMIT_LEVEL", value });
+            }}
+            onClose={() => {
+              send({ type: "BACK" });
+            }}
+          />
+            , document.getElementById('portalContainer') ||document.body))}
+
     </div>
   );
 };

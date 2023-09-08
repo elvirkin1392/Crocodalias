@@ -4,8 +4,8 @@ const FooterControls = ({ onClose, onSubmit }) => {
   return (
     <Container>
       <Controls>
-        <button onClick={() => onSubmit()}>✅</button>
-        <button onClick={() => onClose()}>❌</button>
+        <button style={{right: '20px'}} onClick={() => onSubmit()}>✅</button>
+        <button style={{left: '20px'}} onClick={() => onClose()}>❌</button>
       </Controls>
     </Container>
   );

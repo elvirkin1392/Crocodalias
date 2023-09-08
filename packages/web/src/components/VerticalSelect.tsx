@@ -1,32 +1,39 @@
-import { useRef, useState } from "react";
+import { useRef,useEffect, useState } from "react";
 import {Items, Item, Selected, Container} from './styled/VerticalSelect';
 
-const itemsHeight = "200px";
+const itemsHeight = 240;
 
-export default function VerticalSelect({items, initialValue}) {
+export default function VerticalSelect({items, selectedValue, onSelect}) {
   const slider = useRef(null);
 
   const [isActive, setIsActive] = useState<Boolean>(false);
   const [startY, setStartY] = useState<Number>();
   const [scrollTopPrev, setScrollTopPrev] = useState<Number>();
-  const [selectedIndex, setSelectedId] = useState<String>(initialValue);
 
-  function updateSelection(e) {
-    let index = Math.floor(slider.current.scrollTop / 200);
-    let diff = slider.current.scrollTop - index * 200;
-    index = diff > 100 ? index + 1 : index;
-
-    setSelectedId(slider.current.querySelectorAll("li")[index]?.id);
+  useEffect(() => {
+    let index = items.findIndex((item) =>  item.id === selectedValue)
 
     slider.current.scrollTo({
-      top: index * 200,
+      top:  index * itemsHeight
+    });
+  }, []);
+
+  function updateSelection(e) {
+    let index = Math.floor(slider.current.scrollTop / itemsHeight);
+    let diff = slider.current.scrollTop - index * itemsHeight;
+    index = diff > (itemsHeight/2) ? index + 1 : index;
+
+    onSelect(slider.current.querySelectorAll("li")[index]?.id);
+
+    slider.current.scrollTo({
+      top: index * itemsHeight,
       behavior: "smooth"
     });
   }
 
   return (
     <Container>
-      <Selected className="selected" style={{ height: itemsHeight }}/>
+      <Selected className="selected" style={{ height: `${itemsHeight}px` }}/>
       <Items
         className={`items ${isActive && "active"}`}
         onMouseLeave={(e) => {
@@ -38,16 +45,12 @@ export default function VerticalSelect({items, initialValue}) {
         }}
         onTouchStart={(e) => {
           setIsActive(true);
-          setStartY(e.pageY);
-          setSelectedId("");
+          setStartY(e.targetTouches[0].pageY);
+          onSelect("");
           setScrollTopPrev(slider.current.scrollTop);
         }}
         onTouchMove={(e) => {
-          console.log('mouse move')
-          // if (!isActive) return;
-          // e.preventDefault();
-
-          let scrollTo = scrollTopPrev - (e.pageY - startY) * 2;
+          let scrollTo = scrollTopPrev - (e.targetTouches[0].pageY - startY) * 2;
           slider.current.scrollTop = scrollTo;
         }}
         ref={slider}
@@ -57,12 +60,12 @@ export default function VerticalSelect({items, initialValue}) {
             <Item
               key={item.id}
               id={item.id}
-              style={{ height: itemsHeight }}
+              style={{ height: `${itemsHeight}px` }}
               className={`item ${
-                selectedIndex === item.id ? "selectedItem" : ""
+                selectedValue === item.id ? "selectedItem" : ""
               }`}
             >
-              {item.name}
+              <div>{item.name}</div>
             </Item>
           );
         })}

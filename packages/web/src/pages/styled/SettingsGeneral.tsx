@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Slider from "@mui/material/Slider";
 
 const Title = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `;
 const SSlider = styled(Slider)({
   height: 8,
