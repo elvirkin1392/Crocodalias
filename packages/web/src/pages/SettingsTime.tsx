@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FooterControls from "../components/FooterControls";
-import { ScoreButton, Title, SSlider } from "./styled/SettingsGeneral";
+import { Title, SSlider } from "./styled/settingsGeneral";
+import {Container, DigitalButton} from "./styled/general";
 
 const SettingsTime = ({
   defaultValue,
@@ -19,10 +20,10 @@ const SettingsTime = ({
   }
 
   return (
-    <>
+    <Container>
       <Title>{title}: Time</Title>
-      <div>
-        <div style={{ height: "360px" }}>
+
+        <div style={{ height: "400px", paddingTop: '60px' }}>
           <SSlider
             step={5}
             sx={{
@@ -43,10 +44,9 @@ const SettingsTime = ({
             }}
           />
         </div>
-        <ScoreButton onClick={() => onSubmit(time)}>{time}</ScoreButton>
+        <DigitalButton onClick={() => onSubmit(time)}>{time}</DigitalButton>
         <FooterControls onClose={onClose} onSubmit={() => onSubmit(time)} />
-      </div>
-    </>
+    </Container>
   );
 };
 

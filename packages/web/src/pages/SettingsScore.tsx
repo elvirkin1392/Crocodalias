@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FooterControls from "../components/FooterControls";
-import { ScoreButton, Title, SSlider } from "./styled/SettingsGeneral";
+import { Title, SSlider } from "./styled/settingsGeneral";
+import {Container, DigitalButton} from "./styled/general";
 
 const ScoreSettings = ({
   defaultValue,
@@ -17,9 +18,9 @@ const ScoreSettings = ({
     }
   }
   return (
-    <>
+    <Container>
       <Title>{title}: Winner score</Title>
-      <ScoreButton onClick={() => onSubmit(score)}>{score}</ScoreButton>
+      <DigitalButton onClick={() => onSubmit(score)}>{score}</DigitalButton>
 
       <div style={{ height: "400px" }}>
         <SSlider
@@ -43,7 +44,7 @@ const ScoreSettings = ({
 
         <FooterControls onClose={onClose} onSubmit={() => onSubmit(score)} />
       </div>
-    </>
+    </Container>
   );
 };
 

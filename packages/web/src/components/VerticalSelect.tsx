@@ -1,9 +1,9 @@
 import { useRef,useEffect, useState } from "react";
 import {Items, Item, Selected, Container} from './styled/VerticalSelect';
 
-const itemsHeight = 240;
+const itemsHeight = 218;
 
-export default function VerticalSelect({items, selectedValue, onSelect}) {
+export default function VerticalSelect({items, selectedValue, handleSelect, handleClose}) {
   const slider = useRef(null);
 
   const [isActive, setIsActive] = useState<Boolean>(false);
@@ -23,7 +23,7 @@ export default function VerticalSelect({items, selectedValue, onSelect}) {
     let diff = slider.current.scrollTop - index * itemsHeight;
     index = diff > (itemsHeight/2) ? index + 1 : index;
 
-    onSelect(slider.current.querySelectorAll("li")[index]?.id);
+    handleSelect(slider.current.querySelectorAll("li")[index]?.id);
 
     slider.current.scrollTo({
       top: index * itemsHeight,
@@ -46,7 +46,7 @@ export default function VerticalSelect({items, selectedValue, onSelect}) {
         onTouchStart={(e) => {
           setIsActive(true);
           setStartY(e.targetTouches[0].pageY);
-          onSelect("");
+          // handleSelect("");
           setScrollTopPrev(slider.current.scrollTop);
         }}
         onTouchMove={(e) => {
@@ -64,6 +64,7 @@ export default function VerticalSelect({items, selectedValue, onSelect}) {
               className={`item ${
                 selectedValue === item.id ? "selectedItem" : ""
               }`}
+              onClick={() => selectedValue == item.id && handleClose()}
             >
               <div>{item.name}</div>
             </Item>

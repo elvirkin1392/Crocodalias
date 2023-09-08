@@ -1,9 +1,9 @@
 import FooterControls from "../components/FooterControls";
-import { Title } from "./styled/SettingsGeneral";
+import { Title } from "./styled/settingsGeneral";
 import { useState } from "react";
 import { LEVELS } from "../enums/settings";
 import VerticalSelect from "../components/VerticalSelect";
-import {Container} from "./styled/SettingsLevel";
+import {Container} from "./styled/general";
 
 //TODO use names for levels
 const items = [
@@ -17,9 +17,14 @@ const SettingsLevel = ({ onSubmit, onClose, title, defaultValue }) => {
   const [level, setLevel] = useState(defaultValue);
 
   return (
-    <Container >
+    <Container style={{ background: "#f3dda6" }}>
       <Title>{title}: Level</Title>
-      <VerticalSelect items={items} selectedValue={level} onSelect={(value) => setLevel(value)}/>
+      <VerticalSelect
+        items={items}
+        selectedValue={level}
+        handleSelect={(value) => setLevel(value)}
+        handleClose={() =>onSubmit(level)}
+      />
       <FooterControls onClose={onClose} onSubmit={() => onSubmit(level)} />
     </Container>
   );

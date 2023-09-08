@@ -14,26 +14,6 @@ const SSlider = styled(Slider)({
     borderRadius: "10px"
   }
 });
-const ScoreButton = styled.button`
-  background: none;
-  border-radius: 50%;
-  box-sizing: border-box;
-  font-size: 72px;
-  color: #e6bc4e;
-
-  //margin-bottom: 40px;
-
-  height: 200px;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &:focus-within,
-  &:focus-visible {
-    outline: none;
-    border: none;
-  }
-`;
 
 const LevelButton = styled.button`
   align-self: center;
@@ -42,10 +22,10 @@ const LevelButton = styled.button`
 
   margin-bottom: 40px;
 
-  height: 120px;
-  width: 120px;
+  height: 180px;
+  width: 180px;
 `;
 
 const Time = styled.button``;
 
-export { Time, Title, ScoreButton, LevelButton, SSlider };
+export { Time, Title, LevelButton, SSlider };

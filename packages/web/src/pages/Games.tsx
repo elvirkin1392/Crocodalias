@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Carousel from "../components/Carousel";
 import SettingsGeneral from "./SettingsGeneral";
-import { Card } from "./styled/Games";
+import { Card } from "./styled/games";
 
 enum games {
   classic = "classic",

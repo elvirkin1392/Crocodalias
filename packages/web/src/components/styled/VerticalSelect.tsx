@@ -18,6 +18,7 @@ const Items = styled.ul`
   position: relative;
   perspective: 500px;
   padding: 220px 0 600px 0;
+  margin: 0; 
 
   & .active {
     cursor: grabbing;
@@ -41,12 +42,18 @@ const Item = styled.li`
   align-items: center;
   
   & div {
-    border: 1px solid #ccc;
+    //border: 1px solid #ccc;
     border-radius: 50%;
     background: #ccc;
 
     height: 180px;
     width: 180px;
+
+
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
 `;

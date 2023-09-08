@@ -1,12 +1,8 @@
 import { useMachine } from "@xstate/react";
 import { settingsMachine } from "../state/settingsPage";
 import { createPortal } from "react-dom";
-import {
-  ScoreButton,
-  Title,
-  Time,
-  LevelButton,
-} from "./styled/SettingsGeneral";
+import { Title, Time, LevelButton } from "./styled/settingsGeneral";
+import { DigitalButton } from "./styled/general";
 import FooterControls from "../components/FooterControls";
 import SettingsScore from "./SettingsScore";
 import SettingsTime from "./SettingsTime";
@@ -23,13 +19,13 @@ const SettingsGeneral = ({ onClose, children }) => {
       {state.matches("generalSettings") && (
         <div style={{ flex: 1, flexDirection: "column", display: "flex" }}>
           <Title>{children}: Settings</Title>
-          <ScoreButton
+          <DigitalButton
             onClick={() => {
               send({ type: "OPEN_SCORE_SETTINGS" });
             }}
           >
             {score}
-          </ScoreButton>
+          </DigitalButton>
 
           <LevelButton
             onClick={() => {
@@ -39,34 +35,40 @@ const SettingsGeneral = ({ onClose, children }) => {
             {level}
           </LevelButton>
 
-          <ScoreButton
+          <DigitalButton
             onClick={() => {
               send({ type: "OPEN_TIME_SETTINGS" });
             }}
           >
             {time}
-          </ScoreButton>
+          </DigitalButton>
 
-          <FooterControls onClose={onClose} onSubmit={() => {
-            saveChanges();
-            onClose();
-          }} />
+          <FooterControls
+            onClose={onClose}
+            onSubmit={() => {
+              saveChanges();
+              onClose();
+            }}
+          />
         </div>
       )}
 
-      {state.matches("scoreSettings") && (
-        createPortal(<SettingsScore
-          title={children}
-          defaultValue={score}
-          onSubmit={(value) => {
-            send({ type: "SUBMIT_SCORE", value });
-          }}
-          onClose={() => {
-            send({ type: "BACK" });
-          }}
-        />
-          , document.getElementById('portalContainer') ||document.body))}
-        {state.matches("timeSettings") && (
+      {state.matches("scoreSettings") &&
+        createPortal(
+          <SettingsScore
+            title={children}
+            defaultValue={score}
+            onSubmit={(value) => {
+              send({ type: "SUBMIT_SCORE", value });
+            }}
+            onClose={() => {
+              send({ type: "BACK" });
+            }}
+          />,
+          document.getElementById("portalContainer") || document.body
+        )}
+      {state.matches("timeSettings") &&
+        createPortal(
           <SettingsTime
             title={children}
             defaultValue={time}
@@ -76,10 +78,12 @@ const SettingsGeneral = ({ onClose, children }) => {
             onClose={() => {
               send({ type: "BACK" });
             }}
-          />
+          />,
+          document.getElementById("portalContainer") || document.body
         )}
-        {state.matches("levelSettings") && (
-          createPortal(<SettingsLevel
+      {state.matches("levelSettings") &&
+        createPortal(
+          <SettingsLevel
             title={children}
             defaultValue={level}
             onSubmit={(value) => {
@@ -88,9 +92,9 @@ const SettingsGeneral = ({ onClose, children }) => {
             onClose={() => {
               send({ type: "BACK" });
             }}
-          />
-            , document.getElementById('portalContainer') ||document.body))}
-
+          />,
+          document.getElementById("portalContainer") || document.body
+        )}
     </div>
   );
 };
