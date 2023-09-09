@@ -26,7 +26,7 @@ const SettingsTime = ({
     <Container>
       <Title>{title}: Time</Title>
 
-      <div style={{ height: "380px", paddingTop: "60px" }}>
+      <div style={{ height: "436px", paddingTop: "60px" }}>
         <SSlider
           step={5}
           sx={{
