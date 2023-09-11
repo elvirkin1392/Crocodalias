@@ -1,17 +1,22 @@
-import { useMachine } from "@xstate/react";
-import { settingsMachine } from "../state/settingsPage";
+import { useContext } from "react";
 import { createPortal } from "react-dom";
-import { Title, Time, LevelButton } from "./styled/settingsGeneral";
+import { useActor } from "@xstate/react";
 
-import FooterControls from "../components/FooterControls";
-import SettingsScore from "./SettingsScore";
-import SettingsTime from "./SettingsTime";
-import SettingsLevel from "./SettingsLevel";
-import TimeButton from "../components/TimeButton";
-import ScoreButton from "../components/ScoreButton";
+import SettingsScore from "../classicSettings/SettingsScore";
+import SettingsTime from "../classicSettings/SettingsTime";
+import SettingsLevel from "../classicSettings/SettingsLevel";
+
+import { AliasSettingsContext } from "../../context/settings";
+import { Title, LevelButton } from "../styled/settingsGeneral";
+import FooterControls from "../../components/FooterControls";
+import TimeButton from "../../components/TimeButton";
+import ScoreButton from "../../components/ScoreButton";
 
 const SettingsGeneral = ({ onClose, children }) => {
-  const [state, send] = useMachine(settingsMachine);
+  const aliasSettingsContext = useContext(AliasSettingsContext);
+  const [state] = useActor(aliasSettingsContext.aliasSettingsService);
+  const { send } = aliasSettingsContext.aliasSettingsService;
+
   const { score, level, time } = state.context;
 
   function saveChanges() {}
@@ -67,7 +72,7 @@ const SettingsGeneral = ({ onClose, children }) => {
               send({ type: "BACK" });
             }}
           />,
-          document.getElementById("portalContainer") || document.body
+          document.body
         )}
       {state.matches("timeSettings") &&
         createPortal(
@@ -81,7 +86,7 @@ const SettingsGeneral = ({ onClose, children }) => {
               send({ type: "BACK" });
             }}
           />,
-          document.getElementById("portalContainer") || document.body
+          document.body
         )}
       {state.matches("levelSettings") &&
         createPortal(
@@ -95,7 +100,7 @@ const SettingsGeneral = ({ onClose, children }) => {
               send({ type: "BACK" });
             }}
           />,
-          document.getElementById("portalContainer") || document.body
+          document.body
         )}
     </div>
   );

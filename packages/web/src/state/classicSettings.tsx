@@ -1,5 +1,5 @@
 import { createMachine, assign } from "xstate";
-import {LEVELS}  from "../enums/settings";
+import { LEVELS } from "../enums/settings";
 
 type Context = { level: LEVELS; time: number; score: number };
 type Events =
@@ -11,7 +11,7 @@ type Events =
   | { type: "SUBMIT_LEVEL"; value: LEVELS }
   | { type: "BACK" };
 
-export const settingsMachine = createMachine<Context, Events>({
+export const classicSettingsMachine = createMachine<Context, Events>({
   initial: "generalSettings",
   context: {
     level: LEVELS.medium,

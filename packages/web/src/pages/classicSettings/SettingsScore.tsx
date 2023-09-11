@@ -1,12 +1,11 @@
 import { useState } from "react";
-import FooterControls from "../components/FooterControls";
-import { Title, SSlider } from "./styled/settingsGeneral";
-import { Container} from "./styled/general";
-import timeIcon from "../assets/time.svg";
-import TimeButton from "../components/TimeButton";
-import {DigitalButton} from "./styled/digitalButton";
 
-const SettingsTime = ({
+import FooterControls from "../../components/FooterControls";
+import { Title, SSlider } from "../styled/settingsGeneral";
+import {Container} from "../styled/general";
+import ScoreButton from "../../components/ScoreButton";
+
+const ScoreSettings = ({
   defaultValue,
   onSubmit,
   onClose,
@@ -14,21 +13,19 @@ const SettingsTime = ({
 }: {
   defaultValue: number;
 }) => {
-  const [time, setTime] = useState(defaultValue);
-
+  const [score, setScore] = useState(defaultValue);
   function preventHorizontalKeyboardNavigation(event: React.KeyboardEvent) {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       event.preventDefault();
     }
   }
-
   return (
     <Container>
-      <Title>{title}: Time</Title>
+      <Title>{title}: Winner score</Title>
+      <ScoreButton handleClick={() => onSubmit(score)} value={score}/>
 
-      <div style={{ height: "436px", paddingTop: "60px" }}>
+      <div style={{ height: "400px" }}>
         <SSlider
-          step={5}
           sx={{
             '& input[type="range"]': {
               WebkitAppearance: "slider-vertical",
@@ -36,22 +33,21 @@ const SettingsTime = ({
           }}
           orientation="vertical"
           defaultValue={defaultValue}
-          aria-label="time"
+          aria-label="score"
           valueLabelDisplay="auto"
           onKeyDown={preventHorizontalKeyboardNavigation}
           onChange={(event, newValue) => {
             if (Array.isArray(newValue)) {
               return;
             }
-            setTime(newValue);
+            setScore(newValue);
           }}
         />
-      </div>
-      <TimeButton handleClick={() => onSubmit(time)} value={time} />
 
-      <FooterControls onClose={onClose} onSubmit={() => onSubmit(time)} />
+        <FooterControls onClose={onClose} onSubmit={() => onSubmit(score)} />
+      </div>
     </Container>
   );
 };
 
-export default SettingsTime;
+export default ScoreSettings;

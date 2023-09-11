@@ -30,6 +30,4 @@ const LevelButton = styled.div`
   }
 `;
 
-const Time = styled.button``;
-
-export { Time, Title, LevelButton, SSlider };
+export { Title, LevelButton, SSlider };

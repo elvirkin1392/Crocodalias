@@ -1,25 +1,15 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import SettingsGeneral from "../pages/SettingsGeneral";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Games from "../pages/Games";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Games/>,
-  },
-  {
-    path: "/settings",
-    element: <SettingsGeneral/>,
+    element: <Games />,
   },
 ]);
 
-function Routing(props) {
-  return (
-    <RouterProvider router={router} />
-  );
+function Routing() {
+  return <RouterProvider router={router} />;
 }
 
 export default Routing;
