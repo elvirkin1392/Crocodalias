@@ -7,6 +7,7 @@ import FooterControls from "../../components/FooterControls";
 import SettingsScore from "./SettingsScore";
 import SettingsTime from "./SettingsTime";
 import SettingsLevel from "./SettingsLevel";
+import SettingsTeam from "./SettingsTeam";
 import TimeButton from "../../components/TimeButton";
 import ScoreButton from "../../components/ScoreButton";
 import { ClassicSettingsContext } from "../../context/settings";
@@ -16,9 +17,7 @@ const SettingsGeneral = ({ onClose, children }) => {
   const [state] = useActor(classicSettingsContext.classicSettingsService);
   const { send } = classicSettingsContext.classicSettingsService;
 
-  const { score, level, time } = state.context;
-
-  function saveChanges() {}
+  const { score, level, time, teams } = state.context;
 
   return (
     <div style={{ paddingTop: "40px" }}>
@@ -52,8 +51,7 @@ const SettingsGeneral = ({ onClose, children }) => {
           <FooterControls
             onClose={onClose}
             onSubmit={() => {
-              saveChanges();
-              onClose();
+              send({ type: "OPEN_TEAM_SETTINGS" });
             }}
           />
         </div>
@@ -94,6 +92,20 @@ const SettingsGeneral = ({ onClose, children }) => {
             defaultValue={level}
             onSubmit={(value) => {
               send({ type: "SUBMIT_LEVEL", value });
+            }}
+            onClose={() => {
+              send({ type: "BACK" });
+            }}
+          />,
+          document.body
+        )}
+      {state.matches("teamSettings") &&
+        createPortal(
+          <SettingsTeam
+            title={children}
+            defaultValue={teams}
+            onSubmit={(value) => {
+              send({ type: "SUBMIT_TEAMS", value });
             }}
             onClose={() => {
               send({ type: "BACK" });

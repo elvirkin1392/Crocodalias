@@ -3,6 +3,8 @@ import Slider from "@mui/material/Slider";
 
 const Title = styled.div`
   margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #B3B3B3;
 `;
 const SSlider = styled(Slider)({
   height: 8,

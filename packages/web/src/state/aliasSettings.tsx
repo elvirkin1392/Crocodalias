@@ -1,13 +1,15 @@
 import { createMachine, assign } from "xstate";
 import { LEVELS } from "../enums/settings";
 
-type Context = { level: LEVELS; time: number; score: number };
+type Context = { level: LEVELS; time: number; score: number, teams: [string, string] };
 type Events =
   | { type: "OPEN_SCORE_SETTINGS" }
   | { type: "OPEN_TIME_SETTINGS" }
   | { type: "OPEN_LEVEL_SETTINGS" }
+  | { type: "OPEN_TEAM_SETTINGS" }
   | { type: "SUBMIT_SCORE"; value: number }
   | { type: "SUBMIT_TIME"; value: number }
+  | { type: "SUBMIT_TEAM"; value: number }
   | { type: "SUBMIT_LEVEL"; value: LEVELS }
   | { type: "BACK" };
 
@@ -17,6 +19,7 @@ export const aliasSettingsMachine = createMachine<Context, Events>({
     level: LEVELS.medium,
     time: 60,
     score: 60,
+    teams: ["", ""],
   },
   states: {
     generalSettings: {
@@ -24,6 +27,7 @@ export const aliasSettingsMachine = createMachine<Context, Events>({
         OPEN_SCORE_SETTINGS: { target: "scoreSettings" },
         OPEN_TIME_SETTINGS: { target: "timeSettings" },
         OPEN_LEVEL_SETTINGS: { target: "levelSettings" },
+        OPEN_TEAM_SETTINGS: { target: "teamSettings" },
       },
     },
     scoreSettings: {
@@ -49,6 +53,14 @@ export const aliasSettingsMachine = createMachine<Context, Events>({
         SUBMIT_LEVEL: {
           target: "generalSettings",
           actions: assign({ level: (context, event) => event.value }),
+        },
+      },
+    },
+    teamSettings: {
+      on: {
+        SUBMIT_TEAM: {
+          target: "generalSettings",
+          actions: assign({ teamAmount: (context, event) => event.value }),
         },
       },
     },
