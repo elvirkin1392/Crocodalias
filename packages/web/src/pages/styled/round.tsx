@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  background: linear-gradient(45deg,#E4F2D5, #EFFDE1);
   display: flex;
   position: absolute;
   align-items: center;
@@ -41,13 +42,25 @@ export const Controls = styled.div`
   }
 `;
 
-export const Card = styled.div`
-  background: #68877C;
+export const CardBack = styled.div`
+  background: #68877c;
   border-radius: 20px;
   margin: 100px 0;
-  
+
   height: 450px;
   width: 245px;
+`;
+
+export const CardFace = styled.div`
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background: #fff;
+  margin: 10px;
+  border-radius: 20px;
+
+  height: 430px;
+  width: 225px;
 `;
 
 export const Footer = styled.div`

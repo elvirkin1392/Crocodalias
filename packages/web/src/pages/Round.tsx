@@ -1,23 +1,48 @@
-import { Container, Title, Controls, Footer, Time, Card } from "./styled/round";
+import { useNavigate } from "react-router-dom";
+
+import {
+  Container,
+  Title,
+  Controls,
+  Footer,
+  CardBack,
+  CardFace,
+} from "./styled/round";
 import CloseIcon from "../assets/close.svg";
+import { Timer } from "./Timer";
+import { useMachine } from "@xstate/react";
+import { timerMachine } from "../state/timer";
 
 const Round = () => {
-  const time = 60;
+  const navigate = useNavigate();
+  const [state, send] = useMachine(timerMachine);
+  const { isPaused } = state.context;
+
   return (
     <Container>
       <Controls>
-        <button onClick={() => {}}>
+        <button
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img src={CloseIcon} alt="" />
         </button>
       </Controls>
       <Title>contestant name</Title>
 
-      <Card />
+      <CardBack onClick={() => send("START")}>
+        {!isPaused && <CardFace>text</CardFace>}
+      </CardBack>
 
       <Footer>
-        <subtitle>team name</subtitle>
+        <div>team name</div>
       </Footer>
-      <Time>{time}</Time>
+      <Timer
+        value={state.context}
+        onStart={() => send("START")}
+        onPause={() => send("PAUSE")}
+      />
     </Container>
   );
 };
