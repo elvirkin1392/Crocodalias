@@ -12,7 +12,7 @@ import TimeButton from "../../components/TimeButton";
 import ScoreButton from "../../components/ScoreButton";
 import { ClassicSettingsContext } from "../../context/settings";
 
-const SettingsGeneral = ({ onClose, children }) => {
+const ClassicSettings = ({ onClose, children }) => {
   const classicSettingsContext = useContext(ClassicSettingsContext);
   const [state] = useActor(classicSettingsContext.classicSettingsService);
   const { send } = classicSettingsContext.classicSettingsService;
@@ -117,4 +117,4 @@ const SettingsGeneral = ({ onClose, children }) => {
   );
 };
 
-export default SettingsGeneral;
+export default ClassicSettings;

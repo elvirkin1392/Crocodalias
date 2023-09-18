@@ -8,7 +8,7 @@ import CloseIcon from "../../assets/close.svg";
 import { Timer } from "./Timer";
 import Cards from "./Cards";
 
-const Round = () => {
+const GameRound = () => {
   const [state, send] = useMachine(timerMachine);
 
   const [score, setScore] = useState(0);
@@ -25,7 +25,7 @@ const Round = () => {
             navigate("/");
           }}
         >
-          <img src={CloseIcon} alt="" />
+          <img src={CloseIcon} alt="close" />
         </button>
       </Controls>
       <Title style={{ color: isTimerUp && "#000" }}>
@@ -54,4 +54,4 @@ const Round = () => {
   );
 };
 
-export default Round;
+export default GameRound;

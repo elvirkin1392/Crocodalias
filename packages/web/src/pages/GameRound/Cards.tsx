@@ -105,6 +105,7 @@ const Cards = ({
             <CardFace>{words[count]}</CardFace>
           ) : (
             <img
+              alt='play'
               src={playIcon}
               style={{
                 alignSelf: "center",

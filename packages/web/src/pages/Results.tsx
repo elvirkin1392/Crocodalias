@@ -1,8 +1,13 @@
+import {useNavigate} from "react-router-dom";
 
 
 const Results = () => {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div onClick={() => {
+      navigate("/round/1");
+    }}>
       results
     </div>
   );

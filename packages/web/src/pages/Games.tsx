@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useInterpret } from "@xstate/react";
 
-import { default as ClassicSettings } from "./classicSettings/SettingsGeneral";
-import { default as AliasSettings } from "./aliasSettings/SettingsGeneral";
+import { default as ClassicSettings } from "./ClassicSettings";
+import { default as AliasSettings } from "./AliasSettings";
 import {
   AliasSettingsContext,
   ClassicSettingsContext,

@@ -29,7 +29,7 @@ export const timerMachine = createMachine<TimerContext, TimerEvent>({
   initial: "paused",
   context: {
     elapsed: 0,
-    duration: 3,
+    duration: 60,
     interval: 0.1,
     isPaused: true,
   },

@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { createPortal } from "react-dom";
 import { useActor } from "@xstate/react";
 
-import SettingsScore from "../classicSettings/SettingsScore";
-import SettingsTime from "../classicSettings/SettingsTime";
-import SettingsLevel from "../classicSettings/SettingsLevel";
+import SettingsScore from "../ClassicSettings/SettingsScore";
+import SettingsTime from "../ClassicSettings/SettingsTime";
+import SettingsLevel from "../ClassicSettings/SettingsLevel";
 
 import { AliasSettingsContext } from "../../context/settings";
 import { Title, LevelButton } from "../styled/settingsGeneral";
@@ -12,7 +12,7 @@ import FooterControls from "../../components/FooterControls";
 import TimeButton from "../../components/TimeButton";
 import ScoreButton from "../../components/ScoreButton";
 
-const SettingsGeneral = ({ onClose, children }) => {
+const AliasSettings = ({ onClose, children }) => {
   const aliasSettingsContext = useContext(AliasSettingsContext);
   const [state] = useActor(aliasSettingsContext.aliasSettingsService);
   const { send } = aliasSettingsContext.aliasSettingsService;
@@ -106,4 +106,4 @@ const SettingsGeneral = ({ onClose, children }) => {
   );
 };
 
-export default SettingsGeneral;
+export default AliasSettings;
