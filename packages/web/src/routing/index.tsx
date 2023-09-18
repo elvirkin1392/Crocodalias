@@ -1,18 +1,21 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Games from "../pages/Games";
-import Round from "../pages/Round";
+import Round from "../pages/gameRound/Round";
+import Results from "../pages/Results";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Games />,
-
   },
   {
-    path: '/round/:id',
-    element: <Round/>
-  }
-
+    path: "/round/:id",
+    element: <Round />,
+  },
+  {
+    path: "/results",
+    element: <Results />,
+  },
 ]);
 
 function Routing() {

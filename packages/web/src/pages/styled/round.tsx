@@ -46,6 +46,9 @@ export const CardBack = styled.div`
   background: #68877c;
   border-radius: 20px;
   margin: 100px 0;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
 
   height: 450px;
   width: 245px;
@@ -56,7 +59,6 @@ export const CardFace = styled.div`
   justify-content: center;
   display: flex;
   background: #fff;
-  margin: 10px;
   border-radius: 20px;
 
   height: 430px;

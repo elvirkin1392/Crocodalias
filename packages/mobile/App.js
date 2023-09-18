@@ -8,7 +8,7 @@ export default function App() {
       <WebView
           style={styles.container}
           originWhitelist={['*']}
-          source={{ uri: "http://192.168.0.104:5173/"}}
+          source={{ uri: "http://192.168.0.101:5173/"}}
       />
     </View>
   );

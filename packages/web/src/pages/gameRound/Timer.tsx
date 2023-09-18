@@ -1,4 +1,4 @@
-import { Time } from "./styled/round";
+import { Time } from "../styled/round";
 
 export const Timer = ({ value, onStart, onPause }) => {
   const { elapsed, duration, isPaused } = value;
