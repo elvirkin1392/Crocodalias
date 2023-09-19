@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <GameRound />,
   },
   {
-    path: "/results",
+    path: "/results/:id",
     element: <Results />,
   },
 ]);

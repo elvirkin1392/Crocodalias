@@ -1,9 +1,11 @@
 import { useState } from "react";
+import styled from "styled-components";
 import { motion, useAnimate } from "framer-motion";
 
 import playIcon from "../../assets/play.svg";
 import { CardBack, CardFace } from "../styled/round";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+
 
 const words = [
   "velocity",
@@ -39,9 +41,11 @@ const Cards = ({
   competitorScore,
   setCompetitorScore,
 }) => {
+  const { id } = useParams();
   const [scope, animate] = useAnimate();
   const [newCard, animateNewCard] = useAnimate();
   const [count, setCount] = useState(0);
+  const [isShowTime, setShowTime] = useState(false);
   const navigate = useNavigate();
 
   function sequence(direction) {
@@ -70,20 +74,21 @@ const Cards = ({
         break;
     }
 
-    if (isTimerUp) {
+    if (!isTimerUp) {
+      setCount(count + 1);
+      animateNewCard([
+        [newCard.current, { x: 0 }],
+        [newCard.current, { opacity: 0 }, { duration: 0 }],
+        [newCard.current, { x: 300 }, { duration: 0 }],
+      ]);
+      animate([[scope.current, { opacity: 100 }, { duration: 0 }]]);
+      animateNewCard([[newCard.current, { opacity: 100 }, { duration: 0 }]]);
+    } else {
+      setShowTime(true);
       setTimeout(() => {
-        navigate("/results");
-      }, 500);
+        navigate(`/results/${id}`);
+      }, 2000);
     }
-
-    setCount(count + 1);
-    animateNewCard([
-      [newCard.current, { x: 0 }],
-      [newCard.current, { opacity: 0 }, { duration: 0 }],
-      [newCard.current, { x: 300 }, { duration: 0 }],
-    ]);
-    animate([[scope.current, { opacity: 100 }, { duration: 0 }]]);
-    animateNewCard([[newCard.current, { opacity: 100 }, { duration: 0 }]]);
   }
 
   return (
@@ -132,6 +137,13 @@ const Cards = ({
         </CardBack>
       </motion.div>
 
+      {isShowTime && (
+        <Container>
+          <div>Show time </div>
+          🎊 🎉 🐊
+        </Container>
+      )}
+
       {!isTimerUp && (
         <motion.div
           style={{ position: "absolute" }}
@@ -148,3 +160,11 @@ const Cards = ({
 };
 
 export default Cards;
+const Container = styled.div`
+  font-size: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 85vh;
+`;

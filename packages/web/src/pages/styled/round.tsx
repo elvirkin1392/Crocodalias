@@ -15,6 +15,26 @@ export const Container = styled.div`
   width: 100vw;
 `;
 
+export const Container2 = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  
+  height: 100%;
+  width: 100%;
+`;
+
+export const TeamScore = styled.div`
+  font-size: 32px;
+`;
+export const RoundTitle = styled.div`
+font-size: 32px;
+  color: #e6bc4e;
+`
+export const TeamName = styled.div`
+  font-size: 20px;`
+
 export const Title = styled.div`
   color: #b3b3b3;
 `;
