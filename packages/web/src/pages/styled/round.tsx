@@ -27,6 +27,8 @@ export const Controls = styled.div`
   button {
     position: absolute;
     background: none;
+    border: none;
+    outline: none;
 
     &:focus,
     &:hover {
