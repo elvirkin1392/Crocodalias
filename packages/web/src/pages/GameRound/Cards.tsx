@@ -47,13 +47,26 @@ const Cards = ({
   function sequence(direction) {
     switch (direction) {
       case "up":
-        animate([[scope.current, { y: -1000 }]]);
+        animate([
+          [scope.current, { y: -1000 }],
+          [scope.current, { opacity: 0 }, { duration: 0 }],
+          [scope.current, { y: 0 }, { duration: 0 }],
+        ]);
         break;
       case "down":
-        animate([[scope.current, { y: 1000 }]]);
+        animate([
+          [scope.current, { y: 1000 }],
+          [scope.current, { opacity: 0 }, { duration: 0 }],
+          [scope.current, { y: 0 }, { duration: 0 }],
+        ]);
+
         break;
       case "left":
-        animate([[scope.current, { x: -400 }]]);
+        animate([
+          [scope.current, { x: -400 }],
+          [scope.current, { opacity: 0 }, { duration: 0 }],
+          [scope.current, { x: 0 }, { duration: 0 }],
+        ]);
         break;
     }
 
@@ -63,10 +76,14 @@ const Cards = ({
       }, 500);
     }
 
-    animateNewCard([[newCard.current, { x: 0 }]]);
-    setTimeout(() => {
-      setCount(count + 1);
-    }, 500);
+    setCount(count + 1);
+    animateNewCard([
+      [newCard.current, { x: 0 }],
+      [newCard.current, { opacity: 0 }, { duration: 0 }],
+      [newCard.current, { x: 300 }, { duration: 0 }],
+    ]);
+    animate([[scope.current, { opacity: 100 }, { duration: 0 }]]);
+    animateNewCard([[newCard.current, { opacity: 100 }, { duration: 0 }]]);
   }
 
   return (
@@ -79,7 +96,6 @@ const Cards = ({
       }}
     >
       <motion.div
-        key={count}
         style={{ zIndex: 2, position: "absolute" }}
         ref={scope}
         drag={!isPaused}
@@ -105,7 +121,7 @@ const Cards = ({
             <CardFace>{words[count]}</CardFace>
           ) : (
             <img
-              alt='play'
+              alt="play"
               src={playIcon}
               style={{
                 alignSelf: "center",
@@ -120,11 +136,10 @@ const Cards = ({
         <motion.div
           style={{ position: "absolute" }}
           initial={{ x: 300 }}
-          key={count + 1}
           ref={newCard}
         >
           <CardBack onClick={handlePlay} style={{ background: "red" }}>
-            <CardFace>{words[count + 1]}</CardFace>
+            <CardFace>{words[count]}</CardFace>
           </CardBack>
         </motion.div>
       )}
