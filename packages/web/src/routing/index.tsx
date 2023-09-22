@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Games from "../pages/Games";
 import GameRound from "../pages/GameRound";
-import Results from "../pages/Results";
 
 const router = createBrowserRouter([
   {
@@ -11,10 +10,6 @@ const router = createBrowserRouter([
   {
     path: "/round/:id",
     element: <GameRound />,
-  },
-  {
-    path: "/results/:id",
-    element: <Results />,
   },
 ]);
 

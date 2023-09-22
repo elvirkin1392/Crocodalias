@@ -80,7 +80,7 @@ export const timerMachine = createMachine<TimerContext, TimerEvent>({
   on: {
     "DURATION.UPDATE": {
       actions: assign({
-        duration: (_, event) => event.value,
+        duration: (context, event) => event.value
       }),
     },
     RESET: {

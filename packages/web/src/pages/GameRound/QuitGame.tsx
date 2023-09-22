@@ -24,7 +24,7 @@ const Container = styled.div`
   height: 85vh;
 `;
 
-const Quit = () => {
+const QuitGame = () => {
   const navigate = useNavigate();
   const handleQuit = (isToBeContinued) => {
     navigate("/");
@@ -41,4 +41,4 @@ const Quit = () => {
   );
 };
 
-export default Quit;
+export default QuitGame;

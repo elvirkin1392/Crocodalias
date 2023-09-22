@@ -17,9 +17,9 @@ export const classicSettingsMachine = createMachine<Context, Events>({
   initial: "generalSettings",
   context: {
     level: LEVELS.medium,
-    time: 60,
+    time: 5,
     score: 60,
-    teams: ["", ""],
+    teams: ["first", "second"],
   },
   states: {
     generalSettings: {

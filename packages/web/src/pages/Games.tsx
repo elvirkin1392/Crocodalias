@@ -1,14 +1,7 @@
 import { useState } from "react";
-import { useInterpret } from "@xstate/react";
 
 import { default as ClassicSettings } from "./ClassicSettings";
 import { default as AliasSettings } from "./AliasSettings";
-import {
-  AliasSettingsContext,
-  ClassicSettingsContext,
-} from "../context/settings";
-import { classicSettingsMachine } from "../state/classicSettings";
-import { aliasSettingsMachine } from "../state/aliasSettings";
 import Carousel from "../components/Carousel";
 import { Card } from "./styled/games";
 
@@ -47,8 +40,6 @@ const gamesInfo = [
 
 const Games = () => {
   const [selectedGame, setSelectedGame] = useState("");
-  const classicSettingsService = useInterpret(classicSettingsMachine);
-  const aliasSettingsService = useInterpret(aliasSettingsMachine);
 
   const cards = gamesInfo.map((item) => (
     <GameCard
@@ -58,13 +49,7 @@ const Games = () => {
     />
   ));
 
-  return (
-    <ClassicSettingsContext.Provider value={{ classicSettingsService }}>
-      <AliasSettingsContext.Provider value={{ aliasSettingsService }}>
-        <Carousel items={cards} />
-      </AliasSettingsContext.Provider>
-    </ClassicSettingsContext.Provider>
-  );
+  return <Carousel items={cards} />;
 };
 
 const GameCard = ({ onSelect, selectedGame, ...gameInfo }) => {

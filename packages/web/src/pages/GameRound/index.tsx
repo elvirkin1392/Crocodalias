@@ -1,48 +1,63 @@
-import { useState } from "react";
-import { useMachine } from "@xstate/react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useActor, useInterpret } from "@xstate/react";
 
-import {Container, Controls, TeamName, RoundTitle, TeamScore, Container2} from "../styled/round";
-import { timerMachine } from "../../state/timer";
-import CloseIcon from "../../assets/close.svg";
-import Content from "./Content";
-import Quit from "./Quit";
-import FooterControls from "../../components/FooterControls";
+import Results from "./Results";
+import RoundInfo from "./RoundInfo";
+import RoundPlay from "./RoundPlay";
+import { roundMachine } from "../../state/round";
+import { RoundContext } from "../../context/round";
+import { ClassicSettingsContext } from "../../context/settings";
 
 const GameRound = () => {
-  const { id } = useParams();
-  const [state, send] = useMachine(timerMachine);
-  const [isStopped, stop] = useState(false);
-  const [started, setStarted] = useState(false);
+  const roundService = useInterpret(roundMachine);
+  const [state] = useActor(
+    roundService
+  );
+  const [stage, setStage] = useState("info");
 
-  return id > 1 && !started ? (
-    <Container2 >
-      <TeamScore>32</TeamScore>
-      <TeamName>Team name 1 </TeamName>
-      <RoundTitle>Round {id}</RoundTitle>
-      <TeamName>Team name 2</TeamName>
-      <TeamScore>24</TeamScore>
-      <FooterControls
-        onClose={() => {}}
-        onSubmit={() => {
-          setStarted(true);
-        }}
-      />
-    </Container2>
-  ) : (
-    <Container>
-      <Controls>
-        <button
-          onClick={() => {
-            send("PAUSE");
-            stop(!isStopped);
-          }}
-        >
-          <img src={CloseIcon} alt="close" />
-        </button>
-      </Controls>{" "}
-      {isStopped ? <Quit /> : <Content machine={{ state, send }} />}
-    </Container>
+  const { send } = roundService;
+  const classicSettingsContext = useContext(ClassicSettingsContext);
+  const [settingsState] = useActor(
+    classicSettingsContext.classicSettingsService
+  );
+
+  useEffect(() => {
+    if(state.context.round > 1) {
+      return;
+    }
+    const teams = settingsState.context.teams.map((item) => ({
+      name: item,
+      totalScore: 0,
+    }));
+    send("SET_TEAMS", { value: teams });
+  }, []);
+
+  const getStage = () => {
+    let component;
+    switch (stage) {
+      case "play":
+        component = <RoundPlay handleSubmit={(results) => {
+          send("SET_TEAMS", {value: results});
+          setStage("result")
+        }} />;
+        break;
+      case "info":
+        component = <RoundInfo handleSubmit={() => setStage("play")} />;
+        break;
+      case "result":
+        component = <Results handleSubmit={() => {
+          send("NEXT_ROUND");
+          setStage("info");
+        }} />;
+        break;
+    }
+    return component;
+  };
+
+  return (
+    <RoundContext.Provider value={{ roundService }}>
+      {getStage()}
+    </RoundContext.Provider>
   );
 };
 

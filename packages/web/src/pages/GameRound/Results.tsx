@@ -1,11 +1,16 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useContext} from "react";
 import styled from "styled-components";
-import FooterControls from "../components/FooterControls";
+import {useActor} from "@xstate/react";
 
-const Results = () => {
-  const { id } = useParams();
+import FooterControls from "../../components/FooterControls";
+import {RoundContext} from "../../context/round";
+
+const Results = ({ handleSubmit }) => {
+  const roundContext = useContext(RoundContext);
+  const [state] = useActor(roundContext.roundService);
+  const { teams, words, turn } = state.context;
+
   const winnerId = "1";
-  const navigate = useNavigate();
   const items = [
     {
       word: "velocity",
@@ -25,14 +30,10 @@ const Results = () => {
   ];
 
   return (
-    <Container
-      onClick={() => {
-        // navigate("/round/1");
-      }}
-    >
+    <Container>
       <Title>Round results</Title>
-      <Score>+1</Score>
-      <TeamName>Team first</TeamName>
+      <Score>{teams[turn % (teams.length + 1)].totalScore}</Score>
+      <TeamName>{teams[turn % (teams.length + 1)].name}</TeamName>
       <WordsList>
         {items.map((item) => (
           <div style={{ color: item.teamId === winnerId ? "black" : "red" }}>
@@ -42,15 +43,10 @@ const Results = () => {
         ))}
       </WordsList>
 
-      <TeamName>Team second</TeamName>
-      <Score style={{ color: "red" }}>+1</Score>
+      <TeamName>{teams[(turn + 1) % (teams.length + 1)].name}</TeamName>
+      <Score style={{ color: "red" }}>{teams[(turn + 1) % (teams.length + 1)].totalScore}</Score>
 
-      <FooterControls
-        onClose={() => {}}
-        onSubmit={() => {
-          navigate(`/round/${+id+1}`);
-        }}
-      />
+      <FooterControls onClose={() => {}} onSubmit={handleSubmit} />
     </Container>
   );
 };

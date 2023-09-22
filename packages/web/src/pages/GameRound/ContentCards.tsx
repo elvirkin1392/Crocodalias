@@ -4,8 +4,6 @@ import { motion, useAnimate } from "framer-motion";
 
 import playIcon from "../../assets/play.svg";
 import { CardBack, CardFace } from "../styled/round";
-import {useNavigate, useParams} from "react-router-dom";
-
 
 const words = [
   "velocity",
@@ -32,7 +30,7 @@ const words = [
   "all",
 ];
 
-const Cards = ({
+const ContentCards = ({
   setScore,
   score,
   isPaused,
@@ -40,13 +38,12 @@ const Cards = ({
   isTimerUp,
   competitorScore,
   setCompetitorScore,
+  handleFinishRound,
 }) => {
-  const { id } = useParams();
   const [scope, animate] = useAnimate();
   const [newCard, animateNewCard] = useAnimate();
   const [count, setCount] = useState(0);
   const [isShowTime, setShowTime] = useState(false);
-  const navigate = useNavigate();
 
   function sequence(direction) {
     switch (direction) {
@@ -81,12 +78,14 @@ const Cards = ({
         [newCard.current, { opacity: 0 }, { duration: 0 }],
         [newCard.current, { x: 300 }, { duration: 0 }],
       ]);
+
       animate([[scope.current, { opacity: 100 }, { duration: 0 }]]);
       animateNewCard([[newCard.current, { opacity: 100 }, { duration: 0 }]]);
     } else {
       setShowTime(true);
+
       setTimeout(() => {
-        navigate(`/results/${id}`);
+        handleFinishRound();
       }, 2000);
     }
   }
@@ -159,7 +158,7 @@ const Cards = ({
   );
 };
 
-export default Cards;
+export default ContentCards;
 const Container = styled.div`
   font-size: 56px;
   display: flex;
