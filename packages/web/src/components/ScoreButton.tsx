@@ -1,14 +1,19 @@
 import starIcon from "../assets/star.svg";
-import {Container} from "./styled/scoreButton";
+import { Container } from "./styled/scoreButton";
 import Stars from "./Stars";
 import DigitalButton from "./DigitalButton";
 
-const ScoreButton = ({ handleClick, value }) => {
+type ScoreButtonProps = {
+  handleClick: () => void;
+  value: number;
+};
+
+const ScoreButton = ({ handleClick, value }: ScoreButtonProps) => {
   return (
     <Container>
       <Stars>
         <img src={starIcon} style={{ left: "30%" }} />
-        <img src={starIcon} style={{ left: "47%", top: '-10px' }} />
+        <img src={starIcon} style={{ left: "47%", top: "-10px" }} />
         <img src={starIcon} style={{ right: "30%" }} />
       </Stars>
 

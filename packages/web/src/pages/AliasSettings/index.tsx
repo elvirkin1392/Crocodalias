@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useActor } from "@xstate/react";
 
@@ -6,16 +6,21 @@ import SettingsScore from "../ClassicSettings/SettingsScore";
 import SettingsTime from "../ClassicSettings/SettingsTime";
 import SettingsLevel from "../ClassicSettings/SettingsLevel";
 
-import { AliasSettingsContext } from "../../context/settings";
+import { useAliasSettingsService } from "../../context/settings";
 import { Title, LevelButton } from "../styled/settingsGeneral";
 import FooterControls from "../../components/FooterControls";
 import TimeButton from "../../components/TimeButton";
 import ScoreButton from "../../components/ScoreButton";
 
-const AliasSettings = ({ onClose, children }) => {
-  const aliasSettingsContext = useContext(AliasSettingsContext);
-  const [state] = useActor(aliasSettingsContext.aliasSettingsService);
-  const { send } = aliasSettingsContext.aliasSettingsService;
+type AliasSettingsProps = {
+  onClose: () => void;
+  children: ReactNode;
+};
+
+const AliasSettings = ({ onClose, children }: AliasSettingsProps) => {
+  const aliasSettingsService = useAliasSettingsService();
+  const [state] = useActor(aliasSettingsService);
+  const { send } = aliasSettingsService;
 
   const { score, level, time } = state.context;
 

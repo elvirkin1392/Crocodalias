@@ -2,7 +2,12 @@ import { Container, Controls } from "./styled/footerControls";
 import OkayIcon from "../assets/okay.svg";
 import CloseIcon from "../assets/close.svg";
 
-const FooterControls = ({ onClose, onSubmit }) => {
+type FooterControlsProps = {
+  onClose: () => void;
+  onSubmit: () => void;
+};
+
+const FooterControls = ({ onClose, onSubmit }: FooterControlsProps) => {
   return (
     <Container>
       <Controls>

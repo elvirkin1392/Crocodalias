@@ -1,23 +1,36 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useActor } from "@xstate/react";
+import type { InterpreterFrom, StateFrom } from "xstate";
 
-import { ClassicSettingsContext } from "../../context/settings";
-import { RoundContext } from "../../context/round";
+import { useClassicSettingsService } from "../../context/settings";
+import { useRoundService } from "../../context/round";
 import { Footer, Title } from "../styled/round";
 import ContentCards from "./ContentCards";
 import { Timer } from "./Timer";
+import { timerMachine } from "../../state/timer";
+import type { Team } from "../../state/round";
 
-const RoundContent = ({ timeMachine, handleFinishRound }) => {
+export type TimeMachine = {
+  state: StateFrom<typeof timerMachine>;
+  send: InterpreterFrom<typeof timerMachine>["send"];
+};
+
+type RoundContentProps = {
+  timeMachine: TimeMachine;
+  handleFinishRound: (results: Team[]) => void;
+};
+
+const RoundContent = ({
+  timeMachine,
+  handleFinishRound,
+}: RoundContentProps) => {
   const { state: stateTime, send: sendTime } = timeMachine;
   const [score, setScore] = useState(0);
   const [competitorScore, setCompetitorScore] = useState(0);
 
-  const cSContext = useContext(ClassicSettingsContext);
-  const [settingsState] = useActor(cSContext.classicSettingsService);
-
-  const roundContext = useContext(RoundContext);
-  const [state] = useActor(roundContext.roundService);
-  const { teams, words, turn } = state.context;
+  const [settingsState] = useActor(useClassicSettingsService());
+  const [state] = useActor(useRoundService());
+  const { teams, turn } = state.context;
 
   useEffect(() => {
     sendTime("DURATION.UPDATE", { value: settingsState.context.time });
@@ -28,7 +41,7 @@ const RoundContent = ({ timeMachine, handleFinishRound }) => {
 
   return (
     <>
-      <Title style={{ color: isTimerUp && "#000" }}>
+      <Title style={{ color: isTimerUp ? "#000" : undefined }}>
         {teams[(turn + 1) % (teams.length + 1)].name} {competitorScore}
       </Title>
       <ContentCards
@@ -42,8 +55,8 @@ const RoundContent = ({ timeMachine, handleFinishRound }) => {
         }}
         isTimerUp={isTimerUp}
         handleFinishRound={() => {
-//TODO run after state has been update or another solution
-          const results = [];
+          //TODO run after state has been update or another solution
+          const results: Team[] = [];
           results[turn % (teams.length + 1)] = {
             name: teams[turn % (teams.length + 1)].name,
             totalScore: score,
@@ -54,7 +67,6 @@ const RoundContent = ({ timeMachine, handleFinishRound }) => {
           };
 
           handleFinishRound(results);
-
         }}
       />
       <Footer>

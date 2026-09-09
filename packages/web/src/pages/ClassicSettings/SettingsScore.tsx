@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import FooterControls from "../../components/FooterControls";
 import { Title, SSlider } from "../styled/settingsGeneral";
-import {Container} from "../styled/general";
+import { Container } from "../styled/general";
 import ScoreButton from "../../components/ScoreButton";
+
+type ScoreSettingsProps = {
+  defaultValue: number;
+  title: ReactNode;
+  onSubmit: (value: number) => void;
+  onClose: () => void;
+};
 
 const ScoreSettings = ({
   defaultValue,
   onSubmit,
   onClose,
   title,
-}: {
-  defaultValue: number;
-}) => {
+}: ScoreSettingsProps) => {
   const [score, setScore] = useState(defaultValue);
   function preventHorizontalKeyboardNavigation(event: React.KeyboardEvent) {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
@@ -22,7 +27,7 @@ const ScoreSettings = ({
   return (
     <Container>
       <Title>{title}: Winner score</Title>
-      <ScoreButton handleClick={() => onSubmit(score)} value={score}/>
+      <ScoreButton handleClick={() => onSubmit(score)} value={score} />
 
       <div style={{ height: "400px" }}>
         <SSlider
@@ -36,7 +41,7 @@ const ScoreSettings = ({
           aria-label="score"
           valueLabelDisplay="auto"
           onKeyDown={preventHorizontalKeyboardNavigation}
-          onChange={(event, newValue) => {
+          onChange={(_event, newValue) => {
             if (Array.isArray(newValue)) {
               return;
             }

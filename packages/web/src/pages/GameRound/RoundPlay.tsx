@@ -6,8 +6,13 @@ import RoundContent from "./RoundContent";
 import CloseIcon from "../../assets/close.svg";
 import { timerMachine } from "../../state/timer";
 import { Container, Controls } from "../styled/round";
+import type { Team } from "../../state/round";
 
-const RoundPlay = ({handleSubmit}) => {
+type RoundPlayProps = {
+  handleSubmit: (results: Team[]) => void;
+};
+
+const RoundPlay = ({ handleSubmit }: RoundPlayProps) => {
   const [state, send] = useMachine(timerMachine);
   const [isStopped, stop] = useState(false);
 

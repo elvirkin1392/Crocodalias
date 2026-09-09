@@ -1,11 +1,18 @@
 import { Time } from "../styled/round";
+import type { TimerContext } from "../../state/timer";
 
-export const Timer = ({ value, onStart, onPause }) => {
+type TimerProps = {
+  value: TimerContext;
+  onStart: () => void;
+  onPause: () => void;
+};
+
+export const Timer = ({ value, onStart, onPause }: TimerProps) => {
   const { elapsed, duration, isPaused } = value;
 
   return (
     <Time onClick={isPaused ? onStart : onPause}>
-      {duration - elapsed.toFixed(0)}
+      {duration - Number(elapsed.toFixed(0))}
     </Time>
   );
 };

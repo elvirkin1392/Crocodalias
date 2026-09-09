@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Container } from "../styled/general";
@@ -6,7 +6,19 @@ import { Title } from "../styled/settingsGeneral";
 import FooterControls from "../../components/FooterControls";
 import { getRandomTeams } from "../../mocks/teams";
 
-const SettingsTeam = ({ onSubmit, onClose, title, defaultValue }) => {
+type SettingsTeamProps = {
+  defaultValue: string[];
+  title: ReactNode;
+  onSubmit: (value: string[]) => void;
+  onClose: () => void;
+};
+
+const SettingsTeam = ({
+  onSubmit,
+  onClose,
+  title,
+  defaultValue,
+}: SettingsTeamProps) => {
   const navigate = useNavigate();
   const [teams, setTeams] = useState(
     getRandomTeams(defaultValue && defaultValue.length)
@@ -24,7 +36,7 @@ const SettingsTeam = ({ onSubmit, onClose, title, defaultValue }) => {
             >
               <button
                 onClick={() => {
-                  let updatedTeams = [...teams];
+                  const updatedTeams = [...teams];
                   updatedTeams.splice(index, 1);
                   setTeams(updatedTeams);
                 }}
@@ -50,10 +62,13 @@ const SettingsTeam = ({ onSubmit, onClose, title, defaultValue }) => {
         +
       </button>
 
-      <FooterControls onClose={onClose} onSubmit={() => {
-        onSubmit(teams);
-        navigate('round/1')
-      }} />
+      <FooterControls
+        onClose={onClose}
+        onSubmit={() => {
+          onSubmit(teams);
+          navigate("round/1");
+        }}
+      />
     </Container>
   );
 };

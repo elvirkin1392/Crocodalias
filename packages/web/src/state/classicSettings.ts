@@ -1,25 +1,17 @@
 import { createMachine, assign } from "xstate";
 import { LEVELS } from "../enums/settings";
+import type { SettingsContext, SettingsEvent } from "./settings";
 
-type Context = { level: LEVELS; time: number; score: number, teams: [string, string] };
-type Events =
-  | { type: "OPEN_SCORE_SETTINGS" }
-  | { type: "OPEN_TIME_SETTINGS" }
-  | { type: "OPEN_LEVEL_SETTINGS" }
-  | { type: "OPEN_TEAM_SETTINGS" }
-  | { type: "SUBMIT_SCORE"; value: number }
-  | { type: "SUBMIT_TIME"; value: number }
-  | { type: "SUBMIT_TEAM"; value: number }
-  | { type: "SUBMIT_LEVEL"; value: LEVELS }
-  | { type: "BACK" };
-
-export const aliasSettingsMachine = createMachine<Context, Events>({
+export const classicSettingsMachine = createMachine<
+  SettingsContext,
+  SettingsEvent
+>({
   initial: "generalSettings",
   context: {
     level: LEVELS.medium,
-    time: 60,
+    time: 5,
     score: 60,
-    teams: ["", ""],
+    teams: ["first", "second"],
   },
   states: {
     generalSettings: {
@@ -34,7 +26,7 @@ export const aliasSettingsMachine = createMachine<Context, Events>({
       on: {
         SUBMIT_SCORE: {
           target: "generalSettings",
-          actions: assign({ score: (context, event) => event.value }),
+          actions: assign({ score: (_context, event) => event.value }),
           cond: (context) => context.score >= 10 && context.score <= 100,
         },
       },
@@ -43,7 +35,7 @@ export const aliasSettingsMachine = createMachine<Context, Events>({
       on: {
         SUBMIT_TIME: {
           target: "generalSettings",
-          actions: assign({ time: (context, event) => event.value }),
+          actions: assign({ time: (_context, event) => event.value }),
           cond: (context) => context.score >= 10 && context.score <= 5 * 60,
         },
       },
@@ -52,15 +44,15 @@ export const aliasSettingsMachine = createMachine<Context, Events>({
       on: {
         SUBMIT_LEVEL: {
           target: "generalSettings",
-          actions: assign({ level: (context, event) => event.value }),
+          actions: assign({ level: (_context, event) => event.value }),
         },
       },
     },
     teamSettings: {
       on: {
-        SUBMIT_TEAM: {
+        SUBMIT_TEAMS: {
           target: "generalSettings",
-          actions: assign({ teamAmount: (context, event) => event.value }),
+          actions: assign({ teams: (_context, event) => event.value }),
         },
       },
     },
@@ -71,7 +63,7 @@ export const aliasSettingsMachine = createMachine<Context, Events>({
     },
   },
   schema: {
-    context: {} as Context,
-    events: {} as Events,
+    context: {} as SettingsContext,
+    events: {} as SettingsEvent,
   },
 });

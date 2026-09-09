@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimate } from "framer-motion";
 
@@ -30,6 +30,19 @@ const words = [
   "all",
 ];
 
+type SwipeDirection = "up" | "down" | "left";
+
+type ContentCardsProps = {
+  score: number;
+  setScore: Dispatch<SetStateAction<number>>;
+  competitorScore: number;
+  setCompetitorScore: Dispatch<SetStateAction<number>>;
+  isPaused: boolean;
+  isTimerUp: boolean;
+  handlePlay: () => void;
+  handleFinishRound: () => void;
+};
+
 const ContentCards = ({
   setScore,
   score,
@@ -39,13 +52,13 @@ const ContentCards = ({
   competitorScore,
   setCompetitorScore,
   handleFinishRound,
-}) => {
+}: ContentCardsProps) => {
   const [scope, animate] = useAnimate();
   const [newCard, animateNewCard] = useAnimate();
   const [count, setCount] = useState(0);
   const [isShowTime, setShowTime] = useState(false);
 
-  function sequence(direction) {
+  function sequence(direction: SwipeDirection) {
     switch (direction) {
       case "up":
         animate([
@@ -105,7 +118,7 @@ const ContentCards = ({
         drag={!isPaused}
         dragDirectionLock
         dragConstraints={isTimerUp ? { right: 0 } : { right: 0, top: 0 }}
-        onDragEnd={(event, info) => {
+        onDragEnd={(_event, info) => {
           if (Math.abs(info.offset.y) > Math.abs(info.offset.x)) {
             if (isTimerUp && info.offset.y < -5) {
               sequence("up");

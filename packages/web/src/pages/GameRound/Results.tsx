@@ -1,17 +1,25 @@
-import {useContext} from "react";
 import styled from "styled-components";
-import {useActor} from "@xstate/react";
+import { useActor } from "@xstate/react";
 
 import FooterControls from "../../components/FooterControls";
-import {RoundContext} from "../../context/round";
+import { useRoundService } from "../../context/round";
 
-const Results = ({ handleSubmit }) => {
-  const roundContext = useContext(RoundContext);
-  const [state] = useActor(roundContext.roundService);
-  const { teams, words, turn } = state.context;
+type RoundResult = {
+  word: string;
+  count: number;
+  teamId: string;
+};
+
+type ResultsProps = {
+  handleSubmit: () => void;
+};
+
+const Results = ({ handleSubmit }: ResultsProps) => {
+  const [state] = useActor(useRoundService());
+  const { teams, turn } = state.context;
 
   const winnerId = "1";
-  const items = [
+  const items: RoundResult[] = [
     {
       word: "velocity",
       count: 1,
@@ -35,8 +43,11 @@ const Results = ({ handleSubmit }) => {
       <Score>{teams[turn % (teams.length + 1)].totalScore}</Score>
       <TeamName>{teams[turn % (teams.length + 1)].name}</TeamName>
       <WordsList>
-        {items.map((item) => (
-          <div style={{ color: item.teamId === winnerId ? "black" : "red" }}>
+        {items.map((item, index) => (
+          <div
+            key={index}
+            style={{ color: item.teamId === winnerId ? "black" : "red" }}
+          >
             <div>{item.word}</div>
             <div>{item.count}</div>
           </div>

@@ -1,57 +1,94 @@
-import { useRef,useEffect, useState } from "react";
-import {Items, Item, Selected, Container} from './styled/verticalSelect';
+import { useRef, useEffect, useState } from "react";
+import { Items, Item, Container } from "./styled/verticalSelect";
 
 const itemsHeight = 218;
 
-export default function VerticalSelect({items, selectedValue, handleSelect, handleClose}) {
-  const slider = useRef(null);
+export type SelectItem<TValue extends string> = {
+  id: TValue;
+  name: string;
+};
 
-  const [isActive, setIsActive] = useState<Boolean>(false);
-  const [startY, setStartY] = useState<Number>();
-  const [scrollTopPrev, setScrollTopPrev] = useState<Number>();
+type VerticalSelectProps<TValue extends string> = {
+  items: SelectItem<TValue>[];
+  selectedValue: TValue;
+  handleSelect: (value: TValue) => void;
+  handleClose: () => void;
+};
+
+export default function VerticalSelect<TValue extends string>({
+  items,
+  selectedValue,
+  handleSelect,
+  handleClose,
+}: VerticalSelectProps<TValue>) {
+  const slider = useRef<HTMLUListElement>(null);
+
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [startY, setStartY] = useState<number>(0);
+  const [scrollTopPrev, setScrollTopPrev] = useState<number>(0);
 
   useEffect(() => {
-    let index = items.findIndex((item) =>  item.id === selectedValue)
+    const element = slider.current;
 
-    slider.current.scrollTo({
-      top:  index * itemsHeight
+    if (!element) {
+      return;
+    }
+
+    const index = items.findIndex((item) => item.id === selectedValue);
+
+    element.scrollTo({
+      top: index * itemsHeight,
     });
   }, []);
 
-  function updateSelection(e) {
-    let index = Math.floor(slider.current.scrollTop / itemsHeight);
-    let diff = slider.current.scrollTop - index * itemsHeight;
-    index = diff > (itemsHeight/2) ? index + 1 : index;
+  function updateSelection() {
+    const element = slider.current;
 
-    handleSelect(slider.current.querySelectorAll("li")[index]?.id);
+    if (!element) {
+      return;
+    }
 
-    slider.current.scrollTo({
+    let index = Math.floor(element.scrollTop / itemsHeight);
+    const diff = element.scrollTop - index * itemsHeight;
+    index = diff > itemsHeight / 2 ? index + 1 : index;
+
+    const selected = items[index];
+
+    if (selected) {
+      handleSelect(selected.id);
+    }
+
+    element.scrollTo({
       top: index * itemsHeight,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   }
 
   return (
     <Container>
-      {/*<Selected className="selected" style={{ height: `${itemsHeight}px` }}/>*/}
       <Items
         className={`items ${isActive && "active"}`}
-        onMouseLeave={(e) => {
+        onMouseLeave={() => {
           setIsActive(false);
         }}
-        onTouchEnd={(e) => {
+        onTouchEnd={() => {
           setIsActive(false);
-          updateSelection(e);
+          updateSelection();
         }}
         onTouchStart={(e) => {
           setIsActive(true);
           setStartY(e.targetTouches[0].pageY);
-          // handleSelect("");
-          setScrollTopPrev(slider.current.scrollTop);
+          setScrollTopPrev(slider.current?.scrollTop ?? 0);
         }}
         onTouchMove={(e) => {
-          let scrollTo = scrollTopPrev - (e.targetTouches[0].pageY - startY) * 2;
-          slider.current.scrollTop = scrollTo;
+          const element = slider.current;
+
+          if (!element) {
+            return;
+          }
+
+          element.scrollTop =
+            scrollTopPrev - (e.targetTouches[0].pageY - startY) * 2;
         }}
         ref={slider}
       >
@@ -64,7 +101,7 @@ export default function VerticalSelect({items, selectedValue, handleSelect, hand
               className={`item ${
                 selectedValue === item.id ? "selectedItem" : ""
               }`}
-              onClick={() => selectedValue == item.id && handleClose()}
+              onClick={() => selectedValue === item.id && handleClose()}
             >
               <div>{item.name}</div>
             </Item>
@@ -74,4 +111,3 @@ export default function VerticalSelect({items, selectedValue, handleSelect, hand
     </Container>
   );
 }
-

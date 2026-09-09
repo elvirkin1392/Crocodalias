@@ -1,13 +1,13 @@
 import { createMachine, assign } from "xstate";
 
-interface TimerContext {
+export interface TimerContext {
   elapsed: number;
   duration: number;
   interval: number;
   isPaused: boolean;
 }
 
-type TimerEvent =
+export type TimerEvent =
   | {
       type: "TICK";
     }
@@ -80,7 +80,7 @@ export const timerMachine = createMachine<TimerContext, TimerEvent>({
   on: {
     "DURATION.UPDATE": {
       actions: assign({
-        duration: (context, event) => event.value
+        duration: (_context, event) => event.value
       }),
     },
     RESET: {

@@ -6,12 +6,12 @@ const teams = [
   "Agatha Crispy",
 ];
 
-export const getRandomTeams = function (amount) {
+export const getRandomTeams = function (amount: number): string[] {
   if (amount === 0) {
     return [];
   }
-  let range = Math.floor(teams.length / amount);
-  let result = [];
+  const range = Math.floor(teams.length / amount);
+  const result: string[] = [];
 
   for (let i = 0; i <= amount - 1; i++) {
     result.push(teams[i * range + Math.floor(Math.random() * range)]);

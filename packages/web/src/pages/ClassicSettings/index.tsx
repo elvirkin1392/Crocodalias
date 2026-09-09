@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useActor } from "@xstate/react";
 
@@ -10,12 +10,17 @@ import SettingsLevel from "./SettingsLevel";
 import SettingsTeam from "./SettingsTeam";
 import TimeButton from "../../components/TimeButton";
 import ScoreButton from "../../components/ScoreButton";
-import { ClassicSettingsContext } from "../../context/settings";
+import { useClassicSettingsService } from "../../context/settings";
 
-const ClassicSettings = ({ onClose, children }) => {
-  const classicSettingsContext = useContext(ClassicSettingsContext);
-  const [state] = useActor(classicSettingsContext.classicSettingsService);
-  const { send } = classicSettingsContext.classicSettingsService;
+type ClassicSettingsProps = {
+  onClose: () => void;
+  children: ReactNode;
+};
+
+const ClassicSettings = ({ onClose, children }: ClassicSettingsProps) => {
+  const classicSettingsService = useClassicSettingsService();
+  const [state] = useActor(classicSettingsService);
+  const { send } = classicSettingsService;
 
   const { score, level, time, teams } = state.context;
 

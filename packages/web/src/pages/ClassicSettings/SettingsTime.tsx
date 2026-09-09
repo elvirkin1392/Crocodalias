@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { Container } from "../styled/general";
 import TimeButton from "../../components/TimeButton";
 import { Title, SSlider } from "../styled/settingsGeneral";
 import FooterControls from "../../components/FooterControls";
 
+type SettingsTimeProps = {
+  defaultValue: number;
+  title: ReactNode;
+  onSubmit: (value: number) => void;
+  onClose: () => void;
+};
+
 const SettingsTime = ({
   defaultValue,
   onSubmit,
   onClose,
   title,
-}: {
-  defaultValue: number;
-}) => {
+}: SettingsTimeProps) => {
   const [time, setTime] = useState(defaultValue);
 
   function preventHorizontalKeyboardNavigation(event: React.KeyboardEvent) {
@@ -38,7 +43,7 @@ const SettingsTime = ({
           aria-label="time"
           valueLabelDisplay="auto"
           onKeyDown={preventHorizontalKeyboardNavigation}
-          onChange={(event, newValue) => {
+          onChange={(_event, newValue) => {
             if (Array.isArray(newValue)) {
               return;
             }

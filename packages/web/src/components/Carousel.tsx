@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
 import { CardContainer, Carousel as CarouselContainer } from "./styled/carousel";
@@ -23,7 +23,11 @@ const variants = {
     };
   },
 };
-const Carousel = ({ items }) => {
+type CarouselProps = {
+  items: ReactNode[];
+};
+
+const Carousel = ({ items }: CarouselProps) => {
   const swipeConfidenceThreshold = 10000;
   const [[page, direction], setPage] = useState([0, 0]);
 
@@ -53,7 +57,7 @@ const Carousel = ({ items }) => {
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={1}
-          onDragEnd={(e, { offset, velocity }) => {
+          onDragEnd={(_event, { offset, velocity }) => {
             const swipe = swipePower(offset.x, velocity.x);
 
             if (swipe < -swipeConfidenceThreshold) {

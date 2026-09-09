@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 import { default as ClassicSettings } from "./ClassicSettings";
 import { default as AliasSettings } from "./AliasSettings";
@@ -11,7 +11,16 @@ enum games {
   hat = "hat",
 }
 
-const gamesInfo = [
+type SelectGame = (game: games | "") => void;
+
+type GameInfo = {
+  type: games;
+  name: string;
+  image: string;
+  getSettingsComponent: (handleClose: SelectGame, name: string) => ReactElement;
+};
+
+const gamesInfo: GameInfo[] = [
   {
     type: games.crocodile,
     name: "Crocodile",
@@ -32,17 +41,16 @@ const gamesInfo = [
     type: games.hat,
     name: "The hat",
     image: "",
-    getSettingsComponent: (handleClose, name) => (
-      <div onClose={() => handleClose("")}>{name}</div>
-    ),
+    getSettingsComponent: (_handleClose, name) => <div>{name}</div>,
   },
 ];
 
 const Games = () => {
-  const [selectedGame, setSelectedGame] = useState("");
+  const [selectedGame, setSelectedGame] = useState<games | "">("");
 
   const cards = gamesInfo.map((item) => (
     <GameCard
+      key={item.type}
       onSelect={setSelectedGame}
       selectedGame={selectedGame}
       {...item}
@@ -52,7 +60,12 @@ const Games = () => {
   return <Carousel items={cards} />;
 };
 
-const GameCard = ({ onSelect, selectedGame, ...gameInfo }) => {
+type GameCardProps = GameInfo & {
+  onSelect: SelectGame;
+  selectedGame: games | "";
+};
+
+const GameCard = ({ onSelect, selectedGame, ...gameInfo }: GameCardProps) => {
   return selectedGame === gameInfo.type ? (
     gameInfo.getSettingsComponent(onSelect, gameInfo.name)
   ) : (

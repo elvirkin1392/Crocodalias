@@ -26,13 +26,13 @@ const Container = styled.div`
 
 const QuitGame = () => {
   const navigate = useNavigate();
-  const handleQuit = (isToBeContinued) => {
+  const handleQuit = (_isToBeContinued: boolean) => {
     navigate("/");
   };
   return (
     <Container>
       <Button>
-        <button onClick={handleQuit}>Finish the game</button>
+        <button onClick={() => handleQuit(false)}>Finish the game</button>
       </Button>
       <Button>
         <button onClick={() => handleQuit(true)}>Continue later </button>

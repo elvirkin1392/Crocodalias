@@ -1,14 +1,16 @@
-import { useContext } from "react";
 import { useActor } from "@xstate/react";
 
 import { Container2, RoundTitle, TeamName, TeamScore } from "../styled/round";
 import FooterControls from "../../components/FooterControls";
-import { RoundContext } from "../../context/round";
+import { useRoundService } from "../../context/round";
 
-const RoundInfo = ({ handleSubmit }) => {
-  const roundContext = useContext(RoundContext);
-  const [state] = useActor(roundContext.roundService);
-  const {teams, round} = state.context;
+type RoundInfoProps = {
+  handleSubmit: () => void;
+};
+
+const RoundInfo = ({ handleSubmit }: RoundInfoProps) => {
+  const [state] = useActor(useRoundService());
+  const { teams, round } = state.context;
 
   return (
     <Container2>
