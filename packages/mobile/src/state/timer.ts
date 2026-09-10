@@ -24,7 +24,7 @@ const ticker = fromCallback<TimerEvent, { interval: number }>(
     return () => {
       clearInterval(id);
     };
-  }
+  },
 );
 
 export const timerMachine = setup({

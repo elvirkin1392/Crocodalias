@@ -56,7 +56,7 @@ export const roundMachine = setup({
               context.teams.map((team, index) =>
                 index === event.teamIndex
                   ? { ...team, totalScore: team.totalScore + event.points }
-                  : team
+                  : team,
               ),
           }),
         },

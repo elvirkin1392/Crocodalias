@@ -1,5 +1,9 @@
 import { LEVELS } from '../enums/settings';
-import { createDictionaryLoader, type DeckCache, type DeckSource } from './createLoader';
+import {
+  createDictionaryLoader,
+  type DeckCache,
+  type DeckSource,
+} from './createLoader';
 import advanced from './ru/advanced.json';
 import easy from './ru/easy.json';
 import medium from './ru/medium.json';
