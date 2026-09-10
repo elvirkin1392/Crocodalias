@@ -10,7 +10,8 @@
  * speech, not just its nominative form, so "ножницы" is not punished for
  * rarely appearing in the singular.
  *
- * Output: packages/web/public/dictionaries/ru/{level}.json
+ * Output: {level}.json in packages/web/public/dictionaries/ru (served as
+ * static files) and packages/mobile/src/dictionaries/ru (bundled into the app).
  */
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -20,7 +21,16 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const cacheDir = join(root, "scripts", ".cache");
-const outDir = join(root, "packages", "web", "public", "dictionaries", "ru");
+const outDirs = [
+  join(root, "packages", "web", "public", "dictionaries", "ru"),
+  join(root, "packages", "mobile", "src", "dictionaries", "ru"),
+];
+
+async function writeToAll(name, content) {
+  for (const dir of outDirs) {
+    await writeFile(join(dir, name), content);
+  }
+}
 
 const SOURCES = {
   nouns:
@@ -270,7 +280,9 @@ async function main() {
       `(${pools.concrete.length} concrete, ${pools.abstract.length} abstract)`
   );
 
-  await mkdir(outDir, { recursive: true });
+  for (const dir of outDirs) {
+    await mkdir(dir, { recursive: true });
+  }
 
   const index = {
     language: "ru",
@@ -297,7 +309,7 @@ async function main() {
   for (const level of LEVELS) {
     const words = decks[level];
 
-    await writeFile(join(outDir, `${level}.json`), JSON.stringify(words));
+    await writeToAll(`${level}.json`, JSON.stringify(words));
     index.levels[level] = words.length;
 
     console.log(
@@ -306,8 +318,8 @@ async function main() {
     );
   }
 
-  await writeFile(join(outDir, "index.json"), JSON.stringify(index, null, 2));
-  console.log(`Written to ${outDir}`);
+  await writeToAll("index.json", JSON.stringify(index, null, 2));
+  console.log(`Written to:\n  ${outDirs.join("\n  ")}`);
 }
 
 main().catch((error) => {

@@ -1,7 +1,8 @@
 # Словари
 
-Колоды слов для игр лежат в `packages/web/public/dictionaries/` и отдаются
-статикой. Они собираются скриптом `scripts/build-dictionaries.mjs` из открытых
+Колоды слов для игр лежат в двух местах: `packages/web/public/dictionaries/`
+(веб отдаёт их статикой) и `packages/mobile/src/dictionaries/` (входят в бандл
+приложения). Они собираются скриптом `scripts/build-dictionaries.mjs` из открытых
 источников — вручную файлы не редактируются.
 
 ```bash

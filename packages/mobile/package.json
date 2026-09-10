@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~57.0.17",
+    "@xstate/react": "^6.1.0",
     "expo": "~57.0.21",
     "expo-constants": "~57.0.17",
     "expo-device": "~57.0.1",
@@ -25,7 +26,8 @@
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
     "react-native-web": "~0.21.0",
-    "react-native-worklets": "0.10.1"
+    "react-native-worklets": "0.10.1",
+    "xstate": "^5.32.6"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
