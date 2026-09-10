@@ -1,4 +1,4 @@
-import { LEVELS } from '../enums/settings';
+import { LEVELS } from '@/enums/settings';
 import { createSettingsMachine } from './settings';
 
 export const aliasSettingsMachine = createSettingsMachine('aliasSettings', {
