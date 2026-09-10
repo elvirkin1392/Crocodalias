@@ -20,10 +20,13 @@ export type SettingsEvent =
   | { type: 'SUBMIT_LEVEL'; value: LEVELS }
   | { type: 'BACK' };
 
-/**
- * Settings screens are the same for every game; only the defaults differ.
- * Each game builds its own machine from this one definition.
- */
+export const SCORE_LIMITS = { min: 10, max: 100 };
+
+export const TIME_LIMITS = { min: 10, max: 5 * 60 };
+
+const within = (value: number, { min, max }: { min: number; max: number }) =>
+  value >= min && value <= max;
+
 export function createSettingsMachine(id: string, defaults: SettingsContext) {
   return setup({
     types: {
@@ -48,7 +51,7 @@ export function createSettingsMachine(id: string, defaults: SettingsContext) {
           SUBMIT_SCORE: {
             target: 'generalSettings',
             actions: assign({ score: ({ event }) => event.value }),
-            guard: ({ context }) => context.score >= 10 && context.score <= 100,
+            guard: ({ event }) => within(event.value, SCORE_LIMITS),
           },
         },
       },
@@ -57,7 +60,7 @@ export function createSettingsMachine(id: string, defaults: SettingsContext) {
           SUBMIT_TIME: {
             target: 'generalSettings',
             actions: assign({ time: ({ event }) => event.value }),
-            guard: ({ context }) => context.score >= 10 && context.score <= 5 * 60,
+            guard: ({ event }) => within(event.value, TIME_LIMITS),
           },
         },
       },

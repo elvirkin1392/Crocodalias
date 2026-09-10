@@ -51,6 +51,7 @@ export const timerMachine = setup({
       always: {
         target: 'paused',
         guard: ({ context }) => context.elapsed > context.duration,
+        actions: assign({ isPaused: true }),
       },
       on: {
         PAUSE: {

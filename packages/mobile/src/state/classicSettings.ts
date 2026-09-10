@@ -3,7 +3,7 @@ import { createSettingsMachine } from './settings';
 
 export const classicSettingsMachine = createSettingsMachine('classicSettings', {
   level: LEVELS.medium,
-  time: 5,
+  time: 60,
   score: 60,
   teams: ['first', 'second'],
 });
