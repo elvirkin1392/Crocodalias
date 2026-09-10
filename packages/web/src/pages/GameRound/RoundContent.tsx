@@ -30,7 +30,7 @@ const RoundContent = ({
 
   const [settingsState] = useActor(useClassicSettingsService());
   const [state] = useActor(useRoundService());
-  const { teams, turn } = state.context;
+  const { teams, turn, words } = state.context;
 
   useEffect(() => {
     sendTime("DURATION.UPDATE", { value: settingsState.context.time });
@@ -45,6 +45,7 @@ const RoundContent = ({
         {teams[(turn + 1) % (teams.length + 1)].name} {competitorScore}
       </Title>
       <ContentCards
+        words={words}
         setCompetitorScore={setCompetitorScore}
         competitorScore={competitorScore}
         setScore={setScore}

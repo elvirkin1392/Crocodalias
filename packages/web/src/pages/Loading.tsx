@@ -1,10 +1,15 @@
+import { Container } from "./styled/general";
+import { Title } from "./styled/settingsGeneral";
 
-const Loading = () => {
+type LoadingProps = {
+  error?: string;
+};
 
+const Loading = ({ error }: LoadingProps) => {
   return (
-    <div>
-
-    </div>
+    <Container>
+      <Title>{error ?? "Loading..."}</Title>
+    </Container>
   );
 };
 

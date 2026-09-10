@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:dictionaries": "node scripts/build-dictionaries.mjs"
   },
   "keywords": [],
   "author": "",

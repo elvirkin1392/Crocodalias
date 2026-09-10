@@ -5,34 +5,11 @@ import { motion, useAnimate } from "framer-motion";
 import playIcon from "../../assets/play.svg";
 import { CardBack, CardFace } from "../styled/round";
 
-const words = [
-  "velocity",
-  "accent",
-  "time",
-  "code",
-  "magazine",
-  "pocket",
-  "trauma",
-  "ball",
-  "snack",
-  "mushroom",
-  "all",
-  "velocity",
-  "accent",
-  "time",
-  "code",
-  "magazine",
-  "pocket",
-  "trauma",
-  "ball",
-  "snack",
-  "mushroom",
-  "all",
-];
 
 type SwipeDirection = "up" | "down" | "left";
 
 type ContentCardsProps = {
+  words: string[];
   score: number;
   setScore: Dispatch<SetStateAction<number>>;
   competitorScore: number;
@@ -44,6 +21,7 @@ type ContentCardsProps = {
 };
 
 const ContentCards = ({
+  words,
   setScore,
   score,
   isPaused,
@@ -135,7 +113,7 @@ const ContentCards = ({
       >
         <CardBack onClick={handlePlay}>
           {!isPaused ? (
-            <CardFace>{words[count]}</CardFace>
+            <CardFace>{words[count % words.length]}</CardFace>
           ) : (
             <img
               alt="play"
@@ -163,7 +141,7 @@ const ContentCards = ({
           ref={newCard}
         >
           <CardBack onClick={handlePlay} style={{ background: "red" }}>
-            <CardFace>{words[count]}</CardFace>
+            <CardFace>{words[(count + 1) % words.length]}</CardFace>
           </CardBack>
         </motion.div>
       )}
