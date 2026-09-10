@@ -36,3 +36,7 @@ yarn-error.*
 
 # generated dictionary sources
 scripts/.cache/
+
+# Editor settings
+.idea/
+.vscode/
