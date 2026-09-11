@@ -17,7 +17,8 @@
     "score": "Points to win",
     "level": "Word level",
     "time": "Seconds per turn",
-    "teams": "Teams"
+    "teams": "Teams",
+    "wordCount": "Words in the hat"
   },
   "levels": {
     "easy": "Easy",
@@ -43,6 +44,13 @@
   },
   "crocodile": {
     "ruleHint": "Act the word out using only gestures — no talking or sounds"
+  },
+  "hat": {
+    "stageTitle": "Stage {{stage}} of 3",
+    "stage1": "Explain using any words except the word itself",
+    "stage2": "Only one clue word allowed",
+    "stage3": "Gestures only — no talking or sounds",
+    "wordsLeft": "Words left in the hat: {{count}}"
   },
   "teamNames": [
     "Sea Wolves",

@@ -3,50 +3,44 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { HatInfo } from '@/components/hat/HatInfo';
+import { HatPlay } from '@/components/hat/HatPlay';
+import { HatResults } from '@/components/hat/HatResults';
 import { FinalResults } from '@/components/round/FinalResults';
-import { Results } from '@/components/round/Results';
-import { RoundInfo } from '@/components/round/RoundInfo';
-import { RoundPlay } from '@/components/round/RoundPlay';
-import { RoundContext } from '@/context/round';
+import { HatContext } from '@/context/hat';
+import { HatSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
-import { LEVELS } from '@/enums/settings';
-import { hasWinningTeam } from '@/state/round';
-import { styles } from './RoundScreen.styles';
+import { isGameComplete } from '@/state/hat';
+import { styles } from './HatScreen.styles';
 
 type Stage = 'info' | 'play' | 'result' | 'finished';
 
-type RoundScreenProps = {
-  level: LEVELS;
-  teamNames: string[];
-  scoreLimit: number;
-  roundTime: number;
-  allowSteal: boolean;
-  ruleHint?: string;
-};
-
-export function RoundScreen(props: RoundScreenProps) {
+export function HatScreen() {
   return (
-    <RoundContext.Provider>
-      <Round {...props} />
-    </RoundContext.Provider>
+    <HatContext.Provider>
+      <Hat />
+    </HatContext.Provider>
   );
 }
 
-function Round({
-  level,
-  teamNames,
-  scoreLimit,
-  roundTime,
-  allowSteal,
-  ruleHint,
-}: RoundScreenProps) {
-  const actor = RoundContext.useActorRef();
-  const teams = RoundContext.useSelector((state) => state.context.teams);
-  const hasWords = RoundContext.useSelector(
-    (state) => state.context.words.length > 0,
+function Hat() {
+  const actor = HatContext.useActorRef();
+  const teams = HatContext.useSelector((state) => state.context.teams);
+  const hasWords = HatContext.useSelector(
+    (state) => state.context.wordPool.length > 0,
   );
-  const hasWinner = RoundContext.useSelector((state) =>
-    hasWinningTeam(state.context, scoreLimit),
+  const isComplete = HatContext.useSelector((state) =>
+    isGameComplete(state.context),
+  );
+  const level = HatSettingsContext.useSelector((state) => state.context.level);
+  const teamNames = HatSettingsContext.useSelector(
+    (state) => state.context.teams,
+  );
+  const wordCount = HatSettingsContext.useSelector(
+    (state) => state.context.score,
+  );
+  const roundTime = HatSettingsContext.useSelector(
+    (state) => state.context.time,
   );
   const [stage, setStage] = useState<Stage>('info');
 
@@ -62,21 +56,24 @@ function Round({
 
     loadWords(level).then((words) => {
       if (!cancelled) {
-        actor.send({ type: 'UPDATE_WORDS', value: shuffle(words) });
+        actor.send({
+          type: 'UPDATE_WORDS',
+          value: shuffle(words).slice(0, wordCount),
+        });
       }
     });
 
     return () => {
       cancelled = true;
     };
-  }, [actor, level]);
+  }, [actor, level, wordCount]);
 
   const handleQuit = () => router.back();
   const handleStartTurn = () => setStage('play');
   const handleFinishTurn = () => setStage('result');
   const handleFinishGame = () => setStage('finished');
   const handleNextTurn = () => {
-    if (hasWinner) {
+    if (isComplete) {
       setStage('finished');
       return;
     }
@@ -96,23 +93,21 @@ function Round({
   return (
     <SafeAreaView style={styles.container}>
       {stage === 'info' && (
-        <RoundInfo
-          ruleHint={ruleHint}
+        <HatInfo
           onSubmit={handleStartTurn}
           onClose={handleQuit}
         />
       )}
       {stage === 'play' && (
-        <RoundPlay
+        <HatPlay
           roundTime={roundTime}
-          allowSteal={allowSteal}
           onFinish={handleFinishTurn}
           onFinishGame={handleFinishGame}
           onQuit={handleQuit}
         />
       )}
       {stage === 'result' && (
-        <Results
+        <HatResults
           onSubmit={handleNextTurn}
           onClose={handleQuit}
         />

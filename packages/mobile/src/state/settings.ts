@@ -27,7 +27,12 @@ export const TIME_LIMITS = { min: 10, max: 5 * 60 };
 const within = (value: number, { min, max }: { min: number; max: number }) =>
   value >= min && value <= max;
 
-export function createSettingsMachine(id: string, defaults: SettingsContext) {
+export function createSettingsMachine(
+  id: string,
+  defaults: SettingsContext,
+  /** Alias/Crocodile use this for "points to win"; Hat reuses the same field for word count. */
+  scoreLimits: { min: number; max: number } = SCORE_LIMITS,
+) {
   return setup({
     types: {
       context: {} as SettingsContext,
@@ -51,7 +56,7 @@ export function createSettingsMachine(id: string, defaults: SettingsContext) {
           SUBMIT_SCORE: {
             target: 'generalSettings',
             actions: assign({ score: ({ event }) => event.value }),
-            guard: ({ event }) => within(event.value, SCORE_LIMITS),
+            guard: ({ event }) => within(event.value, scoreLimits),
           },
         },
       },

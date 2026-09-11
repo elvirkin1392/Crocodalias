@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   AliasSettingsContext,
   CrocodileSettingsContext,
+  HatSettingsContext,
 } from '@/context/settings';
 import { UserContext } from '@/context/user';
 import { styles } from './RootLayout.styles';
@@ -18,7 +19,9 @@ export function RootLayout() {
       <UserContext.Provider>
         <AliasSettingsContext.Provider>
           <CrocodileSettingsContext.Provider>
-            <AppNavigator />
+            <HatSettingsContext.Provider>
+              <AppNavigator />
+            </HatSettingsContext.Provider>
           </CrocodileSettingsContext.Provider>
         </AliasSettingsContext.Provider>
       </UserContext.Provider>

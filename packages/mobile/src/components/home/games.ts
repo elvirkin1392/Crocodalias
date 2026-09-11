@@ -8,5 +8,5 @@ export type Game = { id: GameId; settingsRoute?: Href };
 export const GAMES: Game[] = [
   { id: 'alias', settingsRoute: '/alias-settings' },
   { id: 'crocodile', settingsRoute: '/crocodile-settings' },
-  { id: 'hat' },
+  { id: 'hat', settingsRoute: '/hat-settings' },
 ];

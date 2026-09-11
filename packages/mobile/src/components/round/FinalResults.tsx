@@ -1,15 +1,16 @@
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { RoundContext } from '@/context/round';
 import type { Team } from '@/state/round';
 import { styles } from './FinalResults.styles';
 
-type FinalResultsProps = { onClose: () => void };
+type FinalResultsProps = {
+  teams: Team[];
+  onClose: () => void;
+};
 
-export function FinalResults({ onClose }: FinalResultsProps) {
+export function FinalResults({ teams, onClose }: FinalResultsProps) {
   const { t } = useTranslation();
-  const teams = RoundContext.useSelector((state) => state.context.teams);
   const standings = [...teams].sort((a, b) => b.totalScore - a.totalScore);
   const topScore = standings[0]?.totalScore;
 

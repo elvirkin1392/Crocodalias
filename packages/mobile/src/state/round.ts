@@ -1,6 +1,8 @@
 import { assign, setup } from 'xstate';
 
-export type Team = { name: string; totalScore: number };
+import type { Team } from './team';
+
+export type { Team } from './team';
 
 export type WordResult = 'guessed' | 'skipped' | 'stolen';
 
