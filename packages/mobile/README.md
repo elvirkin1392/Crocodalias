@@ -7,7 +7,8 @@ Requirements and the project overview live in the [root README](../../README.md)
 
 ```
 src/
-  app/            Screens — each file is a route (expo-router)
+  app/            Routes (expo-router) — one-line files that point to screens
+  screens/        Screens, each in its own folder next to its styles
   components/     UI pieces shared between screens
   state/          Game logic as XState state machines
   context/        React contexts that hold the running machines
