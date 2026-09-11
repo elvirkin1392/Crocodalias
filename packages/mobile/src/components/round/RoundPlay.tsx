@@ -13,9 +13,9 @@ import {
   nextTeamIndex,
   stolenPoints,
   turnPoints,
-  type WordResult,
 } from '@/state/round';
 import { timerMachine } from '@/state/timer';
+import { LastWordPicker } from './LastWordPicker';
 import { QuitGame } from './QuitGame';
 import { styles } from './RoundPlay.styles';
 import { SwipeCard } from './SwipeCard';
@@ -47,10 +47,11 @@ export function RoundPlay({ onFinish, onQuit }: RoundPlayProps) {
     turnPoints(state.context),
   );
   const stolenScore = RoundContext.useSelector((state) =>
-    stolenPoints(state.context),
+    stolenPoints(state.context, nextTeamIndex(state.context)),
   );
   const [isQuitOpen, setIsQuitOpen] = useState(false);
   const [isShowTime, setIsShowTime] = useState(false);
+  const [isPickingTeam, setIsPickingTeam] = useState(false);
 
   useEffect(() => {
     sendTimer({ type: 'DURATION.UPDATE', value: roundTime });
@@ -76,17 +77,45 @@ export function RoundPlay({ onFinish, onQuit }: RoundPlayProps) {
     ? [styles.opponent, styles.opponentCanSteal]
     : styles.opponent;
 
-  const resolveCard = (result: WordResult) => {
-    actor.send({ type: 'RESOLVE_WORD', result });
+  const otherTeamIndexes = teams
+    .map((_, index) => index)
+    .filter((index) => index !== playingIndex);
+  const hasSingleOpponent = otherTeamIndexes.length === 1;
+  const pickerTeams = otherTeamIndexes.map((index) => ({
+    index,
+    name: teams[index].name,
+  }));
 
+  const finishIfTimeUp = () => {
     if (isTimeUp) {
       setIsShowTime(true);
     }
   };
 
-  const handleGuessed = () => resolveCard('guessed');
-  const handleSkipped = () => resolveCard('skipped');
-  const handleStolen = () => resolveCard('stolen');
+  const handleGuessed = () => {
+    actor.send({ type: 'RESOLVE_WORD', result: 'guessed' });
+    finishIfTimeUp();
+  };
+
+  const handleSkipped = () => {
+    actor.send({ type: 'RESOLVE_WORD', result: 'skipped' });
+    finishIfTimeUp();
+  };
+
+  const resolveStolen = (teamIndex: number) => {
+    setIsPickingTeam(false);
+    actor.send({ type: 'RESOLVE_WORD', result: 'stolen', teamIndex });
+    finishIfTimeUp();
+  };
+
+  const handleStolen = () => {
+    if (hasSingleOpponent) {
+      resolveStolen(otherTeamIndexes[0]);
+      return;
+    }
+
+    setIsPickingTeam(true);
+  };
 
   const handleStartTimer = () => sendTimer({ type: 'START' });
   const handleTimerPress = () =>
@@ -98,6 +127,37 @@ export function RoundPlay({ onFinish, onQuit }: RoundPlayProps) {
   };
   const handleCloseQuit = () => setIsQuitOpen(false);
   const handleClosePress = isQuitOpen ? handleCloseQuit : handleOpenQuit;
+
+  let cardContent = (
+    <SwipeCard
+      word={word}
+      isHidden={isCardHidden}
+      canSteal={isTimeUp}
+      onPress={handleStartTimer}
+      onGuessed={handleGuessed}
+      onSkipped={handleSkipped}
+      onStolen={handleStolen}
+    />
+  );
+
+  if (isPickingTeam) {
+    cardContent = (
+      <LastWordPicker
+        word={word}
+        teams={pickerTeams}
+        onPick={resolveStolen}
+      />
+    );
+  }
+
+  if (isShowTime) {
+    cardContent = (
+      <View style={styles.showTime}>
+        <Text style={styles.showTimeText}>{t('round.showTime')}</Text>
+        <Text style={styles.showTimeText}>🎊 🎉 🐊</Text>
+      </View>
+    );
+  }
 
   // TODO: сохранять партию, чтобы «Продолжить позже» возвращал в неё
   const handleContinueLater = onQuit;
@@ -130,24 +190,7 @@ export function RoundPlay({ onFinish, onQuit }: RoundPlayProps) {
             {opponentTeam?.name} {stolenScore}
           </Text>
 
-          <View style={styles.cardArea}>
-            {isShowTime ? (
-              <View style={styles.showTime}>
-                <Text style={styles.showTimeText}>{t('round.showTime')}</Text>
-                <Text style={styles.showTimeText}>🎊 🎉 🐊</Text>
-              </View>
-            ) : (
-              <SwipeCard
-                word={word}
-                isHidden={isCardHidden}
-                canSteal={isTimeUp}
-                onPress={handleStartTimer}
-                onGuessed={handleGuessed}
-                onSkipped={handleSkipped}
-                onStolen={handleStolen}
-              />
-            )}
-          </View>
+          <View style={styles.cardArea}>{cardContent}</View>
 
           <View style={styles.footer}>
             <Text style={styles.team}>

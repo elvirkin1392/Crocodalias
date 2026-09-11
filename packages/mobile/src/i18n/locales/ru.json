@@ -13,7 +13,8 @@
     "nowPlaying": "Сейчас играет: {{team}}",
     "startTimer": "Запустить таймер",
     "timer": "Таймер, осталось {{seconds}} с",
-    "showTime": "Время вышло!"
+    "showTime": "Время вышло!",
+    "whoGuessed": "Кто угадал «{{word}}»?"
   },
   "results": {
     "title": "Итоги хода"

@@ -4,7 +4,12 @@ export type Team = { name: string; totalScore: number };
 
 export type WordResult = 'guessed' | 'skipped' | 'stolen';
 
-export type TurnEntry = { word: string; result: WordResult };
+export type TurnEntry = {
+  word: string;
+  result: WordResult;
+  /** The team that received the points for this word. */
+  teamIndex: number;
+};
 
 export type RoundContext = {
   teams: Team[];
@@ -23,7 +28,8 @@ export type RoundEvent =
   | { type: 'UPDATE_WORDS'; value: string[] }
   | { type: 'SET_TEAMS'; value: Team[] }
   | { type: 'ADD_POINTS'; teamIndex: number; points: number }
-  | { type: 'RESOLVE_WORD'; result: WordResult }
+  | { type: 'RESOLVE_WORD'; result: 'guessed' | 'skipped' }
+  | { type: 'RESOLVE_WORD'; result: 'stolen'; teamIndex: number }
   | { type: 'NEXT_TURN' };
 
 const POINTS: Record<WordResult, number> = {
@@ -54,8 +60,13 @@ export function turnPoints({ turnLog }: RoundContext): number {
     .reduce((sum, entry) => sum + POINTS[entry.result], 0);
 }
 
-export function stolenPoints({ turnLog }: RoundContext): number {
-  return turnLog.filter((entry) => entry.result === 'stolen').length;
+export function stolenPoints(
+  { turnLog }: RoundContext,
+  teamIndex: number,
+): number {
+  return turnLog.filter(
+    (entry) => entry.result === 'stolen' && entry.teamIndex === teamIndex,
+  ).length;
 }
 
 function addPoints(teams: Team[], teamIndex: number, points: number): Team[] {
@@ -99,11 +110,15 @@ export const roundMachine = setup({
         },
         RESOLVE_WORD: {
           actions: assign(({ context, event }) => {
-            const isStolen = event.result === 'stolen';
-            const teamIndex = isStolen
-              ? nextTeamIndex(context)
-              : currentTeamIndex(context);
-            const entry = { word: currentWord(context), result: event.result };
+            const teamIndex =
+              event.result === 'stolen'
+                ? event.teamIndex
+                : currentTeamIndex(context);
+            const entry = {
+              word: currentWord(context),
+              result: event.result,
+              teamIndex,
+            };
 
             return {
               teams: addPoints(context.teams, teamIndex, POINTS[event.result]),

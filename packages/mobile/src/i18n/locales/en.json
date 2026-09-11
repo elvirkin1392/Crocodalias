@@ -13,7 +13,8 @@
     "nowPlaying": "Now playing: {{team}}",
     "startTimer": "Start the timer",
     "timer": "Timer, {{seconds}} s left",
-    "showTime": "Show time!"
+    "showTime": "Show time!",
+    "whoGuessed": "Who guessed “{{word}}”?"
   },
   "results": {
     "title": "Turn results"

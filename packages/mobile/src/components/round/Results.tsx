@@ -39,6 +39,7 @@ export function Results({ onSubmit, onClose }: ResultsProps) {
           <TurnWord
             key={`${entry.word}-${index}`}
             entry={entry}
+            teamName={teams[entry.teamIndex]?.name}
           />
         ))}
       </ScrollView>
@@ -56,10 +57,16 @@ export function Results({ onSubmit, onClose }: ResultsProps) {
   );
 }
 
-function TurnWord({ entry }: { entry: TurnEntry }) {
+type TurnWordProps = {
+  entry: TurnEntry;
+  teamName?: string;
+};
+
+function TurnWord({ entry, teamName }: TurnWordProps) {
   const isStolen = entry.result === 'stolen';
   const isSkipped = entry.result === 'skipped';
   const points = isSkipped ? '−1' : '+1';
+  const pointsLabel = isStolen ? `${teamName} ${points}` : points;
   const textStyle = isStolen
     ? [styles.wordText, styles.stolenText]
     : styles.wordText;
@@ -67,7 +74,7 @@ function TurnWord({ entry }: { entry: TurnEntry }) {
   return (
     <View style={styles.wordRow}>
       <Text style={textStyle}>{entry.word}</Text>
-      <Text style={textStyle}>{points}</Text>
+      <Text style={textStyle}>{pointsLabel}</Text>
     </View>
   );
 }
