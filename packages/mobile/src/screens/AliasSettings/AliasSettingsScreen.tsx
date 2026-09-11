@@ -7,17 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { FooterControls } from '@/components/FooterControls';
 import { LevelButton } from '@/components/settings/LevelButton';
 import { LevelSettings } from '@/components/settings/LevelSettings';
-import { NumberSettings } from '@/components/settings/NumberSettings';
 import { ScoreButton } from '@/components/settings/ScoreButton';
+import { ScoreSettings } from '@/components/settings/ScoreSettings';
 import { TeamsSettings } from '@/components/settings/TeamsSettings';
 import { TimeButton } from '@/components/settings/TimeButton';
+import { TimeSettings } from '@/components/settings/TimeSettings';
 import { AliasSettingsContext } from '@/context/settings';
 import { LEVELS } from '@/enums/settings';
-import { SCORE_LIMITS, TIME_LIMITS } from '@/state/settings';
 import { styles } from './AliasSettingsScreen.styles';
-
-const SCORE_STEP = 5;
-const TIME_STEP = 10;
 
 export function AliasSettingsScreen() {
   const { t } = useTranslation();
@@ -89,12 +86,9 @@ export function AliasSettingsScreen() {
 
   if (isScoreOpen) {
     content = (
-      <NumberSettings
-        key="score"
+      <ScoreSettings
         title={t('settings.score')}
         defaultValue={score}
-        limits={SCORE_LIMITS}
-        step={SCORE_STEP}
         onSubmit={handleSubmitScore}
         onClose={handleBack}
       />
@@ -114,12 +108,9 @@ export function AliasSettingsScreen() {
 
   if (isTimeOpen) {
     content = (
-      <NumberSettings
-        key="time"
+      <TimeSettings
         title={t('settings.time')}
         defaultValue={time}
-        limits={TIME_LIMITS}
-        step={TIME_STEP}
         onSubmit={handleSubmitTime}
         onClose={handleBack}
       />
