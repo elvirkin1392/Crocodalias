@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { PlayPlaceholder } from '@/components/round/PlayPlaceholder';
 import { Results } from '@/components/round/Results';
 import { RoundInfo } from '@/components/round/RoundInfo';
+import { RoundPlay } from '@/components/round/RoundPlay';
 import { RoundContext } from '@/context/round';
 import { ClassicSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
@@ -80,9 +80,9 @@ function Round() {
         />
       )}
       {stage === 'play' && (
-        <PlayPlaceholder
+        <RoundPlay
           onFinish={handleFinishTurn}
-          onClose={handleQuit}
+          onQuit={handleQuit}
         />
       )}
       {stage === 'result' && (

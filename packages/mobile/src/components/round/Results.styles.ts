@@ -12,15 +12,31 @@ export const styles = StyleSheet.create({
   },
   score: {
     fontSize: 56,
-    marginTop: 24,
+    marginTop: 16,
   },
   name: {
     fontSize: 20,
   },
-  divider: {
-    height: 60,
-  },
   opponent: {
+    color: '#d64545',
+  },
+  words: {
+    flex: 1,
+    alignSelf: 'stretch',
+    marginVertical: 16,
+  },
+  wordsContent: {
+    paddingHorizontal: 40,
+    gap: 10,
+  },
+  wordRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  wordText: {
+    fontSize: 18,
+  },
+  stolenText: {
     color: '#d64545',
   },
 });

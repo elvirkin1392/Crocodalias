@@ -1,19 +1,23 @@
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { ClassicSettingsContext } from '@/context/settings';
 import { UserContext } from '@/context/user';
+import { styles } from './RootLayout.styles';
 
 SplashScreen.preventAutoHideAsync();
 
 export function RootLayout() {
   return (
-    <UserContext.Provider>
-      <ClassicSettingsContext.Provider>
-        <AppNavigator />
-      </ClassicSettingsContext.Provider>
-    </UserContext.Provider>
+    <GestureHandlerRootView style={styles.root}>
+      <UserContext.Provider>
+        <ClassicSettingsContext.Provider>
+          <AppNavigator />
+        </ClassicSettingsContext.Provider>
+      </UserContext.Provider>
+    </GestureHandlerRootView>
   );
 }
 

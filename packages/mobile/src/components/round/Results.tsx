@@ -1,9 +1,9 @@
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { RoundContext } from '@/context/round';
-import { currentTeamIndex, nextTeamIndex } from '@/state/round';
+import { currentTeamIndex, nextTeamIndex, type TurnEntry } from '@/state/round';
 import { styles } from './Results.styles';
 
 type ResultsProps = {
@@ -11,39 +11,63 @@ type ResultsProps = {
   onClose: () => void;
 };
 
-/**
- * After a turn: the team that just played and the one that plays next. The
- * list of guessed words arrives together with the swipe cards.
- */
 export function Results({ onSubmit, onClose }: ResultsProps) {
+  const { t } = useTranslation();
   const teams = RoundContext.useSelector((state) => state.context.teams);
-  const played = RoundContext.useSelector((state) =>
+  const turnLog = RoundContext.useSelector((state) => state.context.turnLog);
+  const playedIndex = RoundContext.useSelector((state) =>
     currentTeamIndex(state.context),
   );
-  const next = RoundContext.useSelector((state) =>
+  const nextIndex = RoundContext.useSelector((state) =>
     nextTeamIndex(state.context),
   );
-
-  const { t } = useTranslation();
+  const playedTeam = teams[playedIndex];
+  const nextTeam = teams[nextIndex];
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('results.title')}</Text>
 
-      <Text style={styles.score}>{teams[played]?.totalScore}</Text>
-      <Text style={styles.name}>{teams[played]?.name}</Text>
+      <Text style={styles.score}>{playedTeam?.totalScore}</Text>
+      <Text style={styles.name}>{playedTeam?.name}</Text>
 
-      <View style={styles.divider} />
+      <ScrollView
+        style={styles.words}
+        contentContainerStyle={styles.wordsContent}
+      >
+        {turnLog.map((entry, index) => (
+          <TurnWord
+            key={`${entry.word}-${index}`}
+            entry={entry}
+          />
+        ))}
+      </ScrollView>
 
-      <Text style={styles.name}>{teams[next]?.name}</Text>
+      <Text style={styles.name}>{nextTeam?.name}</Text>
       <Text style={[styles.score, styles.opponent]}>
-        {teams[next]?.totalScore}
+        {nextTeam?.totalScore}
       </Text>
 
       <FooterControls
         onClose={onClose}
         onSubmit={onSubmit}
       />
+    </View>
+  );
+}
+
+function TurnWord({ entry }: { entry: TurnEntry }) {
+  const isStolen = entry.result === 'stolen';
+  const isSkipped = entry.result === 'skipped';
+  const points = isSkipped ? '−1' : '+1';
+  const textStyle = isStolen
+    ? [styles.wordText, styles.stolenText]
+    : styles.wordText;
+
+  return (
+    <View style={styles.wordRow}>
+      <Text style={textStyle}>{entry.word}</Text>
+      <Text style={textStyle}>{points}</Text>
     </View>
   );
 }

@@ -11,11 +11,15 @@
   "round": {
     "title": "Раунд {{number}}",
     "nowPlaying": "Сейчас играет: {{team}}",
-    "placeholderNote": "Временный экран — вместо карточек",
-    "skip": "Пропуск −1",
-    "guessed": "Угадали +1"
+    "startTimer": "Запустить таймер",
+    "timer": "Таймер, осталось {{seconds}} с",
+    "showTime": "Время вышло!"
   },
   "results": {
     "title": "Итоги хода"
+  },
+  "quit": {
+    "finish": "Закончить игру",
+    "later": "Продолжить позже"
   }
 }

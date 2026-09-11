@@ -11,11 +11,15 @@
   "round": {
     "title": "Round {{number}}",
     "nowPlaying": "Now playing: {{team}}",
-    "placeholderNote": "Temporary screen — instead of cards",
-    "skip": "Skip −1",
-    "guessed": "Guessed +1"
+    "startTimer": "Start the timer",
+    "timer": "Timer, {{seconds}} s left",
+    "showTime": "Show time!"
   },
   "results": {
     "title": "Turn results"
+  },
+  "quit": {
+    "finish": "Finish the game",
+    "later": "Continue later"
   }
 }
