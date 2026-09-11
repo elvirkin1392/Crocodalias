@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { RoundContext } from '@/context/round';
@@ -18,9 +19,12 @@ export function RoundInfo({ onSubmit, onClose }: RoundInfoProps) {
     currentTeamIndex(state.context),
   );
 
+  const { t } = useTranslation();
+  const playingTeamName = teams[playing]?.name;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.round}>Раунд {round}</Text>
+      <Text style={styles.round}>{t('round.title', { number: round })}</Text>
 
       <View style={styles.scoreboard}>
         {teams.map((team, index) => (
@@ -36,7 +40,9 @@ export function RoundInfo({ onSubmit, onClose }: RoundInfoProps) {
         ))}
       </View>
 
-      <Text style={styles.caption}>Сейчас играет: {teams[playing]?.name}</Text>
+      <Text style={styles.caption}>
+        {t('round.nowPlaying', { team: playingTeamName })}
+      </Text>
 
       <FooterControls
         onClose={onClose}

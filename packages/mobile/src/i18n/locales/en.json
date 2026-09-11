@@ -1,0 +1,21 @@
+{
+  "common": {
+    "close": "Close",
+    "done": "Done"
+  },
+  "home": {
+    "loading": "Loading words…",
+    "easyDeckCount": "Words in the easy deck: {{number}}",
+    "start": "Start game"
+  },
+  "round": {
+    "title": "Round {{number}}",
+    "nowPlaying": "Now playing: {{team}}",
+    "placeholderNote": "Temporary screen — instead of cards",
+    "skip": "Skip −1",
+    "guessed": "Guessed +1"
+  },
+  "results": {
+    "title": "Turn results"
+  }
+}

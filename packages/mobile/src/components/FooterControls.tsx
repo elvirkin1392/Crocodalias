@@ -1,5 +1,6 @@
 import { Image } from 'expo-image';
 import { Pressable, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import closeIcon from '@/assets/icons/close.svg';
 import okayIcon from '@/assets/icons/okay.svg';
@@ -12,11 +13,13 @@ type FooterControlsProps = {
 
 /** Close on the left, confirm on the right — the same pair on every screen. */
 export function FooterControls({ onClose, onSubmit }: FooterControlsProps) {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel="Закрыть"
+        accessibilityLabel={t('common.close')}
         hitSlop={16}
         onPress={onClose}
       >
@@ -28,7 +31,7 @@ export function FooterControls({ onClose, onSubmit }: FooterControlsProps) {
       </Pressable>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel="Готово"
+        accessibilityLabel={t('common.done')}
         hitSlop={16}
         onPress={onSubmit}
       >

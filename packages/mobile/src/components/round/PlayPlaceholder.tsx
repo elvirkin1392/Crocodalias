@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { RoundContext } from '@/context/round';
@@ -31,9 +32,11 @@ export function PlayPlaceholder({ onFinish, onClose }: PlayPlaceholderProps) {
     setIndex((current) => current + 1);
   };
 
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.note}>Временный экран — вместо карточек</Text>
+      <Text style={styles.note}>{t('round.placeholderNote')}</Text>
       <Text style={styles.team}>
         {team?.name}: {team?.totalScore}
       </Text>
@@ -47,13 +50,13 @@ export function PlayPlaceholder({ onFinish, onClose }: PlayPlaceholderProps) {
           style={[styles.action, styles.skip]}
           onPress={() => answer(-1)}
         >
-          <Text style={styles.actionText}>Пропуск −1</Text>
+          <Text style={styles.actionText}>{t('round.skip')}</Text>
         </Pressable>
         <Pressable
           style={[styles.action, styles.guess]}
           onPress={() => answer(1)}
         >
-          <Text style={styles.actionText}>Угадали +1</Text>
+          <Text style={styles.actionText}>{t('round.guessed')}</Text>
         </Pressable>
       </View>
 

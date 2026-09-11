@@ -1,0 +1,21 @@
+{
+  "common": {
+    "close": "Закрыть",
+    "done": "Готово"
+  },
+  "home": {
+    "loading": "Загружаем слова…",
+    "easyDeckCount": "Слов в колоде easy: {{number}}",
+    "start": "Начать игру"
+  },
+  "round": {
+    "title": "Раунд {{number}}",
+    "nowPlaying": "Сейчас играет: {{team}}",
+    "placeholderNote": "Временный экран — вместо карточек",
+    "skip": "Пропуск −1",
+    "guessed": "Угадали +1"
+  },
+  "results": {
+    "title": "Итоги хода"
+  }
+}

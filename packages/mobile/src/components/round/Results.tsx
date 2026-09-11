@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { RoundContext } from '@/context/round';
@@ -23,9 +24,11 @@ export function Results({ onSubmit, onClose }: ResultsProps) {
     nextTeamIndex(state.context),
   );
 
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Итоги хода</Text>
+      <Text style={styles.title}>{t('results.title')}</Text>
 
       <Text style={styles.score}>{teams[played]?.totalScore}</Text>
       <Text style={styles.name}>{teams[played]?.name}</Text>
