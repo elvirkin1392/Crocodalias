@@ -4,9 +4,13 @@
     "done": "Done"
   },
   "home": {
-    "loading": "Loading words…",
-    "easyDeckCount": "Words in the easy deck: {{number}}",
-    "start": "Start game"
+    "chooseGame": "Choose a game",
+    "soon": "Coming soon"
+  },
+  "games": {
+    "alias": "Alias",
+    "crocodile": "Crocodile",
+    "hat": "The Hat"
   },
   "round": {
     "title": "Round {{number}}",

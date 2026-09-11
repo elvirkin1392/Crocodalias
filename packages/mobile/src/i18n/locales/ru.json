@@ -4,9 +4,13 @@
     "done": "Готово"
   },
   "home": {
-    "loading": "Загружаем слова…",
-    "easyDeckCount": "Слов в колоде easy: {{number}}",
-    "start": "Начать игру"
+    "chooseGame": "Выберите игру",
+    "soon": "Скоро"
+  },
+  "games": {
+    "alias": "Алиас",
+    "crocodile": "Крокодил",
+    "hat": "Шляпа"
   },
   "round": {
     "title": "Раунд {{number}}",
