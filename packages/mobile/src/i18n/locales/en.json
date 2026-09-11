@@ -42,5 +42,12 @@
   "quit": {
     "finish": "Finish the game",
     "later": "Continue later"
-  }
+  },
+  "teamNames": [
+    "Sea Wolves",
+    "Risky Biscuits",
+    "Avalanche",
+    "Cool Runnings",
+    "Agatha Crispy"
+  ]
 }

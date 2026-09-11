@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { getRandomTeams } from '@/mocks/teams';
@@ -20,13 +21,15 @@ export function TeamsSettings({
   onSubmit,
   onClose,
 }: TeamsSettingsProps) {
+  const { t } = useTranslation();
+  const namePool = t('teamNames', { returnObjects: true }) as string[];
   const [teams, setTeams] = useState(() =>
-    getRandomTeams(Math.max(defaultValue.length, MIN_TEAMS)),
+    getRandomTeams(Math.max(defaultValue.length, MIN_TEAMS), namePool),
   );
 
   const canRemove = teams.length > MIN_TEAMS;
 
-  const handleAdd = () => setTeams([...teams, ...getRandomTeams(1)]);
+  const handleAdd = () => setTeams([...teams, ...getRandomTeams(1, namePool)]);
   const handleRemove = (index: number) =>
     setTeams(teams.filter((_, teamIndex) => teamIndex !== index));
   const handleSubmit = () => onSubmit(teams);
