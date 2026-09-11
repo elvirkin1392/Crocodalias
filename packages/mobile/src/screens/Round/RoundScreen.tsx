@@ -10,6 +10,7 @@ import { RoundPlay } from '@/components/round/RoundPlay';
 import { RoundContext } from '@/context/round';
 import { AliasSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
+import { hasWinningTeam } from '@/state/round';
 import { styles } from './RoundScreen.styles';
 
 type Stage = 'info' | 'play' | 'result' | 'finished';
@@ -32,6 +33,12 @@ function Round() {
   );
   const teamNames = AliasSettingsContext.useSelector(
     (state) => state.context.teams,
+  );
+  const scoreLimit = AliasSettingsContext.useSelector(
+    (state) => state.context.score,
+  );
+  const hasWinner = RoundContext.useSelector((state) =>
+    hasWinningTeam(state.context, scoreLimit),
   );
   const [stage, setStage] = useState<Stage>('info');
 
@@ -61,6 +68,11 @@ function Round() {
   const handleFinishTurn = () => setStage('result');
   const handleFinishGame = () => setStage('finished');
   const handleNextTurn = () => {
+    if (hasWinner) {
+      setStage('finished');
+      return;
+    }
+
     actor.send({ type: 'NEXT_TURN' });
     setStage('info');
   };

@@ -69,6 +69,14 @@ export function stolenPoints(
   ).length;
 }
 
+/** True once some team has reached the score needed to win the game. */
+export function hasWinningTeam(
+  { teams }: RoundContext,
+  scoreLimit: number,
+): boolean {
+  return teams.some((team) => team.totalScore >= scoreLimit);
+}
+
 function addPoints(teams: Team[], teamIndex: number, points: number): Team[] {
   return teams.map((team, index) =>
     index === teamIndex
