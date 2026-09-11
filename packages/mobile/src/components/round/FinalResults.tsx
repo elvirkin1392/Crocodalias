@@ -1,0 +1,60 @@
+import { Pressable, ScrollView, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
+import { RoundContext } from '@/context/round';
+import type { Team } from '@/state/round';
+import { styles } from './FinalResults.styles';
+
+type FinalResultsProps = { onClose: () => void };
+
+export function FinalResults({ onClose }: FinalResultsProps) {
+  const { t } = useTranslation();
+  const teams = RoundContext.useSelector((state) => state.context.teams);
+  const standings = [...teams].sort((a, b) => b.totalScore - a.totalScore);
+  const topScore = standings[0]?.totalScore;
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{t('results.finalTitle')}</Text>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.list}
+      >
+        {standings.map((team, index) => (
+          <TeamStanding
+            key={`${team.name}-${index}`}
+            team={team}
+            isWinner={team.totalScore === topScore}
+          />
+        ))}
+      </ScrollView>
+      <Pressable
+        style={styles.button}
+        accessibilityRole="button"
+        onPress={onClose}
+      >
+        <Text style={styles.buttonText}>{t('common.done')}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+type TeamStandingProps = {
+  team: Team;
+  isWinner: boolean;
+};
+
+function TeamStanding({ team, isWinner }: TeamStandingProps) {
+  const rowStyle = isWinner ? [styles.row, styles.winnerRow] : styles.row;
+  const nameStyle = isWinner ? [styles.name, styles.winnerText] : styles.name;
+  const scoreStyle = isWinner
+    ? [styles.score, styles.winnerText]
+    : styles.score;
+
+  return (
+    <View style={rowStyle}>
+      <Text style={nameStyle}>{team.name}</Text>
+      <Text style={scoreStyle}>{team.totalScore}</Text>
+    </View>
+  );
+}

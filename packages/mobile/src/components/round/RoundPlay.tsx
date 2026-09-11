@@ -25,10 +25,11 @@ const SHOW_TIME_MS = 2000;
 
 type RoundPlayProps = {
   onFinish: () => void;
+  onFinishGame: () => void;
   onQuit: () => void;
 };
 
-export function RoundPlay({ onFinish, onQuit }: RoundPlayProps) {
+export function RoundPlay({ onFinish, onFinishGame, onQuit }: RoundPlayProps) {
   const { t } = useTranslation();
   const actor = RoundContext.useActorRef();
   const teams = RoundContext.useSelector((state) => state.context.teams);
@@ -181,7 +182,7 @@ export function RoundPlay({ onFinish, onQuit }: RoundPlayProps) {
 
       {isQuitOpen ? (
         <QuitGame
-          onFinish={onQuit}
+          onFinish={onFinishGame}
           onContinueLater={handleContinueLater}
         />
       ) : (

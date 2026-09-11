@@ -36,7 +36,8 @@
     "whoGuessed": "Who guessed “{{word}}”?"
   },
   "results": {
-    "title": "Turn results"
+    "title": "Turn results",
+    "finalTitle": "Final results"
   },
   "quit": {
     "finish": "Finish the game",

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { FinalResults } from '@/components/round/FinalResults';
 import { Results } from '@/components/round/Results';
 import { RoundInfo } from '@/components/round/RoundInfo';
 import { RoundPlay } from '@/components/round/RoundPlay';
@@ -11,7 +12,7 @@ import { AliasSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
 import { styles } from './RoundScreen.styles';
 
-type Stage = 'info' | 'play' | 'result';
+type Stage = 'info' | 'play' | 'result' | 'finished';
 
 export function RoundScreen() {
   return (
@@ -58,6 +59,7 @@ function Round() {
   const handleQuit = () => router.back();
   const handleStartTurn = () => setStage('play');
   const handleFinishTurn = () => setStage('result');
+  const handleFinishGame = () => setStage('finished');
   const handleNextTurn = () => {
     actor.send({ type: 'NEXT_TURN' });
     setStage('info');
@@ -82,6 +84,7 @@ function Round() {
       {stage === 'play' && (
         <RoundPlay
           onFinish={handleFinishTurn}
+          onFinishGame={handleFinishGame}
           onQuit={handleQuit}
         />
       )}
@@ -91,6 +94,7 @@ function Round() {
           onClose={handleQuit}
         />
       )}
+      {stage === 'finished' && <FinalResults onClose={handleQuit} />}
     </SafeAreaView>
   );
 }

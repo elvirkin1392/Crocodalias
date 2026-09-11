@@ -36,7 +36,8 @@
     "whoGuessed": "Кто угадал «{{word}}»?"
   },
   "results": {
-    "title": "Итоги хода"
+    "title": "Итоги хода",
+    "finalTitle": "Итоги игры"
   },
   "quit": {
     "finish": "Закончить игру",
