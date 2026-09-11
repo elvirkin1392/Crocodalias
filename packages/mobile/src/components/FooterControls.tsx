@@ -1,8 +1,9 @@
 import { Image } from 'expo-image';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import closeIcon from '@/assets/icons/close.svg';
 import okayIcon from '@/assets/icons/okay.svg';
+import { styles } from './FooterControls.styles';
 
 type FooterControlsProps = {
   onClose: () => void;
@@ -32,23 +33,3 @@ export function FooterControls({ onClose, onSubmit }: FooterControlsProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 'auto',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    paddingHorizontal: 28,
-    paddingVertical: 16,
-  },
-  close: {
-    width: 18,
-    height: 18,
-  },
-  okay: {
-    width: 24,
-    height: 18,
-  },
-});

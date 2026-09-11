@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { PlayPlaceholder } from '@/components/round/PlayPlaceholder';
@@ -9,6 +9,7 @@ import { RoundInfo } from '@/components/round/RoundInfo';
 import { RoundContext } from '@/context/round';
 import { ClassicSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
+import { styles } from '@/styles/round.styles';
 
 type Stage = 'info' | 'play' | 'result';
 
@@ -84,14 +85,3 @@ function Round() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  center: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

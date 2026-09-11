@@ -1,9 +1,10 @@
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { loadWords } from '@/dictionaries';
 import { LEVELS } from '@/enums/settings';
+import { styles } from '@/styles/index.styles';
 
 /**
  * Temporary start screen until the game list is ported. It proves the ported
@@ -28,31 +29,3 @@ export default function Index() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '600',
-  },
-  caption: {
-    fontSize: 16,
-    color: '#666',
-  },
-  button: {
-    marginTop: 24,
-    paddingVertical: 14,
-    paddingHorizontal: 28,
-    borderRadius: 14,
-    backgroundColor: '#e6bc4e',
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-});
