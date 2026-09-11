@@ -9,6 +9,7 @@ import { LevelButton } from '@/components/settings/LevelButton';
 import { LevelSettings } from '@/components/settings/LevelSettings';
 import { NumberSettings } from '@/components/settings/NumberSettings';
 import { ScoreButton } from '@/components/settings/ScoreButton';
+import { TeamsSettings } from '@/components/settings/TeamsSettings';
 import { TimeButton } from '@/components/settings/TimeButton';
 import { AliasSettingsContext } from '@/context/settings';
 import { LEVELS } from '@/enums/settings';
@@ -21,7 +22,7 @@ const TIME_STEP = 10;
 export function AliasSettingsScreen() {
   const { t } = useTranslation();
   const actor = AliasSettingsContext.useActorRef();
-  const { score, level, time } = AliasSettingsContext.useSelector(
+  const { score, level, time, teams } = AliasSettingsContext.useSelector(
     (state) => state.context,
   );
   const isScoreOpen = AliasSettingsContext.useSelector((state) =>
@@ -32,6 +33,9 @@ export function AliasSettingsScreen() {
   );
   const isTimeOpen = AliasSettingsContext.useSelector((state) =>
     state.matches('timeSettings'),
+  );
+  const isTeamsOpen = AliasSettingsContext.useSelector((state) =>
+    state.matches('teamSettings'),
   );
 
   // The settings machine outlives this screen: start from the overview
@@ -49,10 +53,13 @@ export function AliasSettingsScreen() {
     actor.send({ type: 'SUBMIT_LEVEL', value });
   const handleSubmitTime = (value: number) =>
     actor.send({ type: 'SUBMIT_TIME', value });
+  const handleOpenTeams = () => actor.send({ type: 'OPEN_TEAM_SETTINGS' });
   const handleBack = () => actor.send({ type: 'BACK' });
   const handleClose = () => router.back();
-  // TODO: вести на экран команд, когда его перенесём
-  const handleStart = () => router.push('/round');
+  const handleSubmitTeams = (value: string[]) => {
+    actor.send({ type: 'SUBMIT_TEAMS', value });
+    router.push('/round');
+  };
 
   let content = (
     <View style={styles.container}>
@@ -75,7 +82,7 @@ export function AliasSettingsScreen() {
       </View>
       <FooterControls
         onClose={handleClose}
-        onSubmit={handleStart}
+        onSubmit={handleOpenTeams}
       />
     </View>
   );
@@ -114,6 +121,17 @@ export function AliasSettingsScreen() {
         limits={TIME_LIMITS}
         step={TIME_STEP}
         onSubmit={handleSubmitTime}
+        onClose={handleBack}
+      />
+    );
+  }
+
+  if (isTeamsOpen) {
+    content = (
+      <TeamsSettings
+        title={t('settings.teams')}
+        defaultValue={teams}
+        onSubmit={handleSubmitTeams}
         onClose={handleBack}
       />
     );

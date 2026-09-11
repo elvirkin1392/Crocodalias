@@ -17,6 +17,7 @@
     "score": "Points to win",
     "level": "Word level",
     "time": "Seconds per turn",
+    "teams": "Teams",
     "decrease": "Less",
     "increase": "More"
   },
