@@ -41,6 +41,9 @@
     "finish": "Finish the game",
     "later": "Continue later"
   },
+  "crocodile": {
+    "ruleHint": "Act the word out using only gestures — no talking or sounds"
+  },
   "teamNames": [
     "Sea Wolves",
     "Risky Biscuits",

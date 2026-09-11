@@ -1,1 +1,1 @@
-export { RoundScreen as default } from '@/screens/Round/RoundScreen';
+export { AliasRoundScreen as default } from '@/screens/AliasRound/AliasRoundScreen';

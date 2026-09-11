@@ -37,4 +37,11 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#b3b3b3',
   },
+  ruleHint: {
+    marginTop: 16,
+    marginHorizontal: 40,
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#666',
+  },
 });

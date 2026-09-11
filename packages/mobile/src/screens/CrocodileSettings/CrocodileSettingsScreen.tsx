@@ -3,25 +3,25 @@ import { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { GameSettingsView } from '@/components/settings/GameSettingsView';
-import { AliasSettingsContext } from '@/context/settings';
+import { CrocodileSettingsContext } from '@/context/settings';
 import { LEVELS } from '@/enums/settings';
-import { styles } from './AliasSettingsScreen.styles';
+import { styles } from './CrocodileSettingsScreen.styles';
 
-export function AliasSettingsScreen() {
-  const actor = AliasSettingsContext.useActorRef();
-  const { score, level, time, teams } = AliasSettingsContext.useSelector(
+export function CrocodileSettingsScreen() {
+  const actor = CrocodileSettingsContext.useActorRef();
+  const { score, level, time, teams } = CrocodileSettingsContext.useSelector(
     (state) => state.context,
   );
-  const isScoreOpen = AliasSettingsContext.useSelector((state) =>
+  const isScoreOpen = CrocodileSettingsContext.useSelector((state) =>
     state.matches('scoreSettings'),
   );
-  const isLevelOpen = AliasSettingsContext.useSelector((state) =>
+  const isLevelOpen = CrocodileSettingsContext.useSelector((state) =>
     state.matches('levelSettings'),
   );
-  const isTimeOpen = AliasSettingsContext.useSelector((state) =>
+  const isTimeOpen = CrocodileSettingsContext.useSelector((state) =>
     state.matches('timeSettings'),
   );
-  const isTeamsOpen = AliasSettingsContext.useSelector((state) =>
+  const isTeamsOpen = CrocodileSettingsContext.useSelector((state) =>
     state.matches('teamSettings'),
   );
 
@@ -45,7 +45,7 @@ export function AliasSettingsScreen() {
   const handleClose = () => router.back();
   const handleSubmitTeams = (value: string[]) => {
     actor.send({ type: 'SUBMIT_TEAMS', value });
-    router.push('/round');
+    router.push('/crocodile-round');
   };
 
   let stage: 'overview' | 'score' | 'level' | 'time' | 'teams' = 'overview';
@@ -63,7 +63,7 @@ export function AliasSettingsScreen() {
   return (
     <SafeAreaView style={styles.screen}>
       <GameSettingsView
-        gameId="alias"
+        gameId="crocodile"
         stage={stage}
         score={score}
         level={level}

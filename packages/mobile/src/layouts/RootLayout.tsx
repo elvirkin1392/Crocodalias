@@ -3,7 +3,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { AliasSettingsContext } from '@/context/settings';
+import {
+  AliasSettingsContext,
+  CrocodileSettingsContext,
+} from '@/context/settings';
 import { UserContext } from '@/context/user';
 import { styles } from './RootLayout.styles';
 
@@ -14,7 +17,9 @@ export function RootLayout() {
     <GestureHandlerRootView style={styles.root}>
       <UserContext.Provider>
         <AliasSettingsContext.Provider>
-          <AppNavigator />
+          <CrocodileSettingsContext.Provider>
+            <AppNavigator />
+          </CrocodileSettingsContext.Provider>
         </AliasSettingsContext.Provider>
       </UserContext.Provider>
     </GestureHandlerRootView>

@@ -8,34 +8,41 @@ import { Results } from '@/components/round/Results';
 import { RoundInfo } from '@/components/round/RoundInfo';
 import { RoundPlay } from '@/components/round/RoundPlay';
 import { RoundContext } from '@/context/round';
-import { AliasSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
+import { LEVELS } from '@/enums/settings';
 import { hasWinningTeam } from '@/state/round';
 import { styles } from './RoundScreen.styles';
 
 type Stage = 'info' | 'play' | 'result' | 'finished';
 
-export function RoundScreen() {
+type RoundScreenProps = {
+  level: LEVELS;
+  teamNames: string[];
+  scoreLimit: number;
+  roundTime: number;
+  allowSteal: boolean;
+  ruleHint?: string;
+};
+
+export function RoundScreen(props: RoundScreenProps) {
   return (
     <RoundContext.Provider>
-      <Round />
+      <Round {...props} />
     </RoundContext.Provider>
   );
 }
 
-function Round() {
+function Round({
+  level,
+  teamNames,
+  scoreLimit,
+  roundTime,
+  allowSteal,
+  ruleHint,
+}: RoundScreenProps) {
   const actor = RoundContext.useActorRef();
   const hasWords = RoundContext.useSelector(
     (state) => state.context.words.length > 0,
-  );
-  const level = AliasSettingsContext.useSelector(
-    (state) => state.context.level,
-  );
-  const teamNames = AliasSettingsContext.useSelector(
-    (state) => state.context.teams,
-  );
-  const scoreLimit = AliasSettingsContext.useSelector(
-    (state) => state.context.score,
   );
   const hasWinner = RoundContext.useSelector((state) =>
     hasWinningTeam(state.context, scoreLimit),
@@ -89,12 +96,15 @@ function Round() {
     <SafeAreaView style={styles.container}>
       {stage === 'info' && (
         <RoundInfo
+          ruleHint={ruleHint}
           onSubmit={handleStartTurn}
           onClose={handleQuit}
         />
       )}
       {stage === 'play' && (
         <RoundPlay
+          roundTime={roundTime}
+          allowSteal={allowSteal}
           onFinish={handleFinishTurn}
           onFinishGame={handleFinishGame}
           onQuit={handleQuit}

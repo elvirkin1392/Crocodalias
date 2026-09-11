@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import closeIcon from '@/assets/icons/close.svg';
 import { RoundContext } from '@/context/round';
-import { AliasSettingsContext } from '@/context/settings';
 import {
   currentTeamIndex,
   currentWord,
@@ -24,12 +23,20 @@ import { Timer } from './Timer';
 const SHOW_TIME_MS = 2000;
 
 type RoundPlayProps = {
+  roundTime: number;
+  allowSteal: boolean;
   onFinish: () => void;
   onFinishGame: () => void;
   onQuit: () => void;
 };
 
-export function RoundPlay({ onFinish, onFinishGame, onQuit }: RoundPlayProps) {
+export function RoundPlay({
+  roundTime,
+  allowSteal,
+  onFinish,
+  onFinishGame,
+  onQuit,
+}: RoundPlayProps) {
   const { t } = useTranslation();
   const actor = RoundContext.useActorRef();
   const teams = RoundContext.useSelector((state) => state.context.teams);
@@ -39,9 +46,6 @@ export function RoundPlay({ onFinish, onFinishGame, onQuit }: RoundPlayProps) {
   );
   const opponentIndex = RoundContext.useSelector((state) =>
     nextTeamIndex(state.context),
-  );
-  const roundTime = AliasSettingsContext.useSelector(
-    (state) => state.context.time,
   );
   const [timer, sendTimer] = useMachine(timerMachine);
   const turnScore = RoundContext.useSelector((state) =>
@@ -70,11 +74,12 @@ export function RoundPlay({ onFinish, onFinishGame, onQuit }: RoundPlayProps) {
 
   const { elapsed, duration, isPaused } = timer.context;
   const isTimeUp = elapsed > duration;
+  const canSteal = isTimeUp && allowSteal;
   const isCardHidden = isPaused && !isTimeUp;
   const secondsLeft = Math.max(0, Math.ceil(duration - elapsed));
   const playingTeam = teams[playingIndex];
   const opponentTeam = teams[opponentIndex];
-  const opponentStyle = isTimeUp
+  const opponentStyle = canSteal
     ? [styles.opponent, styles.opponentCanSteal]
     : styles.opponent;
 
@@ -133,7 +138,7 @@ export function RoundPlay({ onFinish, onFinishGame, onQuit }: RoundPlayProps) {
     <SwipeCard
       word={word}
       isHidden={isCardHidden}
-      canSteal={isTimeUp}
+      canSteal={canSteal}
       onPress={handleStartTimer}
       onGuessed={handleGuessed}
       onSkipped={handleSkipped}
@@ -187,9 +192,11 @@ export function RoundPlay({ onFinish, onFinishGame, onQuit }: RoundPlayProps) {
         />
       ) : (
         <>
-          <Text style={opponentStyle}>
-            {opponentTeam?.name} {stolenScore}
-          </Text>
+          {allowSteal && (
+            <Text style={opponentStyle}>
+              {opponentTeam?.name} {stolenScore}
+            </Text>
+          )}
 
           <View style={styles.cardArea}>{cardContent}</View>
 
