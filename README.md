@@ -19,12 +19,8 @@ Party word games for your phone — **Crocodile** (charades), **Alias** and
 
 ```
 packages/
-  mobile/                  React Native app (Expo SDK 57) — the product
-  web/                     Original React + Vite prototype, frozen for reference
-scripts/
-  build-dictionaries.mjs   Generates the word decks
-  exclude.txt              Hand-reviewed list of excluded words
-DICTIONARIES.md            How the decks are built and licensed (in Russian)
+  mobile/   React Native app (Expo SDK 57) — the product
+  web/      Original React + Vite prototype, frozen for reference
 ```
 
 ## Tech stack
@@ -76,27 +72,20 @@ Run from `packages/mobile`:
 
 ## Word decks
 
-The decks are generated, never edited by hand. From the repository root:
+The word lists live in `packages/mobile/src/dictionaries/ru/` — one JSON file
+per difficulty level, one word per line in alphabetical order. Edit them
+directly: add a word to the file for its level, or delete a line to drop it.
+Order does not matter, the deck is shuffled before every round.
 
-```bash
-npm run build:dictionaries
-```
-
-This builds them from open data and writes them to both
-`packages/mobile/src/dictionaries/ru/` and
-`packages/web/public/dictionaries/ru/`. To drop a word, add it to
-`scripts/exclude.txt` and regenerate.
-
-Sources:
+The lists were built once from open data and then curated by hand. Sources:
 
 - [Badestrand/russian-dictionary](https://github.com/Badestrand/russian-dictionary)
   — nouns with their full paradigms, from [OpenRussian.org](https://en.openrussian.org)
 - [hermitdave/FrequencyWords](https://github.com/hermitdave/FrequencyWords)
   — word frequencies from the OpenSubtitles 2018 corpus
 
-
 ## License
 
-The word decks are distributed under
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), as required by
-their sources — see [DICTIONARIES.md](DICTIONARIES.md).
+The word decks are derived from the sources above and are distributed under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), as those
+sources require.

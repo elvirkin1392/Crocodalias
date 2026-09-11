@@ -34,9 +34,10 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# generated dictionary sources
-scripts/.cache/
 
 # Editor settings
 .idea/
 .vscode/
+
+# Local notes
+DICTIONARIES.md
