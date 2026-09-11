@@ -5,5 +5,5 @@ export const aliasSettingsMachine = createSettingsMachine('aliasSettings', {
   level: LEVELS.medium,
   time: 60,
   score: 60,
-  teams: ['', ''],
+  teams: ['first', 'second'],
 });

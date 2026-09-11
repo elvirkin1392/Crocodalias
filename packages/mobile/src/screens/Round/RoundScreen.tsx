@@ -7,7 +7,7 @@ import { Results } from '@/components/round/Results';
 import { RoundInfo } from '@/components/round/RoundInfo';
 import { RoundPlay } from '@/components/round/RoundPlay';
 import { RoundContext } from '@/context/round';
-import { ClassicSettingsContext } from '@/context/settings';
+import { AliasSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
 import { styles } from './RoundScreen.styles';
 
@@ -26,10 +26,10 @@ function Round() {
   const hasWords = RoundContext.useSelector(
     (state) => state.context.words.length > 0,
   );
-  const level = ClassicSettingsContext.useSelector(
+  const level = AliasSettingsContext.useSelector(
     (state) => state.context.level,
   );
-  const teamNames = ClassicSettingsContext.useSelector(
+  const teamNames = AliasSettingsContext.useSelector(
     (state) => state.context.teams,
   );
   const [stage, setStage] = useState<Stage>('info');

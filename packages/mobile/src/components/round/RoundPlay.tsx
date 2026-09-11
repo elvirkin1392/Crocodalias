@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import closeIcon from '@/assets/icons/close.svg';
 import { RoundContext } from '@/context/round';
-import { ClassicSettingsContext } from '@/context/settings';
+import { AliasSettingsContext } from '@/context/settings';
 import {
   currentTeamIndex,
   currentWord,
@@ -39,7 +39,7 @@ export function RoundPlay({ onFinish, onQuit }: RoundPlayProps) {
   const opponentIndex = RoundContext.useSelector((state) =>
     nextTeamIndex(state.context),
   );
-  const roundTime = ClassicSettingsContext.useSelector(
+  const roundTime = AliasSettingsContext.useSelector(
     (state) => state.context.time,
   );
   const [timer, sendTimer] = useMachine(timerMachine);
