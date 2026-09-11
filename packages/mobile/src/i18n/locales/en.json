@@ -12,6 +12,20 @@
     "crocodile": "Crocodile",
     "hat": "The Hat"
   },
+  "settings": {
+    "title": "{{game}}: settings",
+    "score": "Points to win",
+    "level": "Word level",
+    "time": "Seconds per turn",
+    "decrease": "Less",
+    "increase": "More"
+  },
+  "levels": {
+    "easy": "Easy",
+    "medium": "Medium",
+    "advanced": "Hard",
+    "pro": "Pro"
+  },
   "round": {
     "title": "Round {{number}}",
     "nowPlaying": "Now playing: {{team}}",

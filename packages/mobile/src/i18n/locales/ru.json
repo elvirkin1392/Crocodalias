@@ -12,6 +12,20 @@
     "crocodile": "Крокодил",
     "hat": "Шляпа"
   },
+  "settings": {
+    "title": "{{game}}: настройки",
+    "score": "Очки до победы",
+    "level": "Уровень слов",
+    "time": "Секунд на ход",
+    "decrease": "Меньше",
+    "increase": "Больше"
+  },
+  "levels": {
+    "easy": "Лёгкий",
+    "medium": "Средний",
+    "advanced": "Сложный",
+    "pro": "Профи"
+  },
   "round": {
     "title": "Раунд {{number}}",
     "nowPlaying": "Сейчас играет: {{team}}",

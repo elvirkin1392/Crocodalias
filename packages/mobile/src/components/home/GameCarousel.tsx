@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { type Game, type GameId, GAMES } from './games';
+import { type Game, GAMES } from './games';
 import { styles } from './GameCarousel.styles';
 
-type GameCarouselProps = { onSelect: (gameId: GameId) => void };
+type GameCarouselProps = { onSelect: (game: Game) => void };
 
 export function GameCarousel({ onSelect }: GameCarouselProps) {
   const { width } = useWindowDimensions();
@@ -65,18 +65,18 @@ export function GameCarousel({ onSelect }: GameCarouselProps) {
 
 type GameCardProps = {
   game: Game;
-  onSelect: (gameId: GameId) => void;
+  onSelect: (game: Game) => void;
 };
 
 function GameCard({ game, onSelect }: GameCardProps) {
   const { t } = useTranslation();
 
-  const isDisabled = !game.isAvailable;
+  const isDisabled = !game.settingsRoute;
   const cardStyle = isDisabled
     ? [styles.card, styles.cardDisabled]
     : styles.card;
 
-  const handlePress = () => onSelect(game.id);
+  const handlePress = () => onSelect(game);
 
   return (
     <Pressable

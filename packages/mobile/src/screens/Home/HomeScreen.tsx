@@ -4,13 +4,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 
 import { GameCarousel } from '@/components/home/GameCarousel';
+import type { Game } from '@/components/home/games';
 import { styles } from './HomeScreen.styles';
 
 export function HomeScreen() {
   const { t } = useTranslation();
 
-  // TODO: вести на настройки выбранной игры, когда их перенесём
-  const handleSelectGame = () => router.push('/round');
+  const handleSelectGame = (game: Game) => {
+    if (game.settingsRoute) {
+      router.push(game.settingsRoute);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
