@@ -57,7 +57,10 @@ export function PlayPlaceholder({ onFinish, onClose }: PlayPlaceholderProps) {
         </Pressable>
       </View>
 
-      <FooterControls onClose={onClose} onSubmit={onFinish} />
+      <FooterControls
+        onClose={onClose}
+        onSubmit={onFinish}
+      />
     </View>
   );
 }

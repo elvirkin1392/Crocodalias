@@ -37,7 +37,10 @@ export function Results({ onSubmit, onClose }: ResultsProps) {
         {teams[next]?.totalScore}
       </Text>
 
-      <FooterControls onClose={onClose} onSubmit={onSubmit} />
+      <FooterControls
+        onClose={onClose}
+        onSubmit={onSubmit}
+      />
     </View>
   );
 }

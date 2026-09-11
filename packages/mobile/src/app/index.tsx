@@ -23,7 +23,10 @@ export default function Index() {
       <Text style={styles.caption}>
         {count === null ? 'Загружаем слова…' : `Слов в колоде easy: ${count}`}
       </Text>
-      <Pressable style={styles.button} onPress={() => router.push('/round')}>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push('/round')}
+      >
         <Text style={styles.buttonText}>Начать игру</Text>
       </Pressable>
     </View>

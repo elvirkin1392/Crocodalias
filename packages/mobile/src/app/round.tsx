@@ -68,10 +68,16 @@ function Round() {
   return (
     <SafeAreaView style={styles.container}>
       {stage === 'info' && (
-        <RoundInfo onSubmit={() => setStage('play')} onClose={quit} />
+        <RoundInfo
+          onSubmit={() => setStage('play')}
+          onClose={quit}
+        />
       )}
       {stage === 'play' && (
-        <PlayPlaceholder onFinish={() => setStage('result')} onClose={quit} />
+        <PlayPlaceholder
+          onFinish={() => setStage('result')}
+          onClose={quit}
+        />
       )}
       {stage === 'result' && (
         <Results

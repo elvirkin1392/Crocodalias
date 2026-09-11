@@ -24,7 +24,10 @@ export function RoundInfo({ onSubmit, onClose }: RoundInfoProps) {
 
       <View style={styles.scoreboard}>
         {teams.map((team, index) => (
-          <View key={`${team.name}-${index}`} style={styles.team}>
+          <View
+            key={`${team.name}-${index}`}
+            style={styles.team}
+          >
             <Text style={[styles.name, index === playing && styles.playing]}>
               {team.name}
             </Text>
@@ -35,7 +38,10 @@ export function RoundInfo({ onSubmit, onClose }: RoundInfoProps) {
 
       <Text style={styles.caption}>Сейчас играет: {teams[playing]?.name}</Text>
 
-      <FooterControls onClose={onClose} onSubmit={onSubmit} />
+      <FooterControls
+        onClose={onClose}
+        onSubmit={onSubmit}
+      />
     </View>
   );
 }

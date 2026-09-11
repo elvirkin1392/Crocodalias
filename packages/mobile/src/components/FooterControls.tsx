@@ -20,7 +20,11 @@ export function FooterControls({ onClose, onSubmit }: FooterControlsProps) {
         hitSlop={16}
         onPress={onClose}
       >
-        <Image source={closeIcon} style={styles.close} contentFit="contain" />
+        <Image
+          source={closeIcon}
+          style={styles.close}
+          contentFit="contain"
+        />
       </Pressable>
       <Pressable
         accessibilityRole="button"
@@ -28,7 +32,11 @@ export function FooterControls({ onClose, onSubmit }: FooterControlsProps) {
         hitSlop={16}
         onPress={onSubmit}
       >
-        <Image source={okayIcon} style={styles.okay} contentFit="contain" />
+        <Image
+          source={okayIcon}
+          style={styles.okay}
+          contentFit="contain"
+        />
       </Pressable>
     </View>
   );
