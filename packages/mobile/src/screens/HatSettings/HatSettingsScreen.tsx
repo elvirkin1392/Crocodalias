@@ -65,15 +65,19 @@ export function HatSettingsScreen() {
       <Text style={styles.title}>
         {t('settings.title', { game: t('games.hat') })}
       </Text>
-      <View style={styles.values}>
+      <View style={styles.slot}>
         <WordCountButton
           value={score}
           onPress={handleOpenWordCount}
         />
+      </View>
+      <View style={styles.slot}>
         <LevelButton
           value={level}
           onPress={handleOpenLevel}
         />
+      </View>
+      <View style={styles.slot}>
         <TimeButton
           value={time}
           onPress={handleOpenTime}

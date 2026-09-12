@@ -105,15 +105,19 @@ export function GameSettingsView({
       <Text style={styles.title}>
         {t('settings.title', { game: t(`games.${gameId}`) })}
       </Text>
-      <View style={styles.values}>
+      <View style={styles.slot}>
         <ScoreButton
           value={score}
           onPress={onOpenScore}
         />
+      </View>
+      <View style={styles.slot}>
         <LevelButton
           value={level}
           onPress={onOpenLevel}
         />
+      </View>
+      <View style={styles.slot}>
         <TimeButton
           value={time}
           onPress={onOpenTime}

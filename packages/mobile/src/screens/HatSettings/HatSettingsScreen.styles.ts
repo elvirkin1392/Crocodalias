@@ -18,9 +18,10 @@ export const createStyles = (colors: Colors) =>
       textTransform: 'uppercase',
       color: colors.textMuted,
     },
-    values: {
+    // Three equal slots: the word count and time editors keep their value in
+    // the same slot, so it doesn't move when the editor opens.
+    slot: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
+      justifyContent: 'center',
     },
   });

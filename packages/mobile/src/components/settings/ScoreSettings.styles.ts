@@ -15,9 +15,15 @@ export const createStyles = (colors: Colors) =>
       textTransform: 'uppercase',
       color: colors.textMuted,
     },
-    sliderArea: {
+    slot: {
       flex: 1,
+      justifyContent: 'center',
+    },
+    // Takes the two slots of level and time, so the score stays exactly
+    // where it was on the settings overview. No padding or margin: Yoga
+    // subtracts them before splitting the flex space, shifting the score.
+    sliderArea: {
+      flex: 2,
       alignItems: 'center',
-      paddingVertical: 24,
     },
   });

@@ -40,10 +40,12 @@ export function TimeSettings({
           onChange={setTime}
         />
       </View>
-      <TimeButton
-        value={time}
-        onPress={handleSubmit}
-      />
+      <View style={styles.slot}>
+        <TimeButton
+          value={time}
+          onPress={handleSubmit}
+        />
+      </View>
       <FooterControls
         onClose={onClose}
         onSubmit={handleSubmit}

@@ -15,9 +15,15 @@ export const createStyles = (colors: Colors) =>
       textTransform: 'uppercase',
       color: colors.textMuted,
     },
+    // Takes the two slots of score and level, so the time stays exactly
+    // where it was on the settings overview. No padding or margin: Yoga
+    // subtracts them before splitting the flex space, shifting the time.
     sliderArea: {
-      flex: 1,
+      flex: 2,
       alignItems: 'center',
-      paddingVertical: 24,
+    },
+    slot: {
+      flex: 1,
+      justifyContent: 'center',
     },
   });

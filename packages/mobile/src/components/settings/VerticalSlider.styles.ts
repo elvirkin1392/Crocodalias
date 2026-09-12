@@ -6,9 +6,12 @@ export const THUMB_SIZE = 28;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
+    // The inset lives here, not on the parent: a parent's padding would eat
+    // into the flex space the settings editors split between their slots.
     touchArea: {
       flex: 1,
       width: 60,
+      marginVertical: 24,
       alignItems: 'center',
     },
     track: {

@@ -31,10 +31,12 @@ export function WordCountSettings({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <WordCountButton
-        value={count}
-        onPress={handleSubmit}
-      />
+      <View style={styles.slot}>
+        <WordCountButton
+          value={count}
+          onPress={handleSubmit}
+        />
+      </View>
       <View style={styles.sliderArea}>
         <VerticalSlider
           value={count}

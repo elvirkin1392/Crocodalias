@@ -31,10 +31,12 @@ export function ScoreSettings({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <ScoreButton
-        value={score}
-        onPress={handleSubmit}
-      />
+      <View style={styles.slot}>
+        <ScoreButton
+          value={score}
+          onPress={handleSubmit}
+        />
+      </View>
       <View style={styles.sliderArea}>
         <VerticalSlider
           value={score}
