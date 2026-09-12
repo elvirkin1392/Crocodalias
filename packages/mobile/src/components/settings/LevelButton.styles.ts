@@ -6,14 +6,15 @@ export const CIRCLE_SIZE = 130;
 const CAPTION_GAP = 8;
 const CAPTION_LINE_HEIGHT = 18;
 
-/** How far the caption below pushes the circle above its slot's center. */
-export const CIRCLE_CENTER_OFFSET = (CAPTION_GAP + CAPTION_LINE_HEIGHT) / 2;
-
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
+    // The top padding mirrors the caption below, so the circle itself sits on
+    // its slot's center — the same line the level wheel and the score and
+    // time blocks are centered on.
     container: {
       alignItems: 'center',
       gap: CAPTION_GAP,
+      paddingTop: CAPTION_GAP + CAPTION_LINE_HEIGHT,
     },
     circle: {
       width: CIRCLE_SIZE,

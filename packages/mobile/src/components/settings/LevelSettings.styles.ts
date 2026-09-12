@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
-import { CIRCLE_CENTER_OFFSET } from './LevelButton.styles';
 
 export const createStyles = (
   colors: Colors,
@@ -24,11 +23,9 @@ export const createStyles = (
       alignSelf: 'stretch',
     },
     // An empty slot above and below lets the first and last level reach the
-    // middle slot; the caption offset puts every circle where the overview's
-    // level circle sits within its slot.
+    // middle slot.
     pickerContent: {
       alignItems: 'center',
-      paddingTop: slotHeight - CIRCLE_CENTER_OFFSET,
-      paddingBottom: slotHeight + CIRCLE_CENTER_OFFSET,
+      paddingVertical: slotHeight,
     },
   });
