@@ -3,7 +3,8 @@ import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import starIcon from '@/assets/icons/star.svg';
-import { styles } from './ScoreButton.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './ScoreButton.styles';
 
 type ScoreButtonProps = {
   value: number;
@@ -12,6 +13,7 @@ type ScoreButtonProps = {
 
 export function ScoreButton({ value, onPress }: ScoreButtonProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   return (
     <Pressable

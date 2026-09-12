@@ -2,7 +2,8 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import type { Team } from '@/state/round';
-import { styles } from './FinalResults.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './FinalResults.styles';
 
 type FinalResultsProps = {
   teams: Team[];
@@ -11,6 +12,7 @@ type FinalResultsProps = {
 
 export function FinalResults({ teams, onClose }: FinalResultsProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const standings = [...teams].sort((a, b) => b.totalScore - a.totalScore);
   const topScore = standings[0]?.totalScore;
 
@@ -46,6 +48,7 @@ type TeamStandingProps = {
 };
 
 function TeamStanding({ team, isWinner }: TeamStandingProps) {
+  const styles = useThemedStyles(createStyles);
   const rowStyle = isWinner ? [styles.row, styles.winnerRow] : styles.row;
   const nameStyle = isWinner ? [styles.name, styles.winnerText] : styles.name;
   const scoreStyle = isWinner

@@ -11,7 +11,8 @@ import { HatContext } from '@/context/hat';
 import { HatSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
 import { isGameComplete } from '@/state/hat';
-import { styles } from './HatScreen.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './HatScreen.styles';
 
 type Stage = 'info' | 'play' | 'result' | 'finished';
 
@@ -24,6 +25,7 @@ export function HatScreen() {
 }
 
 function Hat() {
+  const styles = useThemedStyles(createStyles);
   const actor = HatContext.useActorRef();
   const teams = HatContext.useSelector((state) => state.context.teams);
   const hasWords = HatContext.useSelector(

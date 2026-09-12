@@ -5,7 +5,8 @@ import { FooterControls } from '@/components/FooterControls';
 import { ScoreButton } from '@/components/settings/ScoreButton';
 import { VerticalSlider } from '@/components/settings/VerticalSlider';
 import { SCORE_LIMITS } from '@/state/settings';
-import { styles } from './ScoreSettings.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './ScoreSettings.styles';
 
 const SCORE_STEP = 5;
 
@@ -23,6 +24,7 @@ export function ScoreSettings({
   onClose,
 }: ScoreSettingsProps) {
   const [score, setScore] = useState(defaultValue);
+  const styles = useThemedStyles(createStyles);
 
   const handleSubmit = () => onSubmit(score);
 

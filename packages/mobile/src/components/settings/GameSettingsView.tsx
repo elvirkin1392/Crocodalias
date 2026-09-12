@@ -11,7 +11,8 @@ import { TimeButton } from '@/components/settings/TimeButton';
 import { TimeSettings } from '@/components/settings/TimeSettings';
 import { type GameId } from '@/components/home/games';
 import { LEVELS } from '@/enums/settings';
-import { styles } from './GameSettingsView.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './GameSettingsView.styles';
 
 type SettingsStage = 'overview' | 'score' | 'level' | 'time' | 'teams';
 
@@ -53,6 +54,7 @@ export function GameSettingsView({
   onClose,
 }: GameSettingsViewProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   if (stage === 'score') {
     return (

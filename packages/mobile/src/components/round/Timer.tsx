@@ -1,7 +1,8 @@
 import { Pressable, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { styles } from './Timer.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './Timer.styles';
 
 type TimerProps = {
   secondsLeft: number;
@@ -11,6 +12,7 @@ type TimerProps = {
 
 export function Timer({ secondsLeft, isDisabled, onPress }: TimerProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   return (
     <Pressable

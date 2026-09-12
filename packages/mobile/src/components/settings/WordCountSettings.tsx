@@ -5,7 +5,8 @@ import { FooterControls } from '@/components/FooterControls';
 import { VerticalSlider } from '@/components/settings/VerticalSlider';
 import { WordCountButton } from '@/components/settings/WordCountButton';
 import { HAT_WORD_COUNT_LIMITS } from '@/state/hatSettings';
-import { styles } from './WordCountSettings.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './WordCountSettings.styles';
 
 const WORD_COUNT_STEP = 5;
 
@@ -23,6 +24,7 @@ export function WordCountSettings({
   onClose,
 }: WordCountSettingsProps) {
   const [count, setCount] = useState(defaultValue);
+  const styles = useThemedStyles(createStyles);
 
   const handleSubmit = () => onSubmit(count);
 

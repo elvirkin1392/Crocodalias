@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { FooterControls } from '@/components/FooterControls';
 import { RoundContext } from '@/context/round';
 import { currentTeamIndex } from '@/state/round';
-import { styles } from './RoundInfo.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './RoundInfo.styles';
 
 type RoundInfoProps = {
   ruleHint?: string;
@@ -21,6 +22,7 @@ export function RoundInfo({ ruleHint, onSubmit, onClose }: RoundInfoProps) {
   );
 
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const playingTeamName = teams[playing]?.name;
 
   return (

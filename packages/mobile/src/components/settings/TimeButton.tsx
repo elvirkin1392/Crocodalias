@@ -3,7 +3,8 @@ import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import timeIcon from '@/assets/icons/time.svg';
-import { styles } from './TimeButton.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './TimeButton.styles';
 
 type TimeButtonProps = {
   value: number;
@@ -12,6 +13,7 @@ type TimeButtonProps = {
 
 export function TimeButton({ value, onPress }: TimeButtonProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   return (
     <Pressable

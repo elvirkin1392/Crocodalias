@@ -14,9 +14,10 @@ import {
   turnPoints,
 } from '@/state/round';
 import { timerMachine } from '@/state/timer';
+import { useThemedStyles } from '@/theme/useThemedStyles';
 import { LastWordPicker } from './LastWordPicker';
 import { QuitGame } from './QuitGame';
-import { styles } from './RoundPlay.styles';
+import { createStyles } from './RoundPlay.styles';
 import { SwipeCard } from './SwipeCard';
 import { Timer } from './Timer';
 
@@ -38,6 +39,7 @@ export function RoundPlay({
   onQuit,
 }: RoundPlayProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const actor = RoundContext.useActorRef();
   const teams = RoundContext.useSelector((state) => state.context.teams);
   const word = RoundContext.useSelector((state) => currentWord(state.context));

@@ -14,10 +14,12 @@ import { WordCountButton } from '@/components/settings/WordCountButton';
 import { WordCountSettings } from '@/components/settings/WordCountSettings';
 import { HatSettingsContext } from '@/context/settings';
 import { LEVELS } from '@/enums/settings';
-import { styles } from './HatSettingsScreen.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './HatSettingsScreen.styles';
 
 export function HatSettingsScreen() {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const actor = HatSettingsContext.useActorRef();
   const { score, level, time, teams } = HatSettingsContext.useSelector(
     (state) => state.context,

@@ -11,7 +11,8 @@ import Animated, {
 import { scheduleOnRN } from 'react-native-worklets';
 
 import playIcon from '@/assets/icons/play.svg';
-import { styles } from './SwipeCard.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './SwipeCard.styles';
 
 const SWIPE_DISTANCE = 60;
 const FLY_DISTANCE = 900;
@@ -39,6 +40,7 @@ export function SwipeCard({
   onStolen,
 }: SwipeCardProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(0);
   const opacity = useSharedValue(1);

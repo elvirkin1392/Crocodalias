@@ -10,14 +10,16 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { useThemedStyles } from '@/theme/useThemedStyles';
 import { type Game, GAMES } from './games';
-import { styles } from './GameCarousel.styles';
+import { createStyles } from './GameCarousel.styles';
 
 type GameCarouselProps = { onSelect: (game: Game) => void };
 
 export function GameCarousel({ onSelect }: GameCarouselProps) {
   const { width } = useWindowDimensions();
   const [page, setPage] = useState(0);
+  const styles = useThemedStyles(createStyles);
 
   const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offset = event.nativeEvent.contentOffset.x;
@@ -70,6 +72,7 @@ type GameCardProps = {
 
 function GameCard({ game, onSelect }: GameCardProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   const isDisabled = !game.settingsRoute;
   const cardStyle = isDisabled

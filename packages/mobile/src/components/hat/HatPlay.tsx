@@ -11,7 +11,8 @@ import { Timer } from '@/components/round/Timer';
 import { HatContext } from '@/context/hat';
 import { currentTeamIndex, currentWord, turnPoints } from '@/state/hat';
 import { timerMachine } from '@/state/timer';
-import { styles } from './HatPlay.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './HatPlay.styles';
 
 const SHOW_TIME_MS = 2000;
 
@@ -29,6 +30,7 @@ export function HatPlay({
   onQuit,
 }: HatPlayProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const actor = HatContext.useActorRef();
   const teams = HatContext.useSelector((state) => state.context.teams);
   const word = HatContext.useSelector((state) => currentWord(state.context));

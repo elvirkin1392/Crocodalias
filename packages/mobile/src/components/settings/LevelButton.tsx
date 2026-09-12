@@ -2,7 +2,8 @@ import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { LEVELS } from '@/enums/settings';
-import { styles } from './LevelButton.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './LevelButton.styles';
 
 type LevelButtonProps = {
   value: LEVELS;
@@ -11,6 +12,7 @@ type LevelButtonProps = {
 
 export function LevelButton({ value, onPress }: LevelButtonProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   return (
     <Pressable

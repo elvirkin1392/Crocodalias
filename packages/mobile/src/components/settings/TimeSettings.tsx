@@ -5,7 +5,8 @@ import { FooterControls } from '@/components/FooterControls';
 import { TimeButton } from '@/components/settings/TimeButton';
 import { VerticalSlider } from '@/components/settings/VerticalSlider';
 import { TIME_LIMITS } from '@/state/settings';
-import { styles } from './TimeSettings.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './TimeSettings.styles';
 
 const TIME_STEP = 10;
 
@@ -23,6 +24,7 @@ export function TimeSettings({
   onClose,
 }: TimeSettingsProps) {
   const [time, setTime] = useState(defaultValue);
+  const styles = useThemedStyles(createStyles);
 
   const handleSubmit = () => onSubmit(time);
 

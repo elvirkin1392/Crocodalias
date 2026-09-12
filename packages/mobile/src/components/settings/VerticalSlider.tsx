@@ -6,7 +6,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
-import { styles, THUMB_SIZE } from './VerticalSlider.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles, THUMB_SIZE } from './VerticalSlider.styles';
 
 type VerticalSliderProps = {
   value: number;
@@ -23,6 +24,7 @@ export function VerticalSlider({
   step,
   onChange,
 }: VerticalSliderProps) {
+  const styles = useThemedStyles(createStyles);
   const trackHeight = useSharedValue(0);
   const ratio = useSharedValue((value - min) / (max - min));
 

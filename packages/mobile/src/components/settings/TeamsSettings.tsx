@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { getRandomTeams } from '@/mocks/teams';
-import { styles } from './TeamsSettings.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './TeamsSettings.styles';
 
 const MIN_TEAMS = 2;
 
@@ -22,6 +23,7 @@ export function TeamsSettings({
   onClose,
 }: TeamsSettingsProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const namePool = t('teamNames', { returnObjects: true }) as string[];
   const [teams, setTeams] = useState(() =>
     getRandomTeams(Math.max(defaultValue.length, MIN_TEAMS), namePool),
@@ -71,6 +73,7 @@ type TeamRowProps = {
 };
 
 function TeamRow({ name, index, canRemove, onRemove }: TeamRowProps) {
+  const styles = useThemedStyles(createStyles);
   const handlePress = () => onRemove(index);
 
   return (

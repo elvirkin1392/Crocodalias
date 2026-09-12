@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { FooterControls } from '@/components/FooterControls';
 import { RoundContext } from '@/context/round';
 import { currentTeamIndex, nextTeamIndex, type TurnEntry } from '@/state/round';
-import { styles } from './Results.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './Results.styles';
 
 type ResultsProps = {
   onSubmit: () => void;
@@ -13,6 +14,7 @@ type ResultsProps = {
 
 export function Results({ onSubmit, onClose }: ResultsProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const teams = RoundContext.useSelector((state) => state.context.teams);
   const turnLog = RoundContext.useSelector((state) => state.context.turnLog);
   const playedIndex = RoundContext.useSelector((state) =>
@@ -63,6 +65,7 @@ type TurnWordProps = {
 };
 
 function TurnWord({ entry, teamName }: TurnWordProps) {
+  const styles = useThemedStyles(createStyles);
   const isStolen = entry.result === 'stolen';
   const isSkipped = entry.result === 'skipped';
   const points = isSkipped ? '−1' : '+1';

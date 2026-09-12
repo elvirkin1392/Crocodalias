@@ -1,7 +1,8 @@
 import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { styles } from './LastWordPicker.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './LastWordPicker.styles';
 
 export type PickerTeam = { index: number; name: string };
 
@@ -13,6 +14,7 @@ type LastWordPickerProps = {
 
 export function LastWordPicker({ word, teams, onPick }: LastWordPickerProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   return (
     <View style={styles.container}>
@@ -34,6 +36,7 @@ type TeamButtonProps = {
 };
 
 function TeamButton({ team, onPick }: TeamButtonProps) {
+  const styles = useThemedStyles(createStyles);
   const handlePress = () => onPick(team.index);
 
   return (

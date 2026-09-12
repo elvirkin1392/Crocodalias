@@ -11,7 +11,8 @@ import { RoundContext } from '@/context/round';
 import { loadWords, shuffle } from '@/dictionaries';
 import { LEVELS } from '@/enums/settings';
 import { hasWinningTeam } from '@/state/round';
-import { styles } from './RoundScreen.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './RoundScreen.styles';
 
 type Stage = 'info' | 'play' | 'result' | 'finished';
 
@@ -40,6 +41,7 @@ function Round({
   allowSteal,
   ruleHint,
 }: RoundScreenProps) {
+  const styles = useThemedStyles(createStyles);
   const actor = RoundContext.useActorRef();
   const teams = RoundContext.useSelector((state) => state.context.teams);
   const hasWords = RoundContext.useSelector(

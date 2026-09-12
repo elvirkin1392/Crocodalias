@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { LEVELS } from '@/enums/settings';
-import { styles } from './LevelSettings.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './LevelSettings.styles';
 
 const LEVEL_ORDER = Object.values(LEVELS);
 
@@ -22,6 +23,7 @@ export function LevelSettings({
   onClose,
 }: LevelSettingsProps) {
   const [level, setLevel] = useState(defaultValue);
+  const styles = useThemedStyles(createStyles);
 
   const handleSubmit = () => onSubmit(level);
 
@@ -58,6 +60,7 @@ type LevelOptionProps = {
 
 function LevelOption({ level, isSelected, onSelect }: LevelOptionProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   const optionStyle = isSelected
     ? [styles.option, styles.optionSelected]

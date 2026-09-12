@@ -1,7 +1,8 @@
 import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { styles } from './QuitGame.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './QuitGame.styles';
 
 type QuitGameProps = {
   onFinish: () => void;
@@ -10,6 +11,7 @@ type QuitGameProps = {
 
 export function QuitGame({ onFinish, onContinueLater }: QuitGameProps) {
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
 
   return (
     <View style={styles.container}>

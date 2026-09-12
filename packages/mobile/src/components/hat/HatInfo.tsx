@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { FooterControls } from '@/components/FooterControls';
 import { HatContext } from '@/context/hat';
 import { currentTeamIndex } from '@/state/hat';
-import { styles } from './HatInfo.styles';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './HatInfo.styles';
 
 type HatInfoProps = {
   onSubmit: () => void;
@@ -23,6 +24,7 @@ export function HatInfo({ onSubmit, onClose }: HatInfoProps) {
   );
 
   const { t } = useTranslation();
+  const styles = useThemedStyles(createStyles);
   const playingTeamName = teams[playing]?.name;
 
   return (
