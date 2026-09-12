@@ -1,21 +1,29 @@
 import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
+import { CIRCLE_SIZE } from './LevelButton.styles';
+
+export const ITEM_HEIGHT = CIRCLE_SIZE + 24;
 
 export const createStyles = (
   colors: Colors,
   { isSelected }: { isSelected: boolean },
 ) =>
   StyleSheet.create({
-    option: {
-      minWidth: 220,
-      paddingVertical: 16,
-      paddingHorizontal: 24,
-      borderRadius: 14,
-      alignItems: 'center',
-      backgroundColor: isSelected ? colors.accent : colors.surface,
+    item: {
+      height: ITEM_HEIGHT,
+      justifyContent: 'center',
     },
-    optionText: {
+    circle: {
+      width: CIRCLE_SIZE,
+      height: CIRCLE_SIZE,
+      borderRadius: CIRCLE_SIZE / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.accent,
+      opacity: isSelected ? 1 : 0.35,
+    },
+    value: {
       fontSize: 20,
       fontWeight: '600',
     },

@@ -1,4 +1,4 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { LEVELS } from '@/enums/settings';
@@ -8,23 +8,25 @@ import { createStyles } from './LevelOption.styles';
 type LevelOptionProps = {
   level: LEVELS;
   isSelected: boolean;
-  onSelect: (level: LEVELS) => void;
+  onPress: (level: LEVELS) => void;
 };
 
-export function LevelOption({ level, isSelected, onSelect }: LevelOptionProps) {
+export function LevelOption({ level, isSelected, onPress }: LevelOptionProps) {
   const { t } = useTranslation();
   const styles = useThemedStyles(createStyles, { isSelected });
 
-  const handlePress = () => onSelect(level);
+  const handlePress = () => onPress(level);
 
   return (
     <Pressable
-      style={styles.option}
+      style={styles.item}
       accessibilityRole="button"
       accessibilityState={{ selected: isSelected }}
       onPress={handlePress}
     >
-      <Text style={styles.optionText}>{t(`levels.${level}`)}</Text>
+      <View style={styles.circle}>
+        <Text style={styles.value}>{t(`levels.${level}`)}</Text>
+      </View>
     </Pressable>
   );
 }
