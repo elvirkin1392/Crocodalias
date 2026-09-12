@@ -5,7 +5,14 @@
   },
   "home": {
     "chooseGame": "Choose a game",
-    "soon": "Coming soon"
+    "soon": "Coming soon",
+    "about": "About"
+  },
+  "about": {
+    "title": "About",
+    "wordsTitle": "Words",
+    "wordsText": "The word lists were built from open dictionaries, curated by hand and split into difficulty levels. Sources:",
+    "licenseText": "The word lists are distributed under"
   },
   "games": {
     "alias": "Alias",

@@ -3,14 +3,17 @@
 Party word games for your phone — **Crocodile** (charades), **Alias** and
 **The Hat** — built with React Native and Expo.
 
-> **Status: work in progress.** The round flow — round info, play and results,
-> with scores carried from turn to turn — runs on iOS. The swipeable word cards,
-> the game settings screens and the game picker are still being ported from the
-> original web prototype.
+> **Status: work in progress.** All three games are playable on iOS. Saving a
+> game to continue later and the dark theme are not done yet.
 
 ## Features
 
-- Classic team party games, played on a single phone passed around the table
+- Party games played on a single phone passed around the table:
+  - **Alias** — teams explain words against the clock, with a last-word steal
+  - **Crocodile** — the classic, no teams or timer: act the word out, whoever
+    guesses it acts out the next one
+  - **The Hat** — couples named after their captain play three rounds on the
+    same words: in words (60 s), in gestures (30 s) and in one word (10 s)
 - Four difficulty levels: easy, medium, advanced and pro
 - Works fully offline — the word decks ship inside the app
 - Game logic modelled as XState state machines, independent of the UI
@@ -19,19 +22,17 @@ Party word games for your phone — **Crocodile** (charades), **Alias** and
 
 ```
 packages/
-  mobile/   React Native app (Expo SDK 57) — the product
-  web/      Original React + Vite prototype, frozen for reference
+  mobile/   React Native app (Expo SDK 57)
 ```
 
 ## Tech stack
-
-The mobile app uses:
 
 - Expo SDK 57, React Native 0.86, React 19.2
 - expo-router for navigation
 - XState 5 and @xstate/react 6 for game state
 - React Native Reanimated and Gesture Handler for gestures and animations
 - TypeScript, ESLint (`eslint-config-expo`) and Prettier
+- Jest (`jest-expo`) and React Native Testing Library
 
 ## Getting started
 
@@ -67,6 +68,7 @@ Run from `packages/mobile`:
 | `npm run ios`     | Build the native project and run it on iOS          |
 | `npm run android` | The same for Android (not tested yet)               |
 | `npm start`       | Start the Metro dev server                          |
+| `npm test`        | Run the unit and component tests                    |
 | `npm run lint`    | Check the code with ESLint, including Prettier      |
 | `npm run format`  | Format the code with Prettier                       |
 
@@ -76,6 +78,7 @@ The word lists live in `packages/mobile/src/dictionaries/ru/` — one JSON file
 per difficulty level, one word per line in alphabetical order. Edit them
 directly: add a word to the file for its level, or delete a line to drop it.
 Order does not matter, the deck is shuffled before every round.
+`index.json` next to them records how the lists were first generated.
 
 The lists were built once from open data and then curated by hand. Sources:
 
@@ -88,4 +91,4 @@ The lists were built once from open data and then curated by hand. Sources:
 
 The word decks are derived from the sources above and are distributed under
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), as those
-sources require.
+sources require. The app credits them on its About screen.

@@ -1,8 +1,8 @@
 import { LEVELS } from '../enums/settings';
 
 /**
- * Where a deck comes from when it is not cached yet. On the web this is a
- * fetch from /dictionaries; in the native app it is the JSON bundled inside it.
+ * Where a deck comes from when it is not cached yet — in the app, the JSON
+ * bundled inside it.
  */
 export type DeckSource = (level: LEVELS, language: string) => Promise<string[]>;
 
@@ -31,9 +31,9 @@ export type DictionaryLoader = {
 };
 
 /**
- * Platform-free deck loading: cache first, source second, one request per
- * deck at a time. Everything that touches a browser or a device is injected,
- * so the same logic serves both the web build and the native app.
+ * Deck loading: cache first, source second, one request per deck at a time.
+ * The source and the cache are injected, so decks could later be downloaded
+ * without touching this logic.
  */
 export function createDictionaryLoader({
   source,
