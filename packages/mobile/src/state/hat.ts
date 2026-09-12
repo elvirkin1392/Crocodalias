@@ -9,8 +9,17 @@ export type HatWordResult = 'guessed' | 'skipped';
 
 export type HatTurnEntry = { word: string; result: HatWordResult };
 
-/** Stage 1 — describe in words, stage 2 — one word, stage 3 — mime only. */
+/** Stage 1 — describe in words, stage 2 — mime only, stage 3 — one word. */
 export type HatStage = 1 | 2 | 3;
+
+export const HAT_STAGES: HatStage[] = [1, 2, 3];
+
+/** Seconds per turn: each stage replays familiar words, so turns get shorter. */
+export const HAT_STAGE_SECONDS: Record<HatStage, number> = {
+  1: 60,
+  2: 30,
+  3: 10,
+};
 
 export type HatContext = {
   teams: Team[];

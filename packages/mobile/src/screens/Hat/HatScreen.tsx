@@ -10,7 +10,7 @@ import { FinalResults } from '@/components/round/FinalResults';
 import { HatContext } from '@/context/hat';
 import { HatSettingsContext } from '@/context/settings';
 import { loadWords, shuffle } from '@/dictionaries';
-import { isGameComplete } from '@/state/hat';
+import { HAT_STAGE_SECONDS, isGameComplete } from '@/state/hat';
 import { useThemedStyles } from '@/theme/useThemedStyles';
 import { createStyles } from './HatScreen.styles';
 
@@ -34,15 +34,15 @@ function Hat() {
   const isComplete = HatContext.useSelector((state) =>
     isGameComplete(state.context),
   );
+  const roundTime = HatContext.useSelector(
+    (state) => HAT_STAGE_SECONDS[state.context.stage],
+  );
   const level = HatSettingsContext.useSelector((state) => state.context.level);
   const teamNames = HatSettingsContext.useSelector(
     (state) => state.context.teams,
   );
   const wordCount = HatSettingsContext.useSelector(
     (state) => state.context.score,
-  );
-  const roundTime = HatSettingsContext.useSelector(
-    (state) => state.context.time,
   );
   const [stage, setStage] = useState<Stage>('info');
 

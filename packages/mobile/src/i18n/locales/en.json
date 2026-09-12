@@ -54,8 +54,13 @@
   "hat": {
     "stageTitle": "Stage {{stage}} of 3",
     "stage1": "Explain using any words except the word itself",
-    "stage2": "Only one clue word allowed",
-    "stage3": "Gestures only — no talking or sounds",
+    "stage2": "Gestures only — no talking or sounds",
+    "stage3": "Only one clue word allowed",
+    "stageName1": "Words round",
+    "stageName2": "Gestures round",
+    "stageName3": "One-word round",
+    "stageTimesTitle": "Round times",
+    "stageSeconds": "{{seconds}} s",
     "wordsLeft": "Words left in the hat: {{count}}"
   },
   "teamNames": [

@@ -5,11 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
+import { HatStageTimes } from '@/components/hat/HatStageTimes';
+import { HatTimeButton } from '@/components/hat/HatTimeButton';
 import { LevelButton } from '@/components/settings/LevelButton';
 import { LevelSettings } from '@/components/settings/LevelSettings';
 import { TeamsSettings } from '@/components/settings/TeamsSettings';
-import { TimeButton } from '@/components/settings/TimeButton';
-import { TimeSettings } from '@/components/settings/TimeSettings';
 import { WordCountButton } from '@/components/settings/WordCountButton';
 import { WordCountSettings } from '@/components/settings/WordCountSettings';
 import { HatSettingsContext } from '@/context/settings';
@@ -21,7 +21,7 @@ export function HatSettingsScreen() {
   const { t } = useTranslation();
   const styles = useThemedStyles(createStyles);
   const actor = HatSettingsContext.useActorRef();
-  const { score, level, time, teams } = HatSettingsContext.useSelector(
+  const { score, level, teams } = HatSettingsContext.useSelector(
     (state) => state.context,
   );
   const isWordCountOpen = HatSettingsContext.useSelector((state) =>
@@ -51,8 +51,6 @@ export function HatSettingsScreen() {
     actor.send({ type: 'SUBMIT_SCORE', value });
   const handleSubmitLevel = (value: LEVELS) =>
     actor.send({ type: 'SUBMIT_LEVEL', value });
-  const handleSubmitTime = (value: number) =>
-    actor.send({ type: 'SUBMIT_TIME', value });
   const handleBack = () => actor.send({ type: 'BACK' });
   const handleClose = () => router.back();
   const handleSubmitTeams = (value: string[]) => {
@@ -78,10 +76,7 @@ export function HatSettingsScreen() {
         />
       </View>
       <View style={styles.slot}>
-        <TimeButton
-          value={time}
-          onPress={handleOpenTime}
-        />
+        <HatTimeButton onPress={handleOpenTime} />
       </View>
       <FooterControls
         onClose={handleClose}
@@ -113,14 +108,7 @@ export function HatSettingsScreen() {
   }
 
   if (isTimeOpen) {
-    content = (
-      <TimeSettings
-        title={t('settings.time')}
-        defaultValue={time}
-        onSubmit={handleSubmitTime}
-        onClose={handleBack}
-      />
-    );
+    content = <HatStageTimes onClose={handleBack} />;
   }
 
   if (isTeamsOpen) {
