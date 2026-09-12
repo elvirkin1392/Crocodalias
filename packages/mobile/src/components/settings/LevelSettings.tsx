@@ -1,6 +1,5 @@
-import { useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import {
-  type LayoutChangeEvent,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   ScrollView,
@@ -34,6 +33,7 @@ export function LevelSettings({
 }: LevelSettingsProps) {
   const [level, setLevel] = useState(defaultValue);
   const [pickerHeight, setPickerHeight] = useState(0);
+  const pickerRef = useRef<View>(null);
   const scrollRef = useRef<ScrollView>(null);
 
   const slotHeight = pickerHeight / OVERVIEW_SLOT_COUNT;
@@ -46,9 +46,13 @@ export function LevelSettings({
 
   const handleSubmit = () => onSubmit(level);
 
-  const handleLayout = (event: LayoutChangeEvent) => {
-    setPickerHeight(event.nativeEvent.layout.height);
-  };
+  // Measured before the first paint (synchronous in the New Architecture):
+  // waiting for onLayout would paint one frame with an empty picker.
+  useLayoutEffect(() => {
+    pickerRef.current?.measure((_x, _y, _width, height) => {
+      setPickerHeight(height);
+    });
+  }, []);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const centeredIndex = Math.round(
@@ -74,8 +78,8 @@ export function LevelSettings({
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <View
+        ref={pickerRef}
         style={styles.picker}
-        onLayout={handleLayout}
       >
         {isMeasured && (
           <ScrollView
