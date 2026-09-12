@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors, isStolen: boolean) =>
+export const createStyles = (
+  colors: Colors,
+  { isStolen }: { isStolen: boolean },
+) =>
   StyleSheet.create({
     wordRow: {
       flexDirection: 'row',

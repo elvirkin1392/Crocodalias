@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors, isActive: boolean) =>
+export const createStyles = (
+  colors: Colors,
+  { isActive }: { isActive: boolean },
+) =>
   StyleSheet.create({
     dot: {
       width: 8,

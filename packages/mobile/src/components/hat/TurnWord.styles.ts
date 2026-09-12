@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors, isSkipped: boolean) =>
+export const createStyles = (
+  colors: Colors,
+  { isSkipped }: { isSkipped: boolean },
+) =>
   StyleSheet.create({
     wordRow: {
       flexDirection: 'row',

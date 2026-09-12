@@ -76,7 +76,7 @@ export function RoundPlay({
   const { elapsed, duration, isPaused } = timer.context;
   const isTimeUp = elapsed > duration;
   const canSteal = isTimeUp && allowSteal;
-  const styles = useThemedStyles(createStyles, canSteal);
+  const styles = useThemedStyles(createStyles, { canSteal });
   const isCardHidden = isPaused && !isTimeUp;
   const secondsLeft = Math.max(0, Math.ceil(duration - elapsed));
   const playingTeam = teams[playingIndex];

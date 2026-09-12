@@ -10,7 +10,7 @@ type TeamScoreRowProps = {
 };
 
 export function TeamScoreRow({ name, score, isPlaying }: TeamScoreRowProps) {
-  const styles = useThemedStyles(createStyles, isPlaying);
+  const styles = useThemedStyles(createStyles, { isPlaying });
 
   return (
     <View style={styles.row}>

@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors, canSteal: boolean) =>
+export const createStyles = (
+  colors: Colors,
+  { canSteal }: { canSteal: boolean },
+) =>
   StyleSheet.create({
     container: {
       flex: 1,

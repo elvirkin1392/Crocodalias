@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors, isSelected: boolean) =>
+export const createStyles = (
+  colors: Colors,
+  { isSelected }: { isSelected: boolean },
+) =>
   StyleSheet.create({
     option: {
       minWidth: 220,

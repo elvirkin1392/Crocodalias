@@ -13,7 +13,7 @@ type LevelOptionProps = {
 
 export function LevelOption({ level, isSelected, onSelect }: LevelOptionProps) {
   const { t } = useTranslation();
-  const styles = useThemedStyles(createStyles, isSelected);
+  const styles = useThemedStyles(createStyles, { isSelected });
 
   const handlePress = () => onSelect(level);
 

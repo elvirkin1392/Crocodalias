@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors, isDisabled: boolean) =>
+export const createStyles = (
+  colors: Colors,
+  { isDisabled }: { isDisabled: boolean },
+) =>
   StyleSheet.create({
     card: {
       flex: 1,

@@ -13,7 +13,7 @@ type GameCardProps = {
 export function GameCard({ game, onSelect }: GameCardProps) {
   const { t } = useTranslation();
   const isDisabled = !game.settingsRoute;
-  const styles = useThemedStyles(createStyles, isDisabled);
+  const styles = useThemedStyles(createStyles, { isDisabled });
 
   const handlePress = () => onSelect(game);
 

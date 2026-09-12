@@ -2,7 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors, isPlaying: boolean) =>
+export const createStyles = (
+  colors: Colors,
+  { isPlaying }: { isPlaying: boolean },
+) =>
   StyleSheet.create({
     row: {
       flexDirection: 'row',

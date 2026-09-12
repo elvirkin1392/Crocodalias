@@ -9,7 +9,7 @@ type TurnWordProps = { entry: HatTurnEntry };
 export function TurnWord({ entry }: TurnWordProps) {
   const isSkipped = entry.result === 'skipped';
   const pointsLabel = isSkipped ? '→' : '+1';
-  const styles = useThemedStyles(createStyles, isSkipped);
+  const styles = useThemedStyles(createStyles, { isSkipped });
 
   return (
     <View style={styles.wordRow}>

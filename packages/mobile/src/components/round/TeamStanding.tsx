@@ -10,7 +10,7 @@ type TeamStandingProps = {
 };
 
 export function TeamStanding({ team, isWinner }: TeamStandingProps) {
-  const styles = useThemedStyles(createStyles, isWinner);
+  const styles = useThemedStyles(createStyles, { isWinner });
 
   return (
     <View style={styles.row}>

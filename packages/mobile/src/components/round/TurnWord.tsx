@@ -14,7 +14,7 @@ export function TurnWord({ entry, teamName }: TurnWordProps) {
   const isSkipped = entry.result === 'skipped';
   const points = isSkipped ? '−1' : '+1';
   const pointsLabel = isStolen ? `${teamName} ${points}` : points;
-  const styles = useThemedStyles(createStyles, isStolen);
+  const styles = useThemedStyles(createStyles, { isStolen });
 
   return (
     <View style={styles.wordRow}>
