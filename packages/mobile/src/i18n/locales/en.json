@@ -61,7 +61,11 @@
     "stageName3": "One-word round",
     "stageTimesTitle": "Round times",
     "stageSeconds": "{{seconds}} s",
-    "wordsLeft": "Words left in the hat: {{count}}"
+    "wordsLeft": "Words left in the hat: {{count}}",
+    "couplesTitle": "Couples",
+    "captainLabel": "Captain of couple {{number}}",
+    "coupleDefaultName": "Couple {{number}}",
+    "start": "Start"
   },
   "teamNames": [
     "Sea Wolves",

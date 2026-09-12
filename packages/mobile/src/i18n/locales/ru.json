@@ -61,7 +61,11 @@
     "stageName3": "Раунд одного слова",
     "stageTimesTitle": "Время раундов",
     "stageSeconds": "{{seconds}} сек",
-    "wordsLeft": "Осталось слов в шляпе: {{count}}"
+    "wordsLeft": "Осталось слов в шляпе: {{count}}",
+    "couplesTitle": "Пары",
+    "captainLabel": "Капитан {{number}} пары",
+    "coupleDefaultName": "Пара {{number}}",
+    "start": "Старт"
   },
   "teamNames": [
     "Морские волки",

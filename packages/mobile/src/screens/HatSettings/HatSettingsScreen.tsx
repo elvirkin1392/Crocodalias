@@ -5,11 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
+import { CouplesSettings } from '@/components/hat/CouplesSettings';
 import { HatStageTimes } from '@/components/hat/HatStageTimes';
 import { HatTimeButton } from '@/components/hat/HatTimeButton';
 import { LevelButton } from '@/components/settings/LevelButton';
 import { LevelSettings } from '@/components/settings/LevelSettings';
-import { TeamsSettings } from '@/components/settings/TeamsSettings';
 import { WordCountButton } from '@/components/settings/WordCountButton';
 import { WordCountSettings } from '@/components/settings/WordCountSettings';
 import { HatSettingsContext } from '@/context/settings';
@@ -21,7 +21,7 @@ export function HatSettingsScreen() {
   const { t } = useTranslation();
   const styles = useThemedStyles(createStyles);
   const actor = HatSettingsContext.useActorRef();
-  const { score, level, teams } = HatSettingsContext.useSelector(
+  const { score, level } = HatSettingsContext.useSelector(
     (state) => state.context,
   );
   const isWordCountOpen = HatSettingsContext.useSelector((state) =>
@@ -33,7 +33,8 @@ export function HatSettingsScreen() {
   const isTimeOpen = HatSettingsContext.useSelector((state) =>
     state.matches('timeSettings'),
   );
-  const isTeamsOpen = HatSettingsContext.useSelector((state) =>
+  // The shared settings machine calls them teams; in the Hat they are couples.
+  const isCouplesOpen = HatSettingsContext.useSelector((state) =>
     state.matches('teamSettings'),
   );
 
@@ -46,15 +47,15 @@ export function HatSettingsScreen() {
   const handleOpenWordCount = () => actor.send({ type: 'OPEN_SCORE_SETTINGS' });
   const handleOpenLevel = () => actor.send({ type: 'OPEN_LEVEL_SETTINGS' });
   const handleOpenTime = () => actor.send({ type: 'OPEN_TIME_SETTINGS' });
-  const handleOpenTeams = () => actor.send({ type: 'OPEN_TEAM_SETTINGS' });
+  const handleOpenCouples = () => actor.send({ type: 'OPEN_TEAM_SETTINGS' });
   const handleSubmitWordCount = (value: number) =>
     actor.send({ type: 'SUBMIT_SCORE', value });
   const handleSubmitLevel = (value: LEVELS) =>
     actor.send({ type: 'SUBMIT_LEVEL', value });
   const handleBack = () => actor.send({ type: 'BACK' });
   const handleClose = () => router.back();
-  const handleSubmitTeams = (value: string[]) => {
-    actor.send({ type: 'SUBMIT_TEAMS', value });
+  const handleSubmitCouples = (captains: string[]) => {
+    actor.send({ type: 'SUBMIT_TEAMS', value: captains });
     router.push('/hat-round');
   };
 
@@ -80,7 +81,7 @@ export function HatSettingsScreen() {
       </View>
       <FooterControls
         onClose={handleClose}
-        onSubmit={handleOpenTeams}
+        onSubmit={handleOpenCouples}
       />
     </View>
   );
@@ -111,12 +112,10 @@ export function HatSettingsScreen() {
     content = <HatStageTimes onClose={handleBack} />;
   }
 
-  if (isTeamsOpen) {
+  if (isCouplesOpen) {
     content = (
-      <TeamsSettings
-        title={t('settings.teams')}
-        defaultValue={teams}
-        onSubmit={handleSubmitTeams}
+      <CouplesSettings
+        onSubmit={handleSubmitCouples}
         onClose={handleBack}
       />
     );
