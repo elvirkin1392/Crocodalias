@@ -2,9 +2,11 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    // jest-expo turns these into Jest's moduleNameMapper, which takes the
+    // first match — so the narrower "@/assets/*" has to come first.
     "paths": {
-      "@/*": ["./src/*"],
-      "@/assets/*": ["./assets/*"]
+      "@/assets/*": ["./assets/*"],
+      "@/*": ["./src/*"]
     },
     "types": ["jest"]
   },
