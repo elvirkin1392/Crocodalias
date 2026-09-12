@@ -1,10 +1,10 @@
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { useThemedStyles } from '@/theme/useThemedStyles';
-import { createStyles } from './LastWordPicker.styles';
+import { styles } from './LastWordPicker.styles';
+import { type PickerTeam, TeamButton } from './TeamButton';
 
-export type PickerTeam = { index: number; name: string };
+export type { PickerTeam } from './TeamButton';
 
 type LastWordPickerProps = {
   word: string;
@@ -14,7 +14,6 @@ type LastWordPickerProps = {
 
 export function LastWordPicker({ word, teams, onPick }: LastWordPickerProps) {
   const { t } = useTranslation();
-  const styles = useThemedStyles(createStyles);
 
   return (
     <View style={styles.container}>
@@ -27,25 +26,5 @@ export function LastWordPicker({ word, teams, onPick }: LastWordPickerProps) {
         />
       ))}
     </View>
-  );
-}
-
-type TeamButtonProps = {
-  team: PickerTeam;
-  onPick: (teamIndex: number) => void;
-};
-
-function TeamButton({ team, onPick }: TeamButtonProps) {
-  const styles = useThemedStyles(createStyles);
-  const handlePress = () => onPick(team.index);
-
-  return (
-    <Pressable
-      style={styles.team}
-      accessibilityRole="button"
-      onPress={handlePress}
-    >
-      <Text style={styles.teamName}>{team.name}</Text>
-    </Pressable>
   );
 }

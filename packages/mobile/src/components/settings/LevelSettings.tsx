@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import { Text, View } from 'react-native';
 
 import { FooterControls } from '@/components/FooterControls';
 import { LEVELS } from '@/enums/settings';
 import { useThemedStyles } from '@/theme/useThemedStyles';
+import { LevelOption } from './LevelOption';
 import { createStyles } from './LevelSettings.styles';
 
 const LEVEL_ORDER = Object.values(LEVELS);
@@ -49,33 +49,5 @@ export function LevelSettings({
         onSubmit={handleSubmit}
       />
     </View>
-  );
-}
-
-type LevelOptionProps = {
-  level: LEVELS;
-  isSelected: boolean;
-  onSelect: (level: LEVELS) => void;
-};
-
-function LevelOption({ level, isSelected, onSelect }: LevelOptionProps) {
-  const { t } = useTranslation();
-  const styles = useThemedStyles(createStyles);
-
-  const optionStyle = isSelected
-    ? [styles.option, styles.optionSelected]
-    : styles.option;
-
-  const handlePress = () => onSelect(level);
-
-  return (
-    <Pressable
-      style={optionStyle}
-      accessibilityRole="button"
-      accessibilityState={{ selected: isSelected }}
-      onPress={handlePress}
-    >
-      <Text style={styles.optionText}>{t(`levels.${level}`)}</Text>
-    </Pressable>
   );
 }

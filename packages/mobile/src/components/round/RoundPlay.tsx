@@ -39,7 +39,6 @@ export function RoundPlay({
   onQuit,
 }: RoundPlayProps) {
   const { t } = useTranslation();
-  const styles = useThemedStyles(createStyles);
   const actor = RoundContext.useActorRef();
   const teams = RoundContext.useSelector((state) => state.context.teams);
   const word = RoundContext.useSelector((state) => currentWord(state.context));
@@ -77,13 +76,11 @@ export function RoundPlay({
   const { elapsed, duration, isPaused } = timer.context;
   const isTimeUp = elapsed > duration;
   const canSteal = isTimeUp && allowSteal;
+  const styles = useThemedStyles(createStyles, canSteal);
   const isCardHidden = isPaused && !isTimeUp;
   const secondsLeft = Math.max(0, Math.ceil(duration - elapsed));
   const playingTeam = teams[playingIndex];
   const opponentTeam = teams[opponentIndex];
-  const opponentStyle = canSteal
-    ? [styles.opponent, styles.opponentCanSteal]
-    : styles.opponent;
 
   const otherTeamIndexes = teams
     .map((_, index) => index)
@@ -195,7 +192,7 @@ export function RoundPlay({
       ) : (
         <>
           {allowSteal && (
-            <Text style={opponentStyle}>
+            <Text style={styles.opponent}>
               {opponentTeam?.name} {stolenScore}
             </Text>
           )}

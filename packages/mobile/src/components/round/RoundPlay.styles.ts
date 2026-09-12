@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
-export const createStyles = (colors: Colors) =>
+export const createStyles = (colors: Colors, canSteal: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -21,10 +21,7 @@ export const createStyles = (colors: Colors) =>
     },
     opponent: {
       fontSize: 20,
-      color: colors.textMuted,
-    },
-    opponentCanSteal: {
-      color: colors.textPrimary,
+      color: canSteal ? colors.textPrimary : colors.textMuted,
     },
     cardArea: {
       flex: 1,

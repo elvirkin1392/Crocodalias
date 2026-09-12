@@ -24,27 +24,6 @@ export const createStyles = (colors: Colors) =>
       paddingHorizontal: 32,
       gap: 12,
     },
-    row: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'baseline',
-      alignSelf: 'stretch',
-      paddingVertical: 14,
-      paddingHorizontal: 20,
-      borderRadius: 14,
-    },
-    winnerRow: {
-      backgroundColor: colors.accent,
-    },
-    name: {
-      fontSize: 20,
-    },
-    score: {
-      fontSize: 28,
-    },
-    winnerText: {
-      fontWeight: '700',
-    },
     button: {
       marginBottom: 40,
       paddingVertical: 14,

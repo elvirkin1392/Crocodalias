@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
+import { TeamScoreRow } from '@/components/TeamScoreRow';
 import { HatContext } from '@/context/hat';
 import { currentTeamIndex } from '@/state/hat';
 import { useThemedStyles } from '@/theme/useThemedStyles';
@@ -34,15 +35,12 @@ export function HatInfo({ onSubmit, onClose }: HatInfoProps) {
 
       <View style={styles.scoreboard}>
         {teams.map((team, index) => (
-          <View
+          <TeamScoreRow
             key={`${team.name}-${index}`}
-            style={styles.team}
-          >
-            <Text style={[styles.name, index === playing && styles.playing]}>
-              {team.name}
-            </Text>
-            <Text style={styles.score}>{team.totalScore}</Text>
-          </View>
+            name={team.name}
+            score={team.totalScore}
+            isPlaying={index === playing}
+          />
         ))}
       </View>
 

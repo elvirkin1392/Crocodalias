@@ -20,19 +20,4 @@ export const createStyles = (colors: Colors) =>
       justifyContent: 'center',
       gap: 16,
     },
-    option: {
-      minWidth: 220,
-      paddingVertical: 16,
-      paddingHorizontal: 24,
-      borderRadius: 14,
-      alignItems: 'center',
-      backgroundColor: colors.surface,
-    },
-    optionSelected: {
-      backgroundColor: colors.accent,
-    },
-    optionText: {
-      fontSize: 20,
-      fontWeight: '600',
-    },
   });

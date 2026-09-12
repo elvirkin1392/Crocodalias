@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import type { Team } from '@/state/round';
 import { useThemedStyles } from '@/theme/useThemedStyles';
 import { createStyles } from './FinalResults.styles';
+import { TeamStanding } from './TeamStanding';
 
 type FinalResultsProps = {
   teams: Team[];
@@ -38,27 +39,6 @@ export function FinalResults({ teams, onClose }: FinalResultsProps) {
       >
         <Text style={styles.buttonText}>{t('common.done')}</Text>
       </Pressable>
-    </View>
-  );
-}
-
-type TeamStandingProps = {
-  team: Team;
-  isWinner: boolean;
-};
-
-function TeamStanding({ team, isWinner }: TeamStandingProps) {
-  const styles = useThemedStyles(createStyles);
-  const rowStyle = isWinner ? [styles.row, styles.winnerRow] : styles.row;
-  const nameStyle = isWinner ? [styles.name, styles.winnerText] : styles.name;
-  const scoreStyle = isWinner
-    ? [styles.score, styles.winnerText]
-    : styles.score;
-
-  return (
-    <View style={rowStyle}>
-      <Text style={nameStyle}>{team.name}</Text>
-      <Text style={scoreStyle}>{team.totalScore}</Text>
     </View>
   );
 }

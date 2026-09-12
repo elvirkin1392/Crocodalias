@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FooterControls } from '@/components/FooterControls';
 import { getRandomTeams } from '@/mocks/teams';
 import { useThemedStyles } from '@/theme/useThemedStyles';
+import { TeamRow } from './TeamRow';
 import { createStyles } from './TeamsSettings.styles';
 
 const MIN_TEAMS = 2;
@@ -61,33 +62,6 @@ export function TeamsSettings({
         onClose={onClose}
         onSubmit={handleSubmit}
       />
-    </View>
-  );
-}
-
-type TeamRowProps = {
-  name: string;
-  index: number;
-  canRemove: boolean;
-  onRemove: (index: number) => void;
-};
-
-function TeamRow({ name, index, canRemove, onRemove }: TeamRowProps) {
-  const styles = useThemedStyles(createStyles);
-  const handlePress = () => onRemove(index);
-
-  return (
-    <View style={styles.row}>
-      <Text style={styles.name}>{name}</Text>
-      {canRemove && (
-        <Pressable
-          style={styles.remove}
-          accessibilityRole="button"
-          onPress={handlePress}
-        >
-          <Text style={styles.removeText}>−</Text>
-        </Pressable>
-      )}
     </View>
   );
 }

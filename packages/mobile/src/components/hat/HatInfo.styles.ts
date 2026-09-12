@@ -26,22 +26,6 @@ export const createStyles = (colors: Colors) =>
       paddingHorizontal: 40,
       gap: 16,
     },
-    team: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'baseline',
-    },
-    name: {
-      fontSize: 20,
-      color: colors.textSecondary,
-    },
-    playing: {
-      color: colors.textPrimary,
-      fontWeight: '600',
-    },
-    score: {
-      fontSize: 32,
-    },
     caption: {
       marginTop: 32,
       fontSize: 16,

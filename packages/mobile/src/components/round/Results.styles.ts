@@ -32,14 +32,4 @@ export const createStyles = (colors: Colors) =>
       paddingHorizontal: 40,
       gap: 10,
     },
-    wordRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    wordText: {
-      fontSize: 18,
-    },
-    stolenText: {
-      color: colors.danger,
-    },
   });

@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import { FooterControls } from '@/components/FooterControls';
 import { RoundContext } from '@/context/round';
-import { currentTeamIndex, nextTeamIndex, type TurnEntry } from '@/state/round';
+import { currentTeamIndex, nextTeamIndex } from '@/state/round';
 import { useThemedStyles } from '@/theme/useThemedStyles';
 import { createStyles } from './Results.styles';
+import { TurnWord } from './TurnWord';
 
 type ResultsProps = {
   onSubmit: () => void;
@@ -55,29 +56,6 @@ export function Results({ onSubmit, onClose }: ResultsProps) {
         onClose={onClose}
         onSubmit={onSubmit}
       />
-    </View>
-  );
-}
-
-type TurnWordProps = {
-  entry: TurnEntry;
-  teamName?: string;
-};
-
-function TurnWord({ entry, teamName }: TurnWordProps) {
-  const styles = useThemedStyles(createStyles);
-  const isStolen = entry.result === 'stolen';
-  const isSkipped = entry.result === 'skipped';
-  const points = isSkipped ? '−1' : '+1';
-  const pointsLabel = isStolen ? `${teamName} ${points}` : points;
-  const textStyle = isStolen
-    ? [styles.wordText, styles.stolenText]
-    : styles.wordText;
-
-  return (
-    <View style={styles.wordRow}>
-      <Text style={textStyle}>{entry.word}</Text>
-      <Text style={textStyle}>{pointsLabel}</Text>
     </View>
   );
 }
