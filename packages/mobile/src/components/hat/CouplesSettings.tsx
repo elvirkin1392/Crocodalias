@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   type NativeSyntheticEvent,
@@ -30,27 +30,34 @@ export function CouplesSettings({ onSubmit, onClose }: CouplesSettingsProps) {
   const { t } = useTranslation();
   const colors = useTheme();
   const listRef = useRef<ScrollView>(null);
+  const inputRef = useRef<TextInput>(null);
   const [captains, setCaptains] = useState<string[]>([]);
-  const [draft, setDraft] = useState('');
 
   const coupleNumber = captains.length + 1;
   const defaultName = t('hat.coupleDefaultName', { number: coupleNumber });
-  const typedName = draft.trim();
-  const finalCaptains = typedName ? [...captains, typedName] : captains;
-  const canStart = finalCaptains.length >= MIN_COUPLES;
+  const [draft, setDraft] = useState(defaultName);
+  const canStart = captains.length >= MIN_COUPLES;
   const styles = useThemedStyles(createStyles, { canStart });
+
+  // The suggested name arrives selected: typing replaces it, Enter or + keeps it.
+  useEffect(() => {
+    inputRef.current?.setSelection(0, defaultName.length);
+  }, [defaultName]);
+
+  const saveCouple = (name: string) => {
+    const nextName = t('hat.coupleDefaultName', { number: coupleNumber + 1 });
+
+    setCaptains([...captains, name.trim() || defaultName]);
+    setDraft(nextName);
+  };
 
   // Reads the field's own text: with fast typing, `draft` from the last
   // render can still lag a few letters behind what was entered.
-  const handleAddCouple = (
+  const handleSubmitEditing = (
     event: NativeSyntheticEvent<TextInputSubmitEditingEventData>,
-  ) => {
-    const enteredName = event.nativeEvent.text.trim();
-
-    setCaptains([...captains, enteredName || defaultName]);
-    setDraft('');
-  };
-  const handleStart = () => onSubmit(finalCaptains);
+  ) => saveCouple(event.nativeEvent.text);
+  const handleAddPress = () => saveCouple(draft);
+  const handleStart = () => onSubmit(captains);
   const handleListSizeChange = () => listRef.current?.scrollToEnd();
 
   return (
@@ -79,20 +86,23 @@ export function CouplesSettings({ onSubmit, onClose }: CouplesSettingsProps) {
         {t('hat.captainLabel', { number: coupleNumber })}
       </Text>
       <TextInput
+        ref={inputRef}
         style={styles.input}
         value={draft}
         placeholder={defaultName}
         placeholderTextColor={colors.textMuted}
         autoFocus
+        selectTextOnFocus
         autoCapitalize="words"
         autoCorrect={false}
         returnKeyType="next"
         submitBehavior="submit"
         onChangeText={setDraft}
-        onSubmitEditing={handleAddCouple}
+        onSubmitEditing={handleSubmitEditing}
       />
       <View style={styles.bar}>
         <Pressable
+          style={styles.side}
           accessibilityRole="button"
           accessibilityLabel={t('common.close')}
           hitSlop={16}
@@ -112,6 +122,14 @@ export function CouplesSettings({ onSubmit, onClose }: CouplesSettingsProps) {
           onPress={handleStart}
         >
           <Text style={styles.startText}>{t('hat.start')}</Text>
+        </Pressable>
+        <Pressable
+          style={styles.add}
+          accessibilityRole="button"
+          accessibilityLabel={t('hat.addCouple')}
+          onPress={handleAddPress}
+        >
+          <Text style={styles.addText}>+</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>

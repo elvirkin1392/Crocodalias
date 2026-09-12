@@ -65,7 +65,8 @@
     "couplesTitle": "Couples",
     "captainLabel": "Captain of couple {{number}}",
     "coupleDefaultName": "Couple {{number}}",
-    "start": "Start"
+    "start": "Start",
+    "addCouple": "Add a couple"
   },
   "teamNames": [
     "Sea Wolves",

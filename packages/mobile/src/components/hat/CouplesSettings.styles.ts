@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 
 import type { Colors } from '@/theme/colors';
 
+// Close and + get the same width, so Start sits exactly in the middle.
+const SIDE_SIZE = 44;
+
 export const createStyles = (
   colors: Colors,
   { canStart }: { canStart: boolean },
@@ -52,6 +55,11 @@ export const createStyles = (
       paddingHorizontal: 28,
       paddingVertical: 12,
     },
+    side: {
+      width: SIDE_SIZE,
+      height: SIDE_SIZE,
+      justifyContent: 'center',
+    },
     close: {
       width: 18,
       height: 18,
@@ -66,5 +74,18 @@ export const createStyles = (
       fontSize: 18,
       fontWeight: '600',
       color: canStart ? colors.textPrimary : colors.textMuted,
+    },
+    add: {
+      width: SIDE_SIZE,
+      height: SIDE_SIZE,
+      borderRadius: SIDE_SIZE / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.accent,
+    },
+    addText: {
+      fontSize: 24,
+      lineHeight: 24,
+      fontWeight: '600',
     },
   });

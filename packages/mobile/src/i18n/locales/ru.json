@@ -65,7 +65,8 @@
     "couplesTitle": "Пары",
     "captainLabel": "Капитан {{number}} пары",
     "coupleDefaultName": "Пара {{number}}",
-    "start": "Старт"
+    "start": "Старт",
+    "addCouple": "Добавить пару"
   },
   "teamNames": [
     "Морские волки",
