@@ -3,15 +3,13 @@ import { StyleSheet } from 'react-native';
 import type { Colors } from '@/theme/colors';
 import { CIRCLE_SIZE } from './LevelButton.styles';
 
-export const ITEM_HEIGHT = CIRCLE_SIZE + 24;
-
 export const createStyles = (
   colors: Colors,
-  { isSelected }: { isSelected: boolean },
+  { isSelected, slotHeight }: { isSelected: boolean; slotHeight: number },
 ) =>
   StyleSheet.create({
     item: {
-      height: ITEM_HEIGHT,
+      height: slotHeight,
       justifyContent: 'center',
     },
     circle: {

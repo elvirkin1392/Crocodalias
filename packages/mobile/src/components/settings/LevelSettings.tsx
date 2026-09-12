@@ -12,10 +12,12 @@ import { FooterControls } from '@/components/FooterControls';
 import { LEVELS } from '@/enums/settings';
 import { useThemedStyles } from '@/theme/useThemedStyles';
 import { LevelOption } from './LevelOption';
-import { ITEM_HEIGHT } from './LevelOption.styles';
 import { createStyles } from './LevelSettings.styles';
 
 const LEVEL_ORDER = Object.values(LEVELS);
+
+/** Score, level and time on the settings overview — the picker reuses its grid. */
+const OVERVIEW_SLOT_COUNT = 3;
 
 type LevelSettingsProps = {
   title: string;
@@ -33,13 +35,14 @@ export function LevelSettings({
   const [level, setLevel] = useState(defaultValue);
   const [pickerHeight, setPickerHeight] = useState(0);
   const scrollRef = useRef<ScrollView>(null);
-  const styles = useThemedStyles(createStyles, { pickerHeight });
 
+  const slotHeight = pickerHeight / OVERVIEW_SLOT_COUNT;
   const isMeasured = pickerHeight > 0;
   const initialOffset = {
     x: 0,
-    y: LEVEL_ORDER.indexOf(defaultValue) * ITEM_HEIGHT,
+    y: LEVEL_ORDER.indexOf(defaultValue) * slotHeight,
   };
+  const styles = useThemedStyles(createStyles, { slotHeight });
 
   const handleSubmit = () => onSubmit(level);
 
@@ -49,7 +52,7 @@ export function LevelSettings({
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const centeredIndex = Math.round(
-      event.nativeEvent.contentOffset.y / ITEM_HEIGHT,
+      event.nativeEvent.contentOffset.y / slotHeight,
     );
     const clampedIndex = Math.min(
       LEVEL_ORDER.length - 1,
@@ -64,7 +67,7 @@ export function LevelSettings({
       return;
     }
 
-    scrollRef.current?.scrollTo({ y: LEVEL_ORDER.indexOf(item) * ITEM_HEIGHT });
+    scrollRef.current?.scrollTo({ y: LEVEL_ORDER.indexOf(item) * slotHeight });
   };
 
   return (
@@ -79,7 +82,7 @@ export function LevelSettings({
             ref={scrollRef}
             contentContainerStyle={styles.pickerContent}
             contentOffset={initialOffset}
-            snapToInterval={ITEM_HEIGHT}
+            snapToInterval={slotHeight}
             decelerationRate="fast"
             showsVerticalScrollIndicator={false}
             scrollEventThrottle={16}
@@ -90,6 +93,7 @@ export function LevelSettings({
                 key={item}
                 level={item}
                 isSelected={item === level}
+                slotHeight={slotHeight}
                 onPress={handleOptionPress}
               />
             ))}

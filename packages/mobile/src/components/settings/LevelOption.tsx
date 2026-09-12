@@ -8,12 +8,18 @@ import { createStyles } from './LevelOption.styles';
 type LevelOptionProps = {
   level: LEVELS;
   isSelected: boolean;
+  slotHeight: number;
   onPress: (level: LEVELS) => void;
 };
 
-export function LevelOption({ level, isSelected, onPress }: LevelOptionProps) {
+export function LevelOption({
+  level,
+  isSelected,
+  slotHeight,
+  onPress,
+}: LevelOptionProps) {
   const { t } = useTranslation();
-  const styles = useThemedStyles(createStyles, { isSelected });
+  const styles = useThemedStyles(createStyles, { isSelected, slotHeight });
 
   const handlePress = () => onPress(level);
 
