@@ -9,13 +9,12 @@ import { useThemedStyles } from '@/theme/useThemedStyles';
 import { createStyles } from './RoundInfo.styles';
 
 type RoundInfoProps = {
-  ruleHint?: string;
   onSubmit: () => void;
   onClose: () => void;
 };
 
 /** Before every turn: the round number, the scoreboard and who plays next. */
-export function RoundInfo({ ruleHint, onSubmit, onClose }: RoundInfoProps) {
+export function RoundInfo({ onSubmit, onClose }: RoundInfoProps) {
   const teams = RoundContext.useSelector((state) => state.context.teams);
   const round = RoundContext.useSelector((state) => state.context.round);
   const playing = RoundContext.useSelector((state) =>
@@ -44,8 +43,6 @@ export function RoundInfo({ ruleHint, onSubmit, onClose }: RoundInfoProps) {
       <Text style={styles.caption}>
         {t('round.nowPlaying', { team: playingTeamName })}
       </Text>
-
-      {ruleHint && <Text style={styles.ruleHint}>{ruleHint}</Text>}
 
       <FooterControls
         onClose={onClose}

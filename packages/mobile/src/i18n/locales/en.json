@@ -43,7 +43,13 @@
     "later": "Continue later"
   },
   "crocodile": {
-    "ruleHint": "Act the word out using only gestures — no talking or sounds"
+    "levelTitle": "Crocodile: word level",
+    "ruleHint": "Act the word out using only gestures — no talking or sounds",
+    "passHint": "Whoever guesses acts out the next word",
+    "pause": "Pause",
+    "resume": "Resume",
+    "guessedCount": "Guessed {{guessed}} of {{total}}",
+    "skipped": "skipped"
   },
   "hat": {
     "stageTitle": "Stage {{stage}} of 3",

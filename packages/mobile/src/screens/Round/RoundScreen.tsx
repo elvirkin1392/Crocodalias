@@ -21,8 +21,6 @@ type RoundScreenProps = {
   teamNames: string[];
   scoreLimit: number;
   roundTime: number;
-  allowSteal: boolean;
-  ruleHint?: string;
 };
 
 export function RoundScreen(props: RoundScreenProps) {
@@ -33,14 +31,7 @@ export function RoundScreen(props: RoundScreenProps) {
   );
 }
 
-function Round({
-  level,
-  teamNames,
-  scoreLimit,
-  roundTime,
-  allowSteal,
-  ruleHint,
-}: RoundScreenProps) {
+function Round({ level, teamNames, scoreLimit, roundTime }: RoundScreenProps) {
   const styles = useThemedStyles(createStyles);
   const actor = RoundContext.useActorRef();
   const teams = RoundContext.useSelector((state) => state.context.teams);
@@ -99,7 +90,6 @@ function Round({
     <SafeAreaView style={styles.container}>
       {stage === 'info' && (
         <RoundInfo
-          ruleHint={ruleHint}
           onSubmit={handleStartTurn}
           onClose={handleQuit}
         />
@@ -107,7 +97,6 @@ function Round({
       {stage === 'play' && (
         <RoundPlay
           roundTime={roundTime}
-          allowSteal={allowSteal}
           onFinish={handleFinishTurn}
           onFinishGame={handleFinishGame}
           onQuit={handleQuit}

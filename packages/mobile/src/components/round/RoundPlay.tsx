@@ -25,7 +25,6 @@ const SHOW_TIME_MS = 2000;
 
 type RoundPlayProps = {
   roundTime: number;
-  allowSteal: boolean;
   onFinish: () => void;
   onFinishGame: () => void;
   onQuit: () => void;
@@ -33,7 +32,6 @@ type RoundPlayProps = {
 
 export function RoundPlay({
   roundTime,
-  allowSteal,
   onFinish,
   onFinishGame,
   onQuit,
@@ -75,7 +73,7 @@ export function RoundPlay({
 
   const { elapsed, duration, isPaused } = timer.context;
   const isTimeUp = elapsed > duration;
-  const canSteal = isTimeUp && allowSteal;
+  const canSteal = isTimeUp;
   const styles = useThemedStyles(createStyles, { canSteal });
   const isCardHidden = isPaused && !isTimeUp;
   const secondsLeft = Math.max(0, Math.ceil(duration - elapsed));
@@ -191,11 +189,9 @@ export function RoundPlay({
         />
       ) : (
         <>
-          {allowSteal && (
-            <Text style={styles.opponent}>
-              {opponentTeam?.name} {stolenScore}
-            </Text>
-          )}
+          <Text style={styles.opponent}>
+            {opponentTeam?.name} {stolenScore}
+          </Text>
 
           <View style={styles.cardArea}>{cardContent}</View>
 

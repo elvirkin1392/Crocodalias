@@ -24,11 +24,4 @@ export const createStyles = (colors: Colors) =>
       fontSize: 16,
       color: colors.textMuted,
     },
-    ruleHint: {
-      marginTop: 16,
-      marginHorizontal: 40,
-      fontSize: 15,
-      textAlign: 'center',
-      color: colors.textSecondary,
-    },
   });

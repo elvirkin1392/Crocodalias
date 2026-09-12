@@ -22,7 +22,6 @@ export function AliasRoundScreen() {
       teamNames={teamNames}
       scoreLimit={scoreLimit}
       roundTime={roundTime}
-      allowSteal
     />
   );
 }

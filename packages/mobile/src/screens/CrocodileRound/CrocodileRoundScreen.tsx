@@ -1,32 +1,68 @@
-import { useTranslation } from 'react-i18next';
+import { router } from 'expo-router';
+import { useEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { RoundScreen } from '@/screens/Round/RoundScreen';
+import { CrocodilePlay } from '@/components/crocodile/CrocodilePlay';
+import { CrocodileResults } from '@/components/crocodile/CrocodileResults';
+import { CrocodileContext } from '@/context/crocodile';
 import { CrocodileSettingsContext } from '@/context/settings';
+import { loadWords, shuffle } from '@/dictionaries';
+import { useThemedStyles } from '@/theme/useThemedStyles';
+import { createStyles } from './CrocodileRoundScreen.styles';
 
-/** Crocodile: explain the word using only gestures, no talking or sounds. */
 export function CrocodileRoundScreen() {
-  const { t } = useTranslation();
+  return (
+    <CrocodileContext.Provider>
+      <Crocodile />
+    </CrocodileContext.Provider>
+  );
+}
+
+function Crocodile() {
+  const styles = useThemedStyles(createStyles);
+  const actor = CrocodileContext.useActorRef();
+  const hasWords = CrocodileContext.useSelector(
+    (state) => state.context.words.length > 0,
+  );
+  const isFinished = CrocodileContext.useSelector((state) =>
+    state.matches('finished'),
+  );
   const level = CrocodileSettingsContext.useSelector(
     (state) => state.context.level,
   );
-  const teamNames = CrocodileSettingsContext.useSelector(
-    (state) => state.context.teams,
-  );
-  const scoreLimit = CrocodileSettingsContext.useSelector(
-    (state) => state.context.score,
-  );
-  const roundTime = CrocodileSettingsContext.useSelector(
-    (state) => state.context.time,
-  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    loadWords(level).then((words) => {
+      if (!cancelled) {
+        actor.send({ type: 'UPDATE_WORDS', value: shuffle(words) });
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [actor, level]);
+
+  const handleClose = () => router.back();
+
+  if (!hasWords) {
+    return (
+      <SafeAreaView style={[styles.container, styles.center]}>
+        <ActivityIndicator />
+      </SafeAreaView>
+    );
+  }
 
   return (
-    <RoundScreen
-      level={level}
-      teamNames={teamNames}
-      scoreLimit={scoreLimit}
-      roundTime={roundTime}
-      allowSteal={false}
-      ruleHint={t('crocodile.ruleHint')}
-    />
+    <SafeAreaView style={styles.container}>
+      {isFinished ? (
+        <CrocodileResults onClose={handleClose} />
+      ) : (
+        <CrocodilePlay />
+      )}
+    </SafeAreaView>
   );
 }
